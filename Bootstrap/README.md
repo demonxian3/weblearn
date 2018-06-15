@@ -18,19 +18,19 @@
 
 ### Frame
 <hr>
-![image] (https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/Frame.png)
+![image](https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/Frame.png)
 
 ### Glyphicons
 <hr>
-![image] (https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/Glyphicons.png)
+![image](https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/Glyphicons.png)
 
 ### List
 <hr>
-![image] (https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/List.png)
+![image](https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/List.png)
 
 ### Listen
 <hr>
-![image] (https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/Listen.png)
+![image](https://github.com/demonxian3/WebDevelopment/blob/master/Bootstrap/img/Listen.png)
 
 
 
