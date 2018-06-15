@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <手机自适应meta> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maxium-scale=1, user-scalable=no">
+    <title>system</title>
+
+    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
+    <script src="bs/js/jquery.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <script src="holder.js"></script>
+    <style>
+*{
+    font-family: 微软雅黑;
+}
+.mypills, .myStacked{
+    display:none;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-header">导航</h1>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="">Home</a></li>
+            <li><a href="">Profile</a></li>
+            <li><a href="">Message</a></li>
+        </ul>
+
+        
+        <div class="row mypills" >
+            <pre>
+linux is very good!
+linux is very good!
+linux is very good!
+linux is very good!
+linux is very good!
+linux is very good!
+linux is very good!
+linux is very good!
+linux is very good!
+            </pre>
+        </div>
+        <div class="row mypills" >
+            <pre>
+windows is very good!
+windows is very good!
+windows is very good!
+windows is very good!
+windows is very good!
+windows is very good!
+windows is very good!
+windows is very good!
+windows is very good!
+            </pre>
+        </div>
+        <div class="row mypills" >
+            <pre>
+vim is very good!
+vim is very good!
+vim is very good!
+vim is very good!
+vim is very good!
+vim is very good!
+vim is very good!
+vim is very good!
+vim is very good!
+            </pre>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <ul class="nav nav-pills">
+            <li class="active"><a href="">Home</a></li>
+            <li><a href="">Profile</a></li>
+            <li><a href="">Message</a></li>
+        </ul>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        
+        <div class="row">
+            <div class="col-md-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Profile</a></li>
+                    <li><a href="">Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-9">
+                <div class="myStacked">
+                    <pre>
+php php php php
+php php php php
+php php php php
+php php php php
+php php php php
+                    </pre>
+                </div>
+                <div class="myStacked">
+                    <pre>
+linux linux linux linux
+linux linux linux linux
+linux linux linux linux
+linux linux linux linux
+linux linux linux linux
+                    </pre>
+                </div>
+                <div class="myStacked">
+                    <pre>
+vim vim vim vim
+vim vim vim vim
+vim vim vim vim
+vim vim vim vim
+vim vim vim vim
+                    </pre>
+                </div>
+            </div>
+
+        </div>
+        
+
+        <br>
+        <br>
+        <br>
+
+        <h3>path nav</h3>
+        <hr>
+        <ol class="breadcrumb">
+            <li ><a href="">Home</a></li>
+            <li><a href="">Center</a></li>
+            <li><a href="">test</a></li>
+            <li class="active">test</li>
+        </ol>
+        
+        <br>
+        <br>
+        <br>
+        
+
+        <h3>page nav</h3>
+        <hr>
+        <ul class="pagination pagination-lg">
+            <li class="disabled"><a href="">&laquo;</a></li>
+            <li class="active"><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li class=""><a href="">&raquo;</a></li>
+        </ul>
+        <br>
+        
+        <ul class="pagination">
+            <li class="disabled"><a href="">&laquo;</a></li>
+            <li class="active"><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li class=""><a href="">&raquo;</a></li>
+        </ul>
+        <br>
+        
+        <ul class="pagination pagination-sm">
+            <li class="disabled"><a href="">&laquo;</a></li>
+            <li class="active"><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li class=""><a href="">&raquo;</a></li>
+        </ul>
+        <br>
+        
+        <ul class="pager">
+            <li class="active"><a href="">Prev</a></li>
+            <li class="disabled"><a href="">Next</a></li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+
+        <ul class="pager">
+            <li class="previous"><a href="">Prev</a></li>
+            <li class="next"><a href="">Next</a></li>
+        </ul>
+    </div> 
+
+
+
+
+
+
+
+    <script>
+        $(".nav-tabs li").mouseenter(function(){
+            $(this).addClass('active');
+            $('.nav-tabs li').not($(this)).removeClass('active');
+
+            idx = $(this).index('.nav-tabs li');
+            $('.mypills').eq(idx).stop().show(700);
+            $('.mypills').not($('.mypills').eq(idx)).hide();
+        })
+
+        $('.nav-stacked li').mouseenter(function(){
+        $(this).addClass('active');
+        $('.nav-stacked li').not($(this)).removeClass('active')
+
+        idx = $(this).index(".nav-stacked li");
+        $('.myStacked').eq(idx).stop().show(400);
+        $('.myStacked').not($('.myStacked').eq(idx)).hide()
+})
+
+
+
+
+
+        $('.mypills').eq(0).show(700);
+        $('.myStacked').eq(0).show(700);
+
+
+    </script>
+</body>
+</html>

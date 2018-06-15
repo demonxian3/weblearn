@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <手机自适应meta> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maxium-scale=1, user-scalable=no">
+    <title>system</title>
+
+    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
+    <script src="bs/js/jquery.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <script src="holder.js"></script>
+    <style>
+    *{ font-family: 微软雅黑; }
+    .mypills, .myStacked{ display:none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-header">模态框</h1>
+
+        <button class="btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Lauch demo modal</button>
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">      <!-- <header> -->
+                        <div class="close" data-dismiss="modal">&times;</div>
+                        <h3 >中等模态框</h3>
+                    </div>
+                    <div class="modal-body">        <!-- <modalbody> -->
+                        <h4>linux is very good</h4>
+                        <p>linux is very good linux is very good linux is very good</p>
+                        <p>linux is very good linux is very good linux is very good</p>
+                        <p>linux is very good linux is very good linux is very good</p>
+                    </div>
+                    <div class="modal-footer">      <!-- <modalfoot> -->
+                        <button class="btn btn-default" data-dismiss='modal'>close</button>
+                        <button id="save" class="btn btn-primary">save</button>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- <fade> -->
+
+
+
+
+
+        <a href="#myModal1" class="btn btn-link btn-lg" data-toggle='modal'>This is Link btn</a>
+
+        <div id="myModal1" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">大模态框</div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <button class="btn-danger btn-lg" id='myJsModal'>My Js modal</button>
+
+        <div id="myModal2" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">小模态框</div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //单击模态框内部按钮实现关闭
+        $('#save').click(function(){
+            //do some thing
+
+            $('#myModal').modal('hide')
+            
+        })
+
+    
+        //单击页面按钮实现模态框显示
+        $('#myJsModal').click(function(){
+            //do some thing
+            $('#myModal2').modal('show');
+        })
+
+        
+        //监听模态框事件，当模态框消失后，背景变蓝色
+        $('#myModal2').on('hidden.bs.modal', function(e){
+            $('body').css({'background':'#aaf'});
+        })
+
+        
+        //监听模态框事件，当模态框消失时，背景变红色
+        $('#myModal2').on('hide.bs.modal', function(e){
+            $('body').css({'background':'#faa'});
+        })
+
+        //监听模态框事件，当模态框显示后，背景变绿色
+        $('#myModal2').on('shown.bs.modal', function(e){
+            $('body').css({'background':'#afa'});
+        })
+
+        //监听模态框事件，当模态框显示前，背景变灰蓝
+        $('#myModal2').on('show.bs.modal', function(e){
+            $('body').css({'background':'#aff'});
+        })
+    </script>
+</body> 
+</html>

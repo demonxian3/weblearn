@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>system</title>
+
+    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
+    <script src="bs/js/jquery.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <script src="holder.js"></script>
+    <style>
+*{
+    font-family: 微软雅黑;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="page-header">大屏幕</h1>
+            <hr>
+            <p>这是一个大屏幕，超大</p>
+            <button class="btn btn-primary">自动放大的按钮</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <h1 class="page-header">自定义内容</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="thumbnail"> 
+                    <img src="holder.js/250x180" alt=""> 
+                    <div class="caption">
+                        <h2>Linux</h2>
+                        <p>very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is </p>
+                    </div>
+                    <button class="btn btn-link col-md-offset-8">Look >></button>
+                    
+                </div>
+            </div> <!-- <col-md-3> -->
+            <div class="col-md-3">
+                <div class="thumbnail"> 
+                    <img src="holder.js/250x180" alt=""> 
+                    <div class="caption">
+                        <h2>Linux</h2>
+                        <p>very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is </p>
+                    </div>
+                    <button class="btn btn-link col-md-offset-8">Look >></button>
+                    
+                </div>
+            </div> <!-- <col-md-3> -->
+            <div class="col-md-3">
+                <div class="thumbnail"> 
+                    <img src="holder.js/250x180" alt=""> 
+                    <div class="caption">
+                        <h2>Linux</h2>
+                        <p>very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is </p>
+                    </div>
+                    <button class="btn btn-link col-md-offset-8">Look >></button>
+                    
+                </div>
+            </div> <!-- <col-md-3> -->
+            <div class="col-md-3">
+                <div class="thumbnail"> 
+                    <img src="holder.js/250x180" alt=""> 
+                    <div class="caption">
+                        <h2>Linux</h2>
+                        <p>very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is very muchlinux is </p>
+                    </div>
+                    <button class="btn btn-link col-md-offset-8">Look >></button>
+                    
+                </div>
+            </div> <!-- <col-md-3> -->
+        </div> <!-- <row> -->
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <h1 class="page-header">警告框</h1>
+        <div class="alert alert-success"> 
+            <span class="close" data-dismiss="alert">&times;</span>
+            <p>This is notice content <a href=""class="alert-link">baidu</a> </p> 
+        </div>
+        <div class="alert alert-danger"> 
+            <span class="close" data-dismiss="alert">&times;</span>
+            <p>This is notice content 
+                <a class="" href="">link</a>
+            </p> 
+        </div>
+        <div class="alert alert-warning"> 
+            <span class="close" data-dismiss="alert">&times;</span>
+            <p>This is notice content 
+                <a class="alert-link" href="">link</a>
+            </p> 
+        </div>
+        <div class="alert alert-info"> 
+            <span class="close" data-dismiss="alert">&times;</span>
+            <p>This is notice content 
+                <a class="alert-link" href="">link</a>
+            </p> 
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <h1 class="page-header">进度条</h1>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" style="width:75%">75%</div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-danger active"  style="width:22%"></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-warning"  style="width:36%"></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-success active"  style="width:88%">88%</div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-info" style="width:5%">5%</div>
+        </div>
+
+        <br>
+        <br>
+        
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-info progress-bar-striped" style="width:37%">37%</div>
+            <div class="progress-bar progress-bar-success progress-bar-striped" style="width:22%">22%</div>
+            <div class="progress-bar progress-bar-danger progress-bar-striped" style="width:41%">41%</div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="progress">
+            <div id="bar" class="progress-bar progress-bar-striped" style="width:0%">0%</div>
+        </div>
+        
+
+   </div>
+
+   <script>
+        start = 0;
+        step = 2;
+        timer = setInterval(function(){
+            start += step;
+            if(start>=100) clearInterval(timer)
+            $('#bar').html(start+"%").css({'width':start+'%'});
+        }, 100)
+
+
+        
+   </script>
+</body>
+</html>

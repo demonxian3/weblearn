@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+#myMap{
+    width: 1000px;
+    height:400px;
+    overflow:hidden;
+    margin: 0;
+    font-family:"微软雅黑";
+}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=pMFfCI92eZVChOWyVNGQeOcWP4BYLxty"></script>
+</head>
+<body>
+    
+    <center>
+        <div id="myMap"></div>
+    </center>
+
+    <center>
+        <button onclick="addControl()">显示控件</button>
+        <button onclick="delControl()">隐藏控件</button>
+    </center>
+    <center>
+        <div id="showInfo">
+        </div>
+    </center>
+    <center>
+        请输入需要定位的地址： <input type="" id="search"> <input type="button" value="" onclick="inputCenterZoom(document.getElementById('search').value)">
+    </center>
+
+</body>
+</html>
+
+<script src="my.js"></script>

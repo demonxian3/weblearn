@@ -1,0 +1,81 @@
+<style>
+  .progressBar{
+    border: 1px solid skyblue;
+    width:700px;
+    height:27px;
+    margin:auto;
+    border-radius:10px;
+    overflow:hidden
+  }
+
+  .progressBar span{
+    background: skyblue;
+    padding-top:1px;
+    padding-bottom:10px;    
+
+    padding-right:0px;
+    padding-left:0px;
+
+    border-radius:10px;
+    text-align:center;
+    color: white;
+    transition:padding 2s;
+  }
+
+
+</style>
+
+<div id="pb1" class="progressBar">
+  <span>aaa</span>
+</div>
+
+<script>
+function $(id){
+  return document.getElementById(id);
+}
+
+function w(c){
+  document.write(c + "<br>");
+}
+
+function getStyle(element, attr){
+  if(element.currentStyle)
+    return element.currentStyle[attr];
+  else
+    return window.getComputedStyle(element,null)[attr];
+}
+
+
+
+function processBar(obj, percent){
+  if(percent > 100)return false;
+  var span = obj.children[0];
+  var width = getStyle(obj, "width");
+  width = width.split("p")[0]
+
+  var current = Math.floor(percent*0.01 * width) / 2;
+
+  span.style.padding = "1px " + current + "px 10px";
+
+  span.innerHTML = percent + "%"
+
+}
+
+
+var c = 0;
+var d = $("pb1");
+
+processBar(d, 0);
+
+function go(){
+   c += 20
+   processBar(d,c)
+}
+
+
+setInterval(go ,500)
+
+
+
+
+</script>
