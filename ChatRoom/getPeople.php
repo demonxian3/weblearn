@@ -1,3 +1,1 @@
-<?php
-echo file_get_contents("./people.txt");
-?>
+<?php echo file_get_contents('/tmp/people.txt');?>

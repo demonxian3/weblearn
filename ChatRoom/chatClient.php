@@ -109,7 +109,7 @@
                 document.getElementById("people").innerHTML = xmlhttp.responseText;
         }
 
-        xmlhttp.open("GET","getPeople.php",true);
+        xmlhttp.open("GET","./getPeople.php",true);
         xmlhttp.send();
     }
 
