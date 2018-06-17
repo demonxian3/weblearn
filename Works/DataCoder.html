@@ -7,7 +7,7 @@
        *  Description: 				    *
        *      This program is written in Javascript,*
        *    it can encode and decode data by some   *
-       *    method like URL-code，ChatCode and      *
+       *    method like URL-code，ChatMode and      *
        *    Entity-coding etc.If you meet some      *
        *    problem in this program,please contact  *
        *    the author.				    *
@@ -29,9 +29,10 @@
 <input type="button" value="Decode" style="height:150px;cursor:pointer" onclick="URLdecode()"/><br><br>
 
 Mode:
-<input type="button" value="ChatCode" onclick="changeToChatCode()" style="cursor:pointer">
-<input type="button" value="URLCode" onclick="changeToURLCode()" style="cursor:pointer">
-<input type="button" value="EntityCode" onclick="changeToEntityCode()" style="cursor:pointer">
+<input type="button" value="ChatMode" onclick="changeToChatMode()" style="cursor:pointer">
+<input type="button" value="URLMode" onclick="changeToURLMode()" style="cursor:pointer">
+<input type="button" value="EntityMode" onclick="changeToEntityMode()" style="cursor:pointer">
+<input type="button" value="HexMode" onclick="changeToHexMode()" style="cursor:pointer">
 <script>
 
   
@@ -41,7 +42,7 @@ Mode:
 
 
   //编码模式:
-  var CodeMode = 0
+  var _Mode = 0
   var radix = 16;
   var sign  = "%";
 
@@ -50,19 +51,21 @@ Mode:
    *     ChangeMode       *
    ************************/
 
-  changeToURLCode = function(){
-    CodeMode = 0
+  changeToURLMode = function(){
+    _Mode = 0
   }
  
-  changeToChatCode = function(){
-    CodeMode = 1
+  changeToChatMode = function(){
+    _Mode = 1
   }
 
-  changeToEntityCode = function(){
-    CodeMode = 2
+  changeToEntityMode = function(){
+    _Mode = 2
   }
 
-
+  changeToHexMode = function(){
+    _Mode = 3
+  }
 
 
   /************************
@@ -71,9 +74,7 @@ Mode:
 
   URLencode = function(){
 
-
-
-    switch(CodeMode){
+    switch(_Mode){
       	case 0: 
         	radix = 16;
         	sign  = "%";
@@ -88,50 +89,39 @@ Mode:
         	radix = 16;
         	sign  = "&amp;#";
         	break;
+
+        case 3:
+            radix = 16;
+            sign = ""
+            break;
   
     }//switch
 
-     	
-
     var encResult = "";
     var inpValue = input.innerHTML;
-
-     
      	
     if(inpValue.match("&amp;"))
        inpValue = inpValue.replace(/[&]amp;/g,"&");                         //防符号"&" 开启HTML自动实体化
-
      	
     if(/<br>/.test(inpValue))
        inpValue = inpValue.replace(/<br>/g,"");                             //防止自动产生了的<br>
-
      	
     if(/[&]lt;/.test(inpValue))
        inpValue = inpValue.replace(/[&]lt;/g,"<");                          //防符号"<" HTML实体化
-
      	
     if(/[&]gt;/.test(inpValue))
        inpValue = inpValue.replace(/[&]gt;/g,">");                          //防符号">" HTML实体化
 
    
-
-
-
     for(var i=0;i<inpValue.length;i++)
-       encResult += (sign + ""+inpValue.charCodeAt(i).toString(radix));
+       encResult += (sign + inpValue.charCodeAt(i).toString(radix));
 
-
-    if(CodeMode == 2){
-      
+    if(_Mode== 2){
       var reg = /([&]amp;#\d{2,3})/g
-
       encResult = encResult.replace(reg,"$1;")
-      
     }
-     
-
+    
     output.innerHTML = encResult;
-  
 
   }
 
@@ -148,20 +138,28 @@ Mode:
      var inpArr = inpValue.split(sign);
 
 
-     for(var i=1;i<inpArr.length;i++){
-       inpArr[i] = parseInt(inpArr[i],radix)
-       decResult += String.fromCharCode(inpArr[i]);
+    if(_Mode == 3){
+        inpArr = [];
+        var i = 0;
+        while(i < inpValue.length){
+            inpArr[i] = inpValue[2*i];
+            inpArr[i] += inpValue[2*i+1];
+            i++;
+        }
+    }
+
+    if(_Mode == 3)
+        var i = 0;
+    else
+        var i = 1;
+
+     for(;i<inpArr.length;i++){
+        inpArr[i] = parseInt(inpArr[i],radix)
+        decResult += String.fromCharCode(inpArr[i]);
      }
      
-     
-
      input.innerHTML = decResult;
   }  
-
-
-
-
-
 
 
 </script>
