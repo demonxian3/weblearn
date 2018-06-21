@@ -1,0 +1,124 @@
+<meta charset="utf-8">
+<body style="">
+<br><br><br>
+<div id="myu" style="height:300px;width:300px;margin:auto;"></div> 
+
+
+<script>
+var Clock = new Object();
+
+Clock.make = function (id, diameter){
+
+	/*******************  INIT  *******************/
+
+	var clock =document.getElementById(id);	
+
+	clock.setCss = function(cssObj){
+	    for (var key in cssObj)
+		this.style.cssText += key + ":" + cssObj[key] + ";"
+	}
+
+	function newChassis(elem){
+		var obj = document.createElement(elem);
+		obj.setCss = clock.setCss;
+		clock.appendChild(obj);
+		chassisCss = {
+			"width": clock.diameterpx,
+			"height": clock.diameterpx,
+			"border-radius": clock.diameterpx,
+			"position":"absolute"
+		}
+
+		obj.setCss(chassisCss);
+		return obj;
+	}
+
+	function newHand(parent){
+		var obj = document.createElement("div");
+		obj.setCss = clock.setCss; 
+		parent.appendChild(obj);
+		handCss = {"width":"0.1px","margin":"auto", "border-radius":"300px"}
+		obj.setCss(handCss);
+		obj.setHand = function(color){
+		    obj.setCss({
+			"height":this.len, 
+			"margin-top":this.pos, 
+			"border":this.wid + " solid " + color,
+			"background": color,
+		    });
+		}
+		return obj;
+	}
+
+	/*******************  HTML  *******************/
+
+	clock.diameterpx = (diameter)   + "px";	
+
+	var secondDiv  = newChassis("div");
+	var minuteDiv  = newChassis("div");
+	var hourDiv    = newChassis("div");
+	var background = newChassis("div");
+	var hourHand   = newHand(hourDiv);	
+	var minuteHand = newHand(minuteDiv);
+	var secondHand = newHand(secondDiv);
+
+	secondHand.pos  = (diameter * 0.0981)   + "px";         // 设置秒针位置
+	minuteHand.pos  = (diameter * 0.1990)   + "px";         // 设置分针位置
+	hourHand.pos    = (diameter * 0.249) + "px";            // 设置时针位置
+	secondHand.len  = (diameter * 0.4)   + "px";            // 设置秒针长度
+	minuteHand.len  = (diameter * 0.3)   + "px";            // 设置分针长度
+	hourHand.len    = Math.ceil(diameter * 0.25) + "px";    // 设置时针长度
+	/*******************  CSS  *******************/
+
+	if(diameter <= 200){                                    // 设置指针宽度
+		secondHand.wid = "1px"; 
+		minuteHand.wid = "1px";
+		hourHand.wid = "1px";
+	}else{
+		secondHand.wid = "1px";
+		minuteHand.wid = "2px";
+		hourHand.wid = "2.3px";
+	}
+
+	secondHand.setHand("#FF6666");                          //启用指针设置
+	minuteHand.setHand("skyblue");
+	hourHand.setHand("#0099CC");
+
+	background.setCss({
+		"z-index":"-1",
+		"border" : "3px solid #99CCCC",
+		"box-shadow" : "0px 0px 30px #c3c3c3",
+	});
+
+	/*******************  JS  *******************/
+	secondDiv.go = function(){
+		this.second = new Date().getSeconds();
+		second_deg = this.second * 6;
+		this.style.transform = "rotate(" + second_deg + "deg)";
+	}
+
+	minuteDiv.go = function(){
+		this.minute = new Date().getMinutes();
+		minute_deg  = this.minute * 6 +  (secondDiv.second/60);
+		this.style.transform = "rotate(" + minute_deg + "deg)";
+	}
+	
+	hourDiv.go = function(){
+		this.hour = new Date().getHours();
+		hour_deg = (this.hour%12)*30 + (minuteDiv.minute/60)*30
+		this.style.transform = "rotate(" + hour_deg + "deg)";	
+	}
+
+	run = function(){
+		secondDiv.go();
+		minuteDiv.go()
+		hourDiv.go();
+	}
+
+	setInterval(run, 1000);
+}
+
+Clock.make("myu","300");
+
+
+</script>

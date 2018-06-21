@@ -1,0 +1,139 @@
+<meta charset="utf-8">
+
+
+<body style="">
+<br><br><br>
+<div id="myu" style="height:200px;width:200px;margin:auto;"></div> 
+
+
+<script>
+var Clock = new Object();
+
+Clock.make = function (id, diameter){
+
+	/*******************  INIT  *******************/
+
+	var clock =document.getElementById(id);	
+
+	clock.diameterpx = (diameter)   + "px";	
+
+	clock.secondpos  = (diameter * 0.0981)   + "px";
+	clock.minutepos  = (diameter * 0.1990)   + "px";
+	clock.hourpos    = (diameter * 0.249) + "px";
+
+	clock.secondlen  = (diameter * 0.4)   + "px";
+	clock.minutelen  = (diameter * 0.3)   + "px";
+	clock.hourlen    = Math.ceil(diameter * 0.25) + "px";
+
+
+	console.log(clock.hourpos)
+
+
+	clock.setCss = function(cssObj){
+	    for (var key in cssObj)
+		this.style.cssText += key + ":" + cssObj[key] + ";"
+	}
+
+	function newChassis(elem){
+		var obj = document.createElement(elem);
+		obj.setCss = clock.setCss;
+		clock.appendChild(obj);
+		chassisCss = {
+			"width": clock.diameterpx,
+			"height": clock.diameterpx,
+			"border-radius": clock.diameterpx,
+			"position":"absolute"
+		}
+
+		obj.setCss(chassisCss);
+		return obj;
+	}
+
+
+	function newHand(parent){
+		var obj = document.createElement("div");
+		obj.setCss = clock.setCss; 
+		parent.appendChild(obj);
+		handCss = {"width":"0.1px","margin":"auto", "border-radius":"300px"}
+		obj.setCss(handCss);
+		obj.setHand = function(len, pos, bor,color){
+		    obj.setCss({
+			"height":len, 
+			"margin-top":pos, 
+			"border":bor + " solid " + color,
+			"background": color,
+		    });
+		}
+		return obj;
+	}
+
+	/*******************  HTML  *******************/
+
+	var secondDiv  = newChassis("div");
+	var minuteDiv  = newChassis("div");
+	var hourDiv    = newChassis("div");
+	var background = newChassis("div");
+	var hourHand   = newHand(hourDiv);	
+	var minuteHand = newHand(minuteDiv);
+	var secondHand = newHand(secondDiv);
+	
+
+
+
+	/*******************  CSS  *******************/
+
+	if(diameter <= 200){
+		clock.secondwid = "1px";
+		clock.minutewid = "1px";
+		clock.hourwid = "1px";
+	}else{
+		clock.secondwid = "1px";
+		clock.minutewid = "2px";
+		clock.hourwid = "2.3px";
+	}
+
+	secondHand.setHand(clock.secondlen, clock.secondpos, clock.secondwid, "#FF6666");
+	minuteHand.setHand(clock.minutelen, clock.minutepos, clock.minutewid, "skyblue");
+	hourHand.setHand(clock.hourlen, clock.hourpos, clock.hourwid, "#0099CC");
+
+	background.setCss({
+		"z-index":"-1",
+		"border" : "3px solid #99CCCC",
+		"box-shadow" : "0px 0px 30px #c3c3c3",
+	});
+
+
+	/*******************  JS  *******************/
+	secondDiv.go = function(){
+		this.second = new Date().getSeconds();
+		second_deg = this.second * 6;
+		this.style.transform = "rotate(" + second_deg + "deg)";
+	}
+
+
+	minuteDiv.go = function(){
+		this.minute = new Date().getMinutes();
+		minute_deg  = this.minute * 6 +  (secondDiv.second/60);
+		this.style.transform = "rotate(" + minute_deg + "deg)";
+	}
+
+	
+	hourDiv.go = function(){
+		this.hour = new Date().getHours();
+		hour_deg = (this.hour%12)*30 + (minuteDiv.minute/60)*30
+		this.style.transform = "rotate(" + hour_deg + "deg)";	
+	}
+
+	run = function(){
+		secondDiv.go();
+		minuteDiv.go()
+		hourDiv.go();
+	}
+
+	setInterval(run, 1000);
+}
+
+Clock.make("myu","300");
+
+
+</script>
