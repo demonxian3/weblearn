@@ -1,0 +1,258 @@
+﻿<html>
+<head>
+    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
+    <script src="bs/js/jquery.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<br>
+<div class="panel panel-danger" style="width:50%;margin:auto" >
+    <div class="panel-heading">
+        注册用户
+    </div>
+    <div class="panel-body">
+        <form id="regForm" class="form-horizontal" action="php/regUsr.php" method="post">
+            <div class="form-group">
+                <span class="col-md-2 control-label">账号</span>
+                <div class="col-md-8 input-group">
+                    <input id="user" class="form-control" type="" required name="name" maxlength="20"
+                        data-toggle="popover"
+                        data-trigger="manual"
+                        data-container="body"
+                        data-placement="right"
+                        data-content="账号不能为空，不能包含特殊符号">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">密码</span>
+                <div class="col-md-8 input-group">
+                    <input id="pass" class="form-control" type="password" required name="pass" maxlength="20"
+                        data-toggle="popover"
+                        data-trigger="manual"
+                        data-container="body"
+                        data-placement="right"
+                        data-content="密码不能少于6位">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">密码确认</span>
+                <div class="col-md-8 input-group">
+                    <input id="repa" class="form-control" type="password" required name="" 
+                        data-toggle="popover"
+                        data-trigger="manual"
+                        data-container="body"
+                        data-placement="right"
+                        data-content="密码不一致">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">邮箱</span>
+                <div class="col-md-8 input-group">
+                    <input id="mail" class="form-control" type="" required name="mail" maxlength="20"
+                        data-toggle="popover"
+                        data-trigger="manual"
+                        data-container="body"
+                        data-placement="right"
+                        data-content="邮箱格式有误">
+                    <!-- <div class="input-group-btn" id="mailBtn">
+                        <button class="btn btn-success">
+                            邮箱验证
+                        </button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">手机</span>
+                <div class="col-md-8 input-group">
+                    <input id="phone" class="form-control" type="" required name="phone" maxlength="20"
+                        data-toggle="popover"
+                        data-trigger="manual"
+                        data-container="body"
+                        data-placement="right"
+                        data-content="手机号码格式有误">
+                    <div class="input-group-btn">
+                        <button class="btn btn-info" onclick="sendSms()" id="smsBtn" type="button">
+                            发送短信
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" id="smsGrp" style="display:none" >
+                <span class="col-md-3 col-md-offset-4 control-label">请输入短信验证码</span>
+                <div class="col-md-3 input-group">
+                    <input id="smsInp" class="form-control" type="" required name="sms" maxlength="4" >
+                    <div class="input-group-btn">
+                        <button id="errbtn" class="btn btn-danger" onclick="recvSms()" type="button">
+                            短信校验 
+                        </button>
+                        <button id="okbtn" class="btn btn-success" style="display:none" disabled  type="button">
+                            校验成功
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <input class="btn btn-danger btn-sm"  value="注册"  type="" onclick="formSub()" >
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    //输入提示框初始化
+    $(function () {
+          $('[data-toggle="popover"]').popover()
+    });
+
+    $('#user,#pass,#repa,#mail,#phone').focus(function(){
+        $(this).popover('hide');
+    })
+
+    $('#user,#pass,#repa,#mail,#phone').blur(inpCheck);
+
+    var isMatched = false;
+
+    function inpCheck(){
+        var user = document.getElementById('user').value;
+        var user = document.getElementById('user').value;
+        var pass = document.getElementById('pass').value;
+        var repa = document.getElementById('repa').value;
+        var mail = document.getElementById('mail').value;
+        var phone = document.getElementById('phone').value;
+
+
+        if (!/^[0-9a-zA-Z]+$/.test(user)){
+            $('#user').popover('show');
+            return false;
+        }
+
+        if(pass.length < 3){
+            $('#pass').popover('show');
+            return false;
+        }
+
+        if(repa !== pass){
+            $('#repa').popover('show');
+            return false;
+        }
+
+        if(!/^\w+@\w+\.\w+$/.test(mail)){
+            $('#mail').popover('show');
+            return false;
+        }
+
+        if(!/^1\d{10}$/.test(phone)){
+            $('#phone').popover('show');
+            return false;
+        }
+
+        return true;
+    }
+
+    /* 
+        * send 发送短信
+        * recv 接受短信
+        * check 名称重复检测
+        * name+pass+mail+phone 注册用户
+    */
+
+    function ajax(url){
+        var xmlhttp;
+        if (window.XMLHttpRequest) // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        else                       // code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                if (xmlhttp.responseText.length){
+                    switch(xmlhttp.responseText){
+                        case '0001':
+                            console.log('验证码发送成功');
+                            break;
+                        case '1001':
+                            console.log('验证码校验通过');
+                            isMatched = true;
+                            document.getElementById('okbtn').style.display = "block";
+                            document.getElementById('errbtn').style.display = "none";
+                            break;
+                        case '1004':
+                            console.log('注册成功');
+                            break;
+                        case '4001':
+                            console.log('验证码校验失败');
+                            isMatched = false;
+                            alert('验证码校验失败，请重新输入');
+                            break;
+                        case '4002':
+                            console.log('用户名重复');
+                            break;
+                        case '5001':
+                            console.log('验证码发送失败');
+                            alert('验证码发送失败');
+                            break;
+                        default:
+                            console.log(xmlhttp.responseText);
+                    }
+                }
+             }
+        }
+        xmlhttp.open("GET", url ,true);
+        xmlhttp.send();
+    }
+
+
+    function sendSms(){
+        if(!inpCheck())return false;
+        var smsBtn = document.getElementById('smsBtn');
+        var smsGrp = document.getElementById('smsGrp');
+        var url = "http://118.89.51.198/lamp/PC/php/regUsr.php?phone=15602434504&send=1";
+
+        if(smsBtn.timer)return false;
+        ajax(url);
+
+        smsBtn.disabled = true;
+        smsGrp.style.display = "block";
+        smsBtn.second = 60;
+        smsBtn.innerHTML =  smsBtn.second  +"秒后可重新发送";
+        smsBtn.show = function(){
+            smsBtn.second--;
+            smsBtn.innerHTML =  smsBtn.second  +"秒后可重新发送";
+            if(smsBtn.second <= 0){
+                smsBtn.disabled = false;
+                clearInterval(smsBtn.timer);
+                smsBtn.timer = null;
+                smsBtn.innerHTML = "发送短信";
+            }
+        }
+
+        smsBtn.timer = setInterval(smsBtn.show, 1000);
+        return true;
+    }
+
+    function recvSms(){
+        var url = "http://118.89.51.198/lamp/PC/php/regUsr.php?phone=15602434504&recv=";
+        var smsInp = document.getElementById('smsInp').value;
+        ajax(url + smsInp)
+    }
+
+
+    function formSub(){
+        if(!inpCheck()) return false;
+        console.log(isMatched);
+        if(!isMatched){
+            alert('请先校验手机验证号');
+            return false;
+        }
+
+        console.log('form submit');
+        document.getElementById('regForm').submit();
+    }
+
+</script>
+</body>
+</html>
