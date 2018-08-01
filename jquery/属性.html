@@ -1,0 +1,110 @@
+<!--
+    属性     CSS类          HTML      文本       值
+    attr()   addClass()     html()    text()     val()
+    attr({}) removeClass()  html(val) text(val)  val(val)
+             toggleClass()
+             hasClass()
+-->                 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+.class1{
+    border: 1px solid #f0f;
+    width: 100px;
+    height: 100px;
+    font-size:14px;
+    line-height:60px;
+    text-align:center;
+}
+
+.class2{
+    background: skyblue;
+    border-radius: 100px;
+    width:100px;
+    height:100px;
+}
+    </style>
+</head>
+<body>
+    <div id="div" class="class1">
+        <p>这是测试DIV</p>
+    </div>
+    <div id="code"></div>
+    <hr>
+    <button id="attrs">添加title</button>
+    <button id="attrg">获取title</button>
+    <button id="attrd">删除title</button>
+    <br>
+    <button id="classa">添加样式</button>
+    <button id="classr">删除样式</button>
+    <button id="classt">切换样式</button>
+    <button id="classh">存在样式?</button>
+    <br>
+    <button id="htmlg">获取代码</button>
+    <button id="htmls">设置代码</button>
+    <button id="textg">获取文本</button>
+    <button id="texts">设置文本</button>
+    <hr>
+    <input type="">
+    <button id="val">>></button>
+    <input type="">
+        
+    <script>
+        $('#code').html("hello");
+        $('#attrs').click(function(){
+            $('#div').attr({'title':'这是新添加的属性'});
+        })
+        $('#attrg').click(function(){
+            alert($('#div').attr('title'));
+        })
+        $('#attrd').click(function(){
+            $('#div').attr({'title':''});
+        })
+
+        $('#classa').click(function(){
+            $('#div').addClass('class2');
+        })
+        $('#classr').click(function(){
+            $('#div').removeClass('class2');
+        })
+
+        $('#classt').click(function(){
+            $('#div').toggleClass('class2');
+        })
+
+        $('#classh').click(function(){
+            bo = $('#div').hasClass('class2');
+            if(bo)alert("yes");
+            else alert("no");
+        })
+
+        $('#textg').click(function(){
+            val = $('#div').text();
+            alert(val);
+        })
+        $('#texts').click(function(){
+            $('#div').text('<p>这是新的文本</p>');
+        })
+
+        $('#htmlg').click(function(){
+            val = $('#div').html();
+            alert(val);
+        })
+        $('#htmls').click(function(){
+            $('#div').html('<p>这是新的代码</p>');
+        })
+
+        $('#val').click(function(){
+            var val = $('input').eq(0).val();
+            $('input').eq(1).val(val);
+        })
+
+        
+    </script>
+</body>
+</html>
