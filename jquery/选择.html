@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <div id="selt">
+    <p>
+        游泳
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        跳舞
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        唱歌
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        西瓜
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        游戏
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        爬山
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        跑步
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        跳水
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        打球
+        <input id="" type="checkbox" name="swim">
+    </p>
+    <p>
+        种树
+        <input id="" type="checkbox" name="swim">
+    </p>
+    </div>
+    <hr>
+    <div class="info">
+    </div>
+
+    <button id="all">全选</button>
+    <button id="no">全不选</button>
+    <button id="un">反选</button>
+    <button id="ok">选中</button>
+    <button id="cancel">取消</button>
+
+    <script>
+$("#all").click(function(){
+    $(":checkbox").attr({"checked":true})
+})
+
+$("#no").click(function(){
+    $(":checkbox").attr({"checked":false});
+})
+
+$("#un").click(function(){
+    $(":checkbox").each(function(){
+        this.checked = !this.checked;
+    })
+})
+
+$("#ok").click(function(){
+    $(":checked").parent().appendTo(".info");
+})
+
+$("#cancel").click(function(){
+    $(":checked").parent().appendTo("#selt");
+})
+    </script>
+</body>
+</html>

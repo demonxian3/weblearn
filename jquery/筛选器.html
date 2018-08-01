@@ -1,0 +1,144 @@
+<!--
+    过滤            查找            串联
+    eq(idx)         children()      add()
+    first()         find()          andSelf()
+    last()          next()
+    hasClass(class) nextAll()
+    not()           parent()
+    slice()         prev()
+                    prevAll()
+                    siblings()
+-->                 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="p">
+    <h1 id="1">001</h1>
+    <h1 id="2">002</h1>
+    <h1 id="3" class="title">003</h1>
+    <h1 id="4">004</h1>
+    <h1 id="5">005</h1>
+    <h3>son</h3>
+    </div>
+
+    <hr>
+    <input id="screen" type="">
+    <input id="btn" type="button" value="show"><br><br>
+
+    Example:<br>
+    <input type="button" value="eq()"       id="eq">
+    <input type="button" value="first()"    id="first">
+    <input type="button" value="last()"     id="last">
+    <input type="button" value="hasClass()" id="hasClass">
+    <input type="button" value="not()"      id="not">
+    <input type="button" value="slice()"    id="slice"><br>
+    <input type="button" value="add()"      id="add">
+    <input type="button" value="andSelf()"  id="andSelf">
+    <input type="button" value="parent()"   id="parent">
+    <input type="button" value="children()" id="children">
+    <input type="button" value="next()"     id="next"><br>
+    <input type="button" value="nextAll()"  id="nextAll">
+    <input type="button" value="prev()"     id="prev">
+    <input type="button" value="prevAll()"  id="prevAll">
+    <input type="button" value="siblings()" id="siblings">
+
+
+    <script>
+        function cls(){
+            $("*").css({"color":"black"})
+            $("#p").css({"border":"none"})
+        }
+
+        $("#eq").click(function(){
+            cls();
+            $("#screen").attr({"value":"eq(3)"});
+            $("h1").eq(3).css({"color":"#ff0"});
+        })
+
+        $("#first").click(function(){
+            cls();
+            $("#screen").attr({"value":"first()"});
+            $("h1").first().css({"color":"#ff0"});
+        })
+        $("#last").click(function(){
+            cls();
+            $("#screen").attr({"value":"last()"});
+            $("h1").last().css({"color":"#ff0"});
+        })
+        $("#hasClass").click(function(){
+            cls();
+            $("#screen").attr({"value":"hasClass('title')"});
+            $("h1").each(function(){
+                if($(this).hasClass("title"))
+                    $(this).css({"color":"#ff0"});
+            });
+        })
+        $("#not").click(function(){
+            cls();
+            $("#screen").attr({"value":"not($('h1').eq(3))"});
+            $("h1").not($('h1').eq(3)).css({"color":"#ff0"});
+        })
+        $("#slice").click(function(){
+            cls();
+            $("#screen").attr({"value":"slice(1,3)"});
+            $("h1").slice(1,3).css({"color":"#ff0"});
+        })
+        $("#add").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#1').add('#3')"});
+            $("#1").add('#3').css({"color":"#ff0"});
+            //$("#1,#3").css({"color":"#ff0"})  //等价
+        })
+        $("#andSelf").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#1').next().andSelf()"});
+            $("#1").next().andSelf().css({"color":"#ff0"});
+        })
+
+        $("#parent").click(function(){
+            cls();
+            $("#screen").attr({"value":"parent()"});
+            $("h1").parent().css({"border":"3px solid #ff0"});
+        })
+        $("#children").click(function(){
+            cls();
+            $("#screen").attr({"value":"children('h3')"});
+            $("#p").children('h3').css({"color":"#ff0"});
+        })
+        $("#next").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#1').next()"});
+            $("#1").next().css({"color":"#ff0"});
+        })
+        $("#nextAll").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#1').nextAll()"});
+            $("h1").nextAll().css({"color":"#ff0"});
+        })
+        $("#prev").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#3').prev()"});
+            $("#3").prev().css({"color":"#ff0"});
+        })
+        $("#prevAll").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#3').prevAll()"});
+            $("#3").prevAll().css({"color":"#ff0"});
+        })
+        $("#siblings").click(function(){
+            cls();
+            $("#screen").attr({"value":"$('#3').siblings()"});
+            $("#3").siblings().css({"color":"#ff0"});
+        })
+
+    </script>
+</body>
+</html>

@@ -1,52 +1,30 @@
 <!--
-    1)#id
-    2)ele
-    3).css
-    4)*
-    5)sel1, sel2
-
-    6)ancestor descendant
-    7)parent > child
-    8)prev + next
-    9)prev ~ sliblings
-
-    10):first
-    11):last
-    12):not
-    13):even
-    14):odd
-    15):eq
-    16):gt
-    17):lt
-
-    18):has
-    19):parent
-
-    20)[name]
-    21)[name=user]
-    22)[name!=user]
-    23)[name^=user]
-    24)[name$=user]
-    25)[name*=er]
-    26)[name=user][age=13]
-
-    27)nth-child
-    28)first-child
-    29)last-child
-    30)only-child
-
-    31):input
-    32):text
-    33):password
-    34):radui
-    35):checkbox
-    36):reset
-    37):button
-    38):file
-    39):hidden
-
-    40):checked
-    41):selected
+    ------------------------------------------------------------
+    基本          层级                    筛选       内容         
+    1)#id         6)ancestor descendant   10):first  18):has      
+    2)ele         7)parent > child        11):last   19):parent   
+    3).css        8)prev + next           12):not                 
+    4)*           9)prev ~ sliblings      13):even                
+    5)sel1, sel2                          14):odd                 
+                                          15):eq                  
+                                          16):gt                  
+                                          17):lt   
+    ------------------------------------------------------------
+     属性                     子元素            表单
+     20)[name]                27)nth-child      31):input    
+     21)[name=user]           28)first-child    32):text     
+     22)[name!=user]          29)last-child     33):password 
+     23)[name^=user]          30)only-child     34):radui    
+     24)[name$=user]                            35):checkbox 
+     25)[name*=er]                              36):reset    
+     26)[name=user][age=13]                     37):button   
+                                                38):file
+                                                39):hidden
+                                                40):checked
+                                                41):selected
+                                                41):enabled
+                                                41):disabled
+     ------------------------------------------------------------
 -->
 
 <!DOCTYPE html>
