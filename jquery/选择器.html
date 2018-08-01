@@ -1,0 +1,198 @@
+<!--
+    1)#id
+    2)ele
+    3).css
+    4)*
+    5)sel1, sel2
+
+    6)ancestor descendant
+    7)parent > child
+    8)prev + next
+    9)prev ~ sliblings
+
+    10):first
+    11):last
+    12):not
+    13):even
+    14):odd
+    15):eq
+    16):gt
+    17):lt
+
+    18):has
+    19):parent
+
+    20)[name]
+    21)[name=user]
+    22)[name!=user]
+    23)[name^=user]
+    24)[name$=user]
+    25)[name*=er]
+    26)[name=user][age=13]
+
+    27)nth-child
+    28)first-child
+    29)last-child
+    30)only-child
+
+    31):input
+    32):text
+    33):password
+    34):radui
+    35):checkbox
+    36):reset
+    37):button
+    38):file
+    39):hidden
+
+    40):checked
+    41):selected
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+div{
+    width:80%;
+    padding:40px;
+    padding-top:10px;
+    text-align:center;
+    font-family:微软雅黑;
+    font-size:22px;
+}
+#ancestor {
+    height:400px;
+    border:1px solid #c3c;
+    color:#c3c;
+}
+#parent1 {
+    width:35%;
+    border:1px solid skyblue;
+    height:340px;
+    color:skyblue;
+}
+
+#parent2{
+    width:35%;
+    border:1px solid #99CCCC;
+    height:340px;
+    position: relative;
+    top:-392px;
+    left:600px;
+    color:#99CCCC;
+}
+
+#parent2 input{
+    border:1px solid #99cccc;
+}
+
+    </style>
+</head>
+<body>
+    <div id="ancestor">
+        div#ancestor
+        <div id="parent1" class="p1">
+            div#parent1.p1
+            <div id="son11">div#son11</div>
+            <div id="son12">div#son12</div>
+            <div id="son13">div#son13</div>
+            <div id="son13">div#son14</div>
+        </div>   
+
+        <div id="parent2" class="p2">
+            div#parent2.p2
+            <div id="son21"></div>
+            <form action="" style="border:1px solid #ccf;font-size:14px;">
+                <input type="text" name="username" placeholder="name"><br>
+                <input type="password" name="password" placeholder="pass"><br>
+                sex:<input type="radio" name="male" >male
+                <input type="checkbox" name="female">female<br>
+                hobby:
+                <select id="" name="">
+                    <option value="1">football</option>
+                    <option value="2">basketball</option>
+                    <option value="3">badminton</option>
+                </select>
+                <input type="file" name="upload"><br>
+            </form>
+            <div id="onlychild">
+                <div id="child">
+                    <p>div#child</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    
+    <div id="control" style="text-align:left;font-size:17px;">
+        Express <hr>
+        <input type="" style="width:35%" id="screen">
+        <button onclick="selector()">show</button>
+        <br>
+        <br>
+        Example <hr>
+
+        <input type="button" onclick="selector('.p1')" value=".css" >
+        <input type="button" onclick="selector('#parent2')" value="#id" >
+        <input type="button" onclick="selector('input')" value="elem" >
+        <br>
+        <input type="button" onclick="selector('.p1 *')" value="*all" >
+        <input type="button" onclick="selector('#son11 , .p2')" value=",and" >
+        <input type="button" onclick="selector('#ancestor div')" value="anc  des" >
+        <input type="button" onclick="selector('#ancestor > div')" value="par > chi" >
+        <input type="button" onclick="selector('#son11 + div')" value="prev + next" >
+        <input type="button" onclick="selector('#son11 ~ div')" value="prev ~ slib" >
+        <br>
+        <input type="button" onclick="selector('.p1>div:first')" value=":first" >
+        <input type="button" onclick="selector('.p1>div:last')" value=":last" >
+        <input type="button" onclick="selector('.p1>div:even')" value=":even" >
+        <input type="button" onclick="selector('.p1>div:odd')" value=":odd" >
+        <input type="button" onclick="selector('.p1>div:not(:last)')" value=":not" >
+        <input type="button" onclick="selector('.p1>div:eq(0)')" value=":eq" >
+        <input type="button" onclick="selector('.p1>div:gt(1)')" value=":gt" >
+        <input type="button" onclick="selector('.p1>div:lt(1)')" value=":lt" >
+        <input type="button" onclick="selector('div:empty')" value=":empty" >
+        <input type="button" onclick="selector('div:parent')" value=":parent" >
+        <input type="button" onclick="selector('div:has(div:empty)')" value=":has" >
+        <br>
+        <input type="button" onclick="selector('[name]')" value="[attr]" >
+        <input type="button" onclick="selector('[name=username]')" value="[attr=value]" >
+        <input type="button" onclick="selector('input[type!=]')" value="[attr!=value]" >
+        <input type="button" onclick="selector('input[name^=pa]')" value="[attr^=value]" >
+        <input type="button" onclick="selector('input[type$=le]')" value="[attr$=value]" >
+        <input type="button" onclick="selector('input[type*=dio]')" value="[attr*=value]" >
+        <input type="button" onclick="selector('[name*=em][type]')" value="[attr][attr]" >
+        <br>
+        <input type="button" onclick="selector(':input')" value=":input" >
+        <input type="button" onclick="selector(':radio')" value=":radio" >
+        <input type="button" onclick="selector(':checkbox')" value=":checkbox">
+        <input type="button" onclick="selector(':button')" value=":button" >
+        <input type="button" onclick="selector(':file')" value=":file" >
+        <input type="button" onclick="selector(':password')" value=":password">
+        <input type="button" onclick="selector(':checked')" value=":checked" >
+        <input type="button" onclick="selector(':selected')" value=":selected">
+        <br>
+        <input type="button" onclick="selector('.p1 div:first-child')" value=":first-child">
+        <input type="button" onclick="selector('.p1>div:last-child')" value=":last-child">
+        <input type="button" onclick="selector('.p1>div:nth-child(2)')" value=":nth-child(idx)">
+        <input type="button" onclick="selector('div div:only-child')" value="::only-child">
+        
+
+        
+    </div>
+
+    <script>
+        function selector(inp){
+            var inp = inp || $('#screen').attr('value');
+            $('#screen').attr({'value':inp});
+            $('*').css({'box-shadow':'0px 0px 0px white'});
+            $(inp).css({'box-shadow':'0px 0px 5px 5px #0099CC inset'})
+        }
+    </script>
+</body>
+</html>

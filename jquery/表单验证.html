@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+form{
+    font-family:微软雅黑;
+    font-size:20px;
+    width:600px;
+    margin-left:20%;
+    border:1px solid #c3c3c3;
+    padding:10px;
+    padding-left:10%;
+}
+
+form input{
+    border:1px solid #c3c3c3;
+    width:50%;
+    height:25px;
+}
+
+form input[type=submit]{
+    width:60%;
+    cursor:pointer;
+}
+
+form .err{
+    color:red;
+    display:none;
+    font-size:14px;
+}
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <form action="">
+        <label for="">账号:</label>
+        <input type="text" name="username" placeholder="username" id="name" class="auth">
+        <span class="err">账号不能少于6位</span>
+        <br>
+        
+        <label for="">密码:</label> 
+        <input type="password" name="password" placeholder="password" id="pass" class="auth">
+        <span class="err">密码不能少于8位</span>
+        <br>
+
+        <label for="">校验:</label>
+        <input type="password" name="repassword" placeholder="check password" id="repa" class="auth">
+        <span class="err">两次密码不一致</span>
+        <br>
+
+        <label for="">邮箱:</label>
+        <input type="mail" name="mail" placeholder="email" id="mail" class="auth">
+        <span class="err">邮箱格式有误</span>
+        <br>
+
+        <label for="">手机:</label>
+        <input type="phone" name="phone" placeholder="phone" id="mobile" class="auth">
+        <span class="err">手机格式有误</span>
+        <br>
+
+        <input type="submit">
+        
+    </form>
+    <script>
+
+$('input[name=username]').blur(function(){
+    var val = $(this).attr("value");
+    if(val.length<6){
+        $(this).next().show();
+        $(this).data({"auth":0});
+    }else{
+        $(this).next().hide();
+        $(this).data({"auth":1});
+    }
+});
+
+$('input[name=password]').blur(function(){
+    var val = $(this).attr("value");
+    if(val.length<6) {
+        $(this).data({"auth":0});
+        $(this).next().show();
+    }else {
+        $(this).data({"auth":1});
+        $(this).next().hide();
+    }
+})
+
+$('input[name=repassword]').blur(function(){
+    var pa1 = $('#pass').attr("value");
+    var pa2 = $('#repa').attr("value");
+
+    if( pa1 !== pa2 ){
+        $(this).next().show();
+        $(this).data({"auth":0});
+    }else {
+        $(this).next().hide();
+        $(this).data({"auth":1});
+    }
+});
+
+$('input[name=mail]').blur(function(){
+    var val = $(this).attr("value");
+
+    if(!val.match(/^\w+@\w+.\w+$/i)){
+        $(this).next().show();
+        $(this).data({"auth":0});
+    }else{
+        $(this).next().hide();
+        $(this).data({"auth":1});
+    }
+})
+
+$('input[name=phone]').blur(function(){
+    var val = $(this).attr("value");
+
+    if(!val.match(/^1\d{10}$/)){
+        $(this).next().show();
+        $(this).data({"auth":0});
+    }else{
+        $(this).next().hide();
+        $(this).data({"auth":1});
+    }
+
+})
+
+
+$('form').submit(function(){
+    var tot = 0;
+
+    $('.auth').each(function(){
+        $(this).blur();
+        tot += $(this).data('auth');
+    })
+
+    if(tot === 5){
+        alert('校验成功');
+        return true;
+    }
+    return false;
+})
+    </script>
+</body>
+</html>

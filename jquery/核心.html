@@ -1,0 +1,143 @@
+<!--
+    length
+    get()
+    index()
+    html()
+    size()
+    each()
+    eq()
+    not()
+
+    show()
+    hide()
+    click()
+    mouseenter()
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.menu{
+    position:fixed;
+    top:0px;
+    background:black;
+    color:white;
+    width:100%;
+    height:40px;
+    padding-top:8px;
+    padding-bottom:3px;
+}
+.menu a{
+    color:white;
+    text-decoration:none;
+    font-size:24px;
+    padding:10px;
+    margin-left:30px;
+    font-family: 微软雅黑;
+}
+
+.menu a:hover{
+    background:white;
+    color:black;
+}
+
+.info{
+    background:#336699;
+    text-indent:80px;
+    height:600px;
+    color:#99CCCC;
+}
+.info .para{
+    display:none;
+}
+</style>
+</head>
+<body>
+    <div class="menu">
+        <a href="">linux</a>
+        <a href="">php</a>
+        <a href="">javascript</a>
+    </div>
+    <div class="info">
+        <br>
+        <br>
+        <div class="para" style="display:block">
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+            <h1>linux is very good, linux is very good, linux is very good.</h1>
+        </div>
+        <div class="para">
+            <h1>php is very good, php is very good, php is very good.</h1>
+            <h1>php is very good, php is very good, php is very good.</h1>
+            <h1>php is very good, php is very good, php is very good.</h1>
+            <h1>php is very good, php is very good, php is very good.</h1>
+            <h1>php is very good, php is very good, php is very good.</h1>
+            <h1>php is very good, php is very good, php is very good.</h1>
+            <h1>php is very good, php is very good, php is very good.</h1>
+        </div>
+        <div class="para">
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+            <h1>javascript is very good, javascript is very good, javascript is very good.</h1>
+        </div>
+    </div>
+
+    <script>
+        console.log( $('h1').size() );          //size()
+        console.log( $('h1').length );          //length
+
+        $('h1').each(function(i){               //each() 
+            console.log(i)                      //index number
+
+            $(this).attr({'num':i});                    //attr()  设置html属性
+            $(this).data({'hidecode': i*i});            //data()  设置对象属性
+            //$('h1').get()[i].setAttribute('num', i+1);
+        })
+
+
+        $('.menu a').eq(0).css({'color':'black'});
+        $('.menu a').eq(0).css({'background':'white'});
+
+        $('h1').click(function(){
+            $(this).html($(this).attr('num'));      //html();
+            console.log($(this).data('hidecode')); 
+        });
+
+        $('.menu a').mouseenter(function(){
+            var idx = $(this).index();              //index();
+
+            //等价写法:
+            //$('.info div').hide();
+            //$('.info div').eq(idx).show();
+            $('.info div').show();
+            $('.info div').not($('.info div').eq(idx)).hide();
+            //改变nav的a
+            $('.menu a').css({'color':'white'});
+            $('.menu a').css({'background':'black'});
+            $(this).css({'color':'black'});
+            $(this).css({'background':'white'});
+            
+        })
+    </script>
+</body>
+</html>

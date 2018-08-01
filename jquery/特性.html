@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="id" style="width:100px;height:100px;background:#c3c3c3"></div>
+<h1>aaaaaaaaaaaaaaaaa</h1>
+<h1>bbbbbbbbbbbbbbbbb</h1>
+<script>
+/*  @@原理结构  */
+function $(){
+    var obj = new Object();
+    obj.name = "demon";
+    obj.say = function(){
+        console.log("my name is " + this.name);
+        return this;
+    }
+    obj.eat = function(){ console.log('i am eating'); }
+    return obj;
+}
+
+//链式开发
+$().say().eat();
+/*###########################################*/
+</script>
+
+<script src="jquery.js"></script>
+<script>
+
+
+/*  @@jquery对象与dom对象互换  */
+dom = document.getElementById('id');                 //dom对象
+$(dom).click(function(){                             //dom => jq
+    console.log('dom object => jq object'); 
+    this.style.background = "#5c5c5c";               //这里的this 是 dom对象
+    $(this).attr({'title':"this is jquery object"}); //这种写法为 jquery对象
+});
+
+console.log($('h1')[1].outerHTML);                   //jq => dom
+console.log($('h1').get(0).outerHTML);               //jq => dom
+console.log($('h1').get());                          //jq => dom array
+console.log($('h1').get()[1]);                       //jq => dom 
+
+
+
+/*###########################################*/
+</script>
+</body>
+</html>
