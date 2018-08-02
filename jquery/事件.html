@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 拖拽,右键菜单 </title>
+    <script src="jquery.js"></script>
+    <style>
+#rightmenu{
+    width:150px;
+}
+
+#rightmenu ul{
+    list-style:none;
+    background:#ddd;
+    box-shadow:3px 3px 5px 5px gray;
+}
+
+#rightmenu li{
+    margin-left:-40px;
+    text-indent:10px;
+    line-height:45px;
+    height:40px;
+    cursor:pointer;
+}
+
+#rightmenu li:hover{
+    background:white;
+}
+    </style>
+</head>
+<body>
+    <div id="target"> <img src="img/test.jpg" alt=""> </div>
+
+    <div id="rightmenu">
+        <ul>
+            <li>添加到购物车</li>
+            <li>删除选项</li>
+            <li><a href="http://www.baidu.com" target="_blank">百度</a></li>
+            <li>退出</li>
+        </ul>
+    </div>
+<script>
+
+
+//按键判断
+$(document).mousedown(function(event){
+    if(event.button == 2)console.log('右键');
+    if(event.button == 1)console.log('滚轮');
+    if(event.button == 0){
+        console.log('左键');
+        $('#rightmenu').hide();
+        return false;
+    }
+})
+
+//右键菜单
+$('#rightmenu').hide();
+$(document).contextmenu(function(event){
+    var x = event.clientX;
+    var y = event.clientY;
+    $('#rightmenu').show().offset({left:x, top:y});
+    return false;
+})
+
+//文档加载流程
+$(function(){
+    console.log('此时为文档加载完毕的执行时机');
+})
+
+$(document).ready(function(){
+    console.log('同上');
+})
+
+$('img').load(function(){
+    console.log('此时为资源加载完毕的执行时机');
+})
+
+//拖拽功能
+function drag(obj){
+    var relax = 0;
+    var relay = 0;
+
+    obj.css({
+        'position':'absolute',
+        'left':'0px',
+        'top':'0px',
+        'cursor':'crosshair'
+    });
+
+    obj.mousedown(function(event){
+        
+        relax = event.clientX - obj.offset().left;
+        relay = event.clientY - obj.offset().top;
+
+        $(document).bind('mousemove', move);
+        $(document).bind('mouseup', stop);
+        return false;
+    })
+
+    function move(event){
+        var ex = event.clientX;
+        var ey = event.clientY;
+        var ox = obj.offset().left;
+        var oy = obj.offset().top;
+
+        obj.offset({top: ey - relay, left: ex - relax});
+        $('title').html(oy+":"+ox)
+        return false;
+    }
+
+    function stop(){
+        $(document).unbind('mousemove');
+        $(document).unbind('mouseup');
+    }
+}
+
+drag($('img'));
+</script>
+</body>
+</html>
