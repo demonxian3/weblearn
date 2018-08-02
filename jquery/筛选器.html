@@ -21,11 +21,11 @@
 </head>
 <body>
     <div id="p">
-    <h1 id="1">001</h1>
-    <h1 id="2">002</h1>
-    <h1 id="3" class="title">003</h1>
-    <h1 id="4">004</h1>
-    <h1 id="5">005</h1>
+    <h1 id="1">h1#1</h1>
+    <h1 id="2">h1#2</h1>
+    <h1 id="3" class="title">h1#3.title</h1>
+    <h1 id="4">h1#4</h1>
+    <h1 id="5">h1#5</h1>
     <h3>son</h3>
     </div>
 
@@ -49,6 +49,7 @@
     <input type="button" value="prev()"     id="prev">
     <input type="button" value="prevAll()"  id="prevAll">
     <input type="button" value="siblings()" id="siblings">
+    <input type="button" value="find()"     id="find">
 
 
     <script>
@@ -137,6 +138,11 @@
             cls();
             $("#screen").attr({"value":"$('#3').siblings()"});
             $("#3").siblings().css({"color":"#ff0"});
+        })
+        $('#find').click(function(){
+            cls();
+            $('#p').find('h3').css({'color':"#ff0"});
+            $('#screen').val('$("#p").find("h3")')
         })
 
     </script>

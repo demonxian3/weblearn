@@ -1,0 +1,202 @@
+<!-- 
+    内插         外插             包围        替换 
+    append()     after()          wrap()      replaceWith()
+    appendTo()   before()         wrapInner() replaceAll()
+    prepend()    insertAfter()    wrapAll()
+    prependTo()  insertBefore()
+
+    删除         复制
+    empty()      clone()
+    remove()     clone(true)
+    detach()
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+*{
+    font-family:微软雅黑;
+}
+
+#div1, #div2{
+    width:100%;
+    height:300px;
+    background:#c3c3c3;
+    overflow:scroll;
+}
+
+* h3{
+    cursor:pointer;
+}
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <h3>0001</h3>
+        <h3>0002</h3>
+        <h3>0003</h3>
+        <h3>0004</h3>
+        <h3>0005</h3>
+    </div>
+    <input type="" id="screen" style="width:73.5%;"><br>
+    <button onclick="setMode('append')">追加</button>
+    <button onclick="setMode('prepend')">头插</button>
+    <button onclick="setMode('appendTo')">追加到</button>
+    <button onclick="setMode('prependTo')">头插于</button>
+    <button onclick="setMode('after')">后面</button>
+    <button onclick="setMode('before')">前面</button>
+    <button onclick="setMode('insertAfter')">后于</button>
+    <button onclick="setMode('insertBefore')">前于</button>
+    <button onclick="setMode('wrap')">包围</button>
+    <button onclick="setMode('wrapInner')">内嵌</button>
+    <button onclick="setMode('wrapAll')">全围</button>
+    <button onclick="setMode('replaceWith')">替换</button>
+    <button onclick="setMode('replaceAll')">取代</button>
+    <button onclick="setMode('empty')">置空</button>
+    <button onclick="setMode('remove')">移除</button>
+    <button onclick="setMode('detach')">脱离</button>
+    <button onclick="setMode('copy')">复制</button>
+    <button onclick="setMode('clone')">克隆</button>
+    <div id="div2"></div>
+
+    <script>
+        var global_mode = "append";
+
+        function setMode(mode){
+            global_mode = mode;
+            switch(global_mode){
+                case 'append':  
+                    var code = "$('#div2').append($(this))";
+                    $('#screen').val(code);break;
+                case 'appendTo':  
+                    var code = "$(this).appendTo('#div2')";
+                    $('#screen').val(code);break;
+                case 'prepend':  
+                    var code = "$('#div2').prepend($(this))";
+                    $('#screen').val(code);break;
+                case 'prependTo':  
+                    var code = "$(this).prependTo('#div2')";
+                    $('#screen').val(code);break;
+                case 'after':  
+                    var code = "$('#div2').after($(this))";
+                    $('#screen').val(code);break;
+                case 'insertAfter':  
+                    var code = "$(this).insertAfter('#div2')";
+                    $('#screen').val(code);break;
+                case 'before':  
+                    var code = "$('#div2').before($(this))";
+                    $('#screen').val(code);break;
+                case 'insertBefore': code
+                    var code = "$(this).insertBefore('#div2')";
+                    $('#screen').val(code);break;
+                case 'wrap':  
+                    var code = "$(this).wrap('<a href=\"#\"></a>')";
+                    $('#screen').val(code);break;
+                case 'wrapInner':  
+                    var code = "$(this).wrapInner('<i></i>')";
+                    $('#screen').val(code);break;
+                case 'wrapAll':  
+                    var code = "$(this).wrapInner('<i></i>')";
+                    $('#screen').val(code);break;
+                case 'replaceWith':  code
+                    var code ="$(this).replaceWith('<b>'+val+'</b>')";
+                    $('#screen').val(code);break;
+                case 'replaceAll':  
+                    var code = "$('<i>'+$(this).text()+'</i>').replaceAll($(this))";
+                    $('#screen').val(code);break;
+                case 'empty':  
+                    var code = "$(this).empty() //$(this).html('')";
+                    $('#screen').val(code);break;
+                case 'remove':  
+                    var code = "$('body').append($(this).remove())";
+                    $('#screen').val(code);break;
+                case 'detach':  
+                    var code = "$('body').append($(this).detach())";
+                    $('#screen').val(code);break;
+                case 'copy':  
+                    var code = "$(this).after($(this).clone())";
+                    $('#screen').val(code);break;
+                case 'clone':  
+                    var code = "$(this).after($(this).clone(true))";
+                    $('#screen').val(code);break;
+                
+            }
+        }
+
+        function cls(){
+            $('h3').appendTo('#div1');
+        }
+
+        $('#div1 h3').click(function(){
+            switch(global_mode){
+                case 'append':
+                    $('#div2').append($(this));
+                    break;
+                case 'appendTo':
+                    $(this).appendTo('#div2');
+                    break;
+                case 'prepend':
+                    $('#div2').prepend($(this));
+                    break;
+                case 'prependTo':
+                    $(this).prependTo('#div2');
+                    break;
+                case 'after':
+                    $('#div2').after($(this));
+                    break;
+                case 'before':
+                    $('#div2').before($(this));
+                    break;
+                case 'insertAfter':
+                    $(this).insertAfter('#div2');
+                    break;
+                case 'insertBefore':
+                    $(this).insertBefore('#div2');
+                    break;
+                case 'wrap':
+                    $(this).wrap('<a href="#"></a>');
+                    break;
+                case 'wrapInner':
+                    $(this).wrapInner('<i></i>');
+                    break;
+                case 'wrapAll':
+                    $('h3').wrapAll('<red style="color:red"></red>')
+                    break;
+                case 'replaceWith':
+                    var val = $(this).text();
+                    $(this).replaceWith("<b>"+val+"</b>");
+                    break;
+                case 'replaceAll':
+                    var val = $(this).text();
+                    $('<i>'+val+'</i>').replaceAll($(this));
+                    break;
+                case 'empty':
+                    $(this).empty();
+                    //$(this).html('');  //等价
+                    break;
+                case 'remove':
+                    var obj = $(this).remove();
+                    console.log(obj);
+                    $('body').append(obj);  //并没有真正删除,但属性事件真删了
+                    break;
+                case 'detach':
+                    var obj = $(this).detach();
+                    console.log(obj);
+                    $('body').append(obj); //和remove一样，但保留事件和属性
+                    break;
+                case 'copy':
+                    $(this).after($(this).clone());  //不保留属性和事件
+                    break;
+                case 'clone':
+                    $(this).after($(this).clone(true)); //保留原样本属性和事件
+                    break;
+            }
+        })
+
+    </script>
+</body>
+</html>
