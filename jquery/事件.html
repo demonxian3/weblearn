@@ -26,10 +26,22 @@
 #rightmenu li:hover{
     background:white;
 }
+
+button{
+    cursor:pointer;
+}
+
+
+
     </style>
 </head>
 <body>
-    <div id="target"> <img src="img/test.jpg" alt=""> </div>
+    <div class="btn">
+        <button>一次性事件</button>
+        <button>切换事件</button>
+        <button>悬浮事件</button>
+        <button>委派事件</button>
+    </div>
 
     <div id="rightmenu">
         <ul>
@@ -39,6 +51,8 @@
             <li>退出</li>
         </ul>
     </div>
+
+    <div id="target"> <img src="img/test.jpg" alt=""> </div>
 <script>
 
 
@@ -48,10 +62,10 @@ $(document).mousedown(function(event){
     if(event.button == 1)console.log('滚轮');
     if(event.button == 0){
         console.log('左键');
-        $('#rightmenu').hide();
         return false;
     }
-})
+});
+
 
 //右键菜单
 $('#rightmenu').hide();
@@ -60,7 +74,17 @@ $(document).contextmenu(function(event){
     var y = event.clientY;
     $('#rightmenu').show().offset({left:x, top:y});
     return false;
+});
+
+$(document).click(function(){
+    $('#rightmenu').hide();
 })
+
+$('#rightmenu').click(function(){
+    return true;
+})
+
+
 
 //文档加载流程
 $(function(){
@@ -75,6 +99,39 @@ $('img').load(function(){
     console.log('此时为资源加载完毕的执行时机');
 })
 
+
+//一次性事件
+$('button').eq(0).one('click',function(){
+    $(this).html('事件触发成功');
+    this.disabled = true;
+});
+
+//切换事件
+$('button').eq(1).toggle(
+    function(){
+        $(this).css({'background':'#aff'})
+    },
+    function(){
+        $(this).css({'background':'skyblue'})
+    }
+)
+
+//悬浮事件
+$('button').eq(2).hover(
+    function(){
+        $(this).css({'color':'#99CCCC'});
+    },
+    function(){
+        $(this).css({'color':'#996699'});
+    }
+)
+
+//委派事件
+$('.newBtn').live('click',function(){
+    alert('委派事件，可以为当前和未来，选择器命中的元素添加事件');
+    $(".btn").append("<button class='newBtn'>新按钮</button>");
+})
+
 //拖拽功能
 function drag(obj){
     var relax = 0;
@@ -82,9 +139,7 @@ function drag(obj){
 
     obj.css({
         'position':'absolute',
-        'left':'0px',
-        'top':'0px',
-        'cursor':'crosshair'
+        'cursor':'crosshair',
     });
 
     obj.mousedown(function(event){
