@@ -2,52 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title></title>
     <script src="jquery.js"></script>
     <style>
-#screen{
-    width:1300px;
-    height:200px;
-    border:1px solid #ccc;
-}
+    #screen{
+        width:1300px;
+        height:200px;
+        border:1px solid #ccc;
+    }
     </style>
 </head>
 <body>
-    
-    <script>
-        function print(str){
-            console.log(str);
-        }
-
-        function getParam(){
-            searchStr = location.search.substr(1);;
-            paramArr = searchStr.split('&');
-
-            var GET = new Object();
-
-            for(var i in paramArr){
-                var key = paramArr[i].split('=')[0];
-                var value = paramArr[i].split('=')[1];
-                GET[key] = value; 
-            }
-            return GET;
-        }
-
-        var GET = getParam();
-        if(GET['id'] === '1') $(document).find('body').html("good");
-        if(GET['id'] === '2') document.write("morning");
-        if(GET['id'] === '3') document.write("hello");
-
-    </script>
-
-    <div id="screen">
-    
-    </div>
-
+    <div id="screen"></div>
     <div id="btn">
-        <button>发送Get请求</button>
+        <button>发送Get请求: id = 1</button>
     </div>
-
     
+<script src="frame.js"> </script>
+<script>
+    function onlyPathName(){
+        console.log('conflict function');
+    }
+    var path = "http://baidu.com/danger/test/1.php?hello=3231/name.php";
+
+    my.print(write);
+</script>
 </body>
 </html>

@@ -41,6 +41,7 @@ button{
         <button>切换事件</button>
         <button>悬浮事件</button>
         <button>委派事件</button>
+        <button>取消委派事件</button>
     </div>
 
     <div id="rightmenu">
@@ -127,9 +128,18 @@ $('button').eq(2).hover(
 )
 
 //委派事件
+$('button').eq(3).click(function(){
+    $(".btn").append("<button class='newBtn'>新按钮</button>");
+});
+
 $('.newBtn').live('click',function(){
     alert('委派事件，可以为当前和未来，选择器命中的元素添加事件');
-    $(".btn").append("<button class='newBtn'>新按钮</button>");
+});
+
+//取消事件
+$('button').eq(4).click(function(){
+    alert('新按钮将不会再有任何委派事件')
+    $('.newBtn').die('click');
 })
 
 //拖拽功能

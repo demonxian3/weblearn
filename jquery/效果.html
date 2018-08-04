@@ -1,0 +1,110 @@
+<!--
+    show, hide, toggle
+    slideDown slideUp slideToggle
+    fadeIn, fadeOut, fadeTo
+    animate
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+#main{
+    width:1200px;
+    height:300px;
+    overflow:hidden;
+    margin:auto
+}
+#target{
+    width:100%;
+    height:100%;
+    background: #99CCCC;
+    text-align:center;
+    line-height:240px;
+    font-size:40px;
+}
+
+#btn{
+    width:1200px;
+    margin:auto;
+    text-align:center;
+    position:fixed;
+    top:400px;
+}
+
+button{
+    width:100px;
+    border-radius:10px;
+    border: 1px solid #ccc;
+    height:30px;
+    font-size:15px;
+    cursor:pointer;
+}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="target"> 这是测试对象 </div>
+    </div>
+    <br>
+    <div id="btn">
+        <button>show</button>
+        <button>hide</button>
+        <button>toggle</button>
+        <button>slideDown</button>
+        <button>slideUp</button>
+        <button>slideToggle</button>
+        <button>fadeIn</button>
+        <button>fadeOut</button>
+        <button>fadeTo</button>
+        <button>animate1</button>
+        <button>animate2</button>
+    </div>
+
+    <script>
+        $('button').eq(0).click(function(){
+            $('#target').show(1000);
+        });
+        $('button').eq(1).click(function(){
+            $('#target').hide(1000);
+        });
+        $('button').eq(2).click(function(){
+            $('#target').toggle(1000);
+        });
+        $('button').eq(3).click(function(){
+            $('#target').slideDown(1000);
+        });
+        $('button').eq(4).click(function(){
+            $('#target').slideUp(1000);
+        });
+        $('button').eq(5).click(function(){
+            $('#target').slideToggle(1000);
+        });
+        $('button').eq(6).click(function(){
+            $('#target').fadeIn(1000);
+        });
+        $('button').eq(7).click(function(){
+            $('#target').fadeOut(1000);
+        });
+        $('button').eq(8).click(function(){
+            $('#target').fadeTo(1000,0.3);
+        });
+        $('button').eq(9).click(function(){
+            $('#target').animate({
+                'margin-left':'-1200px',
+                'opacity':0,
+            }, 1000);
+        });
+        $('button').eq(10).click(function(){
+            $('#target').animate({
+                'margin-left':'1200px',
+                'opacity':1,
+            }, 1000,function(){
+                $('body').css({'background':'skyblue'});
+            });
+        });
+    </script>
+</body>
+</html>
