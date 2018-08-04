@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+#message{
+    width:1200px;
+    height:200px;
+    margin:auto;
+}
+
+textarea{
+    width:1200px;
+    height:100px;
+    padding:50px;
+    font-size:30px;
+    border-radius:50px;
+    outline:none;
+    resize:none;
+}
+
+button{
+    background: #333;
+    border:none;
+    padding:10px;
+    font-size:22px;
+    width:90px;
+    color:white;
+    box-shadow:3px 3px 1px 1px #ccc;
+    border-radius:10px;
+    outline:none;
+    float:right;
+    margin-right:-100px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ddd;
+}
+
+button:active{
+    background:#CCCCFF
+}
+
+.sentence{
+    padding:15px;
+    width:1200px;
+    border:1px solid #ccc;
+    margin-top:50px;
+    margin-left:320px;
+    border-radius:20px;
+    font-size:20px;
+}
+
+.sentence .close{
+    float:right;
+    font-size:40px;
+    margin-top:-10px;
+    cursor:pointer;
+}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+    <div id="message">
+        <textarea id="" name="" ></textarea>
+        <button>发送</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    </div>
+
+    <script>
+        //委派任务
+        $('.close').live('click',function(){
+            $(this).parent().hide(800);
+        });
+
+$('textarea').click(function(){
+    $(this).val('');
+})
+
+$('button').click(function(){
+    var text = $('textarea').val();
+    if(!text) return false;
+    var code = '<div class="sentence">'+text+'<div class="close">&times;</div></div>';
+    $('.main').append(code);
+})
+    </script>
+</body>
+</html>
