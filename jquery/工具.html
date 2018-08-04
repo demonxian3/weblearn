@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <form action="">
+        <input type="" name="name">
+        <input type="" name="pass">
+        <button>序列化</button>
+    </form>
+    <script src="frame.js"></script>
+    <script>
+        var arr = [];
+        var obj = {};
+        var obj1 = {"a":213};
+        var fun = function(){}
+
+        print($.isArray(arr)); //arr instanceof Array  //true
+        print($.isFunction(fun));  //true
+        print($.isEmptyObject(obj));  //true
+        print($.isEmptyObject({1:1}));  //false 
+        //检测一个元素是否包含另一个元素
+        print($.contains(document.documentElement, document.body)) //true
+        print($.contains(document.body, document.documentElement)) //false
+
+        //trim 清除空格
+        var str = "    demon    ";
+        print(str);
+        print($.trim(str));
+
+        //param 参数构造
+        var obj = {"name":"demon", age:33};
+        print($.param(obj));
+
+        //serialize
+        $('button').click(function(){
+            print($('form').serialize());
+            return false
+        })
+    </script>   
+</body>
+</html>

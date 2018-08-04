@@ -1,3 +1,5 @@
+//@version: test
+//@for: jquery
 function print(str){ console.log(str); }                                //print默认弹出打印机程序，强制覆盖
 
 (function(){
@@ -23,6 +25,11 @@ function print(str){ console.log(str); }                                //print�
     registerFunc('getRequest', getRequest);
     registerFunc('replaceAll', replaceAll);
     registerFunc('toUrlParams', toUrlParams);
+    registerFunc('ajaxGet', ajaxGet);
+    registerFunc('ajaxPost', ajaxPost);
+    registerFunc('getStyle', getStyle);
+    registerFunc('isArray', isArray);
+    registerFunc('isEmptyObject', isEmptyObject);
 
     function write(str){
         document.write(str);
@@ -76,13 +83,15 @@ function print(str){ console.log(str); }                                //print�
         var str = arr.join(newStr);
         return str;
     }
-    function ajaxGet(url, callBackFunc){
+    function ajaxGet(url, paramObj, callBackFunc){
         var xmlhttp;
+        var paramStr = toUrlParams(paramObj);
+        url = url + "?" + paramStr;
         if(window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
         else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         xmlhttp.onreadystatechange = function(){
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
-                callBackFunc(responseText);
+                callBackFunc(xmlhttp.responseText);
         }
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
@@ -94,13 +103,12 @@ function print(str){ console.log(str); }                                //print�
         else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
         xmlhttp.onreadystatechange=function(){
             if(xmlhttp.readyState==4 && xmlhttp.status==200)
-                callBackFunc(responseText);
+                callBackFunc(xmlhttp.responseText);
         }
         xmlhttp.open("POST", url, true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send(paramStr);
     }
-
     function toUrlParams(obj){
         var arr = [];
         for(var i in obj)
@@ -108,6 +116,20 @@ function print(str){ console.log(str); }                                //print�
         var params = arr.join("&");
         return params;
     }
-    print(toUrlParams({'url':"http","age":33}))
-
+    function getStyle(elem, attr){
+        if(elem.currentStyle)
+            return elem.currentStyle[attr];
+        else
+            return window.getComputedStyle(elem,null)[attr];
+    }
+    function isArray(obj){
+        if(obj instanceof Array) return true;
+        return false;
+    }
+    function isEmptyObject(obj){
+        var i;
+        for(i in obj);
+        if(i === undefined )return true;
+        return false;
+    }
 })();

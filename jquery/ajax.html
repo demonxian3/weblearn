@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="access-control-allow-origin" content="*">
     <title></title>
     <script src="jquery.js"></script>
     <style>
@@ -16,12 +16,44 @@
 <body>
     <div id="screen"></div>
     <div id="btn">
-        <button>发送Get请求: id = 1</button>
+        <button>发送Get请求</button>
+        <button>发送POST请求</button>
+        <button>发送Ajax请求</button>
     </div>
     
-<script src="frame.js"> </script>
 <script>
-    $("button").eq(0).click(ajaxGet());
+    
+    //通过ajax-get 请求js资源
+    $.ajax({
+      type: "GET",
+      url: "test.js",
+      dataType: "script"
+    });
+
+
+    $('button').eq(0).click(function(){
+        $.get("http://118.89.51.198/test/index.php", {'id':33, 'age':'44a'}, function(r){
+            $('#screen').html(r)
+        })    
+    })
+
+    $('button').eq(1).click(function(){
+        $.post('http://118.89.51.198/test/index.php', {id:44, 'method':'post'}, function(r){
+            $('#screen').html(r);
+        })
+    })
+
+    $('button').eq(2).click(function(){
+        $.ajax({
+            type: 'POST',
+            url: 'http://118.89.51.198/test/index.php',
+            data: 'name=Demon&age=23',
+            success: function(reply){
+                $('#screen').html(reply);
+            }
+        })
+    })
+
 </script>
 </body>
 </html>
