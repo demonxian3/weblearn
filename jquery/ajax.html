@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+#screen{
+    width:1300px;
+    height:200px;
+    border:1px solid #ccc;
+}
+    </style>
+</head>
+<body>
+    
+    <script>
+        function print(str){
+            console.log(str);
+        }
+
+        function getParam(){
+            searchStr = location.search.substr(1);;
+            paramArr = searchStr.split('&');
+
+            var GET = new Object();
+
+            for(var i in paramArr){
+                var key = paramArr[i].split('=')[0];
+                var value = paramArr[i].split('=')[1];
+                GET[key] = value; 
+            }
+            return GET;
+        }
+
+        var GET = getParam();
+        if(GET['id'] === '1') $(document).find('body').html("good");
+        if(GET['id'] === '2') document.write("morning");
+        if(GET['id'] === '3') document.write("hello");
+
+    </script>
+
+    <div id="screen">
+    
+    </div>
+
+    <div id="btn">
+        <button>发送Get请求</button>
+    </div>
+
+    
+</body>
+</html>
