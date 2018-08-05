@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 右键菜单 </title>
+    <script src="jquery.js"></script>
+    <style>
+        #rightmenu{
+            width:150px;
+        }
+        
+        #rightmenu ul{
+            list-style:none;
+            background:#ddd;
+            box-shadow:3px 3px 5px 5px gray;
+        }
+        
+        #rightmenu li{
+            margin-left:-40px;
+            text-indent:10px;
+            line-height:45px;
+            height:40px;
+            cursor:pointer;
+        }
+        
+        #rightmenu li:hover{
+            background:white;
+        }
+    </style>
+</head>
+<body>
+    单击鼠标右键<br>
+    控制台显示按键检测
+    <div id="rightmenu">
+        <ul>
+            <li>添加到购物车</li>
+            <li>删除选项</li>
+            <li><a href="http://www.baidu.com" target="_blank">百度</a></li>
+            <li>退出</li>
+        </ul>
+    </div>
+<script>
+
+
+//按键判断
+$(document).mousedown(function(event){
+    if(event.button == 2)console.log('右键');
+    if(event.button == 1)console.log('滚轮');
+    if(event.button == 0){
+        console.log('左键');
+        return false;
+    }
+});
+
+
+//右键菜单
+$('#rightmenu').hide();
+$(document).contextmenu(function(event){
+    var x = event.clientX;
+    var y = event.clientY;
+    $('#rightmenu').show().offset({left:x, top:y});
+    return false;
+});
+
+$(document).click(function(){
+    $('#rightmenu').hide();
+})
+
+$('#rightmenu').click(function(){
+    return true;
+})
+</script>
+</body>
+</html>

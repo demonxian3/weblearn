@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播器</title>
+    <script src="jquery.js"></script>
+    <style>
+.Carousel{
+    background: #aeb5ad;
+    width:590px;
+    height:470px;
+    margin:auto;
+    position:relative;
+    z-index:0
+}
+
+.imgDocker img{
+    position:absolute;
+    z-index:1;
+}
+
+.dotDocker{
+    color: white;
+    position:relative;
+    top:385px;
+    left:3px;
+    z-index:2;
+}
+
+.dotDocker ul{
+    list-style:none;
+}
+
+.dotDocker li{
+    width:7px;
+    height:7px;
+    border:2px solid #E0E0E0;
+    border-radius:7px;
+    float:left;
+    margin:5px;
+}
+
+.toggleDocker{
+    position: relative;
+    top:190px;
+    z-index:2;
+}
+
+.toggleDocker span{
+    color: white;
+    font-size:25px;
+    background: black;
+    opacity:0.4;
+    padding:7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor:pointer;
+}
+
+.toggleDocker span:hover{
+    opacity:0.8;
+}
+
+
+#carousel2{
+    position:relative;
+    z-index:0;
+    overflow:hidden;
+}
+.imgBar{
+    width:4750px;
+    position:relative;
+    z-index:4;
+}
+
+.imgBar img{
+    float:left;
+}
+.toggleBar{
+    position:relative;
+    top:-250px;
+    z-index:10;
+}
+
+.toggleBar span{
+    color: white;
+    font-size:25px;
+    background: black;
+    opacity:0.4;
+    padding:7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor:pointer;
+}
+
+.toggleBar span:hover{
+    opacity:0.8;
+}
+
+    </style>
+</head>
+<body>
+    <div class="Carousel" id="carousel1">
+        <div class="imgDocker">
+            <img src="img/jd1.jpg" alt="">
+            <img src="img/jd2.jpg" alt="">
+            <img src="img/jd3.jpg" alt="">
+            <img src="img/jd4.jpg" alt="">
+            <img src="img/jd5.jpg" alt="">
+            <img src="img/jd6.jpg" alt="">
+            <img src="img/jd7.jpg" alt="">
+            <img src="img/jd8.jpg" alt="">
+        </div>
+
+        <div class="toggleDocker">
+            <span class="lefbtn">&lt;</span>
+            <span class="rigbtn" style="float:right">&gt;</span>
+        </div>
+        <div class="dotDocker">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <div id="carousel2" class="Carousel">
+        <div class="imgBar">
+            <img src="img/jd1.jpg" alt="">
+            <img src="img/jd2.jpg" alt="">
+            <img src="img/jd3.jpg" alt="">
+            <img src="img/jd4.jpg" alt="">
+            <img src="img/jd5.jpg" alt="">
+            <img src="img/jd6.jpg" alt="">
+            <img src="img/jd7.jpg" alt="">
+            <img src="img/jd8.jpg" alt="">
+        </div>
+        <div class="toggleBar">
+            <span class="lefbtn">&lt;</span>
+            <span class="rigbtn" style="float:right">&gt;</span>
+        </div>
+    </div>
+
+    <script>
+        //main
+        (function(){
+            /*carousel1*/
+            var car = $('#carousel1');
+            var img = $('#carousel1 .imgDocker img');
+            var lis = $('#carousel1 .dotDocker li');
+            var lef = $('#carousel1 .lefbtn');
+            var rig = $('#carousel1 .rigbtn');
+
+            //init
+            car.data({'picnum': 0});
+            img.hide();
+            img.eq(0).show();
+            lis.eq(0).css({'background':'white'});
+
+            //event
+            lis.mouseenter(function(){
+                var idx = $(this).index();
+                var curidx = car.data('picnum');
+                if(idx === car.data('picnum')) return false;
+                activeItem(idx);
+            })
+
+            lef.click(function(){
+                var curidx = car.data('picnum');
+                curidx = curidx - 0;                //str to num
+                if(curidx === 0) curidx = 7;
+                else curidx--;
+                activeItem(curidx);
+            })
+            rig.click(function(){
+                var curidx = car.data('picnum');
+                curidx = curidx - 0;                //str to num
+                if(curidx === 7) curidx = 0;
+                else curidx++;
+                activeItem(curidx);
+            })
+
+
+            /*carousel2*/
+            var car2 = $('#carousel2');
+            var img2 = $('#carousel2 .imgBar');
+            var rig2 = $('#carousel2 .rigbtn');
+            var lef2 = $('#carousel2 .lefbtn');
+            
+            //init
+            img2.css({'left':'-590px'});
+            rig2.click(function(){moveItem(1);})
+            lef2.click(function(){moveItem(0);})
+        })()
+
+
+        function activeItem(idx){
+            var car = $('#carousel1');
+            var img = $('#carousel1 .imgDocker img');
+            var lis = $('#carousel1 .dotDocker li');
+            var curidx = car.data('picnum');
+
+            car.data({'picnum': idx});
+            img.eq(curidx).fadeOut();
+            img.eq(idx).fadeIn();
+            lis.eq(curidx).css({'background':'none'});
+            lis.eq(idx).css({'background':'white'});
+        }
+
+        function moveItem(dir){
+            if(dir){        //向右移动
+                $('.imgBar').animate({
+                    'left': "-1180px"
+                }, "slow",  function(){
+                    $(this).css({'left':'-590px'})
+                    $('.imgBar img').eq(0).appendTo('.imgBar');
+                });
+            }else{          //向左移动
+                $('.imgBar').animate({
+                    'left': "0px"
+                }, "slow", function(){
+                    $(this).css({'left':'-590px'})
+                    $('.imgBar img:last').prependTo('.imgBar');
+                })
+            }
+        }
+    </script>
+</body>
+</html>

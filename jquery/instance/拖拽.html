@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 拖拽</title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <div id="target"> <img src="img/test.jpg" alt=""> </div>
+<script>
+
+//拖拽功能
+function drag(obj){
+    var relax = 0;
+    var relay = 0;
+
+    obj.css({
+        'position':'absolute',
+        'cursor':'crosshair',
+    });
+
+    obj.mousedown(function(event){
+        
+        relax = event.clientX - obj.offset().left;
+        relay = event.clientY - obj.offset().top;
+
+        $(document).bind('mousemove', move);
+        $(document).bind('mouseup', stop);
+        return false;
+    })
+
+    function move(event){
+        var ex = event.clientX;
+        var ey = event.clientY;
+        var ox = obj.offset().left;
+        var oy = obj.offset().top;
+
+        obj.offset({top: ey - relay, left: ex - relax});
+        $('title').html(oy+":"+ox)
+        return false;
+    }
+
+    function stop(){
+        $(document).unbind('mousemove');
+        $(document).unbind('mouseup');
+    }
+}
+
+drag($('img'));
+</script>
+</body>
+</html>

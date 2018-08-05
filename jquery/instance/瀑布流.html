@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <script src="jquery.js"></script>
+    <style>
+
+body{
+    overflow-x: hidden;
+}
+    
+.water{
+    border:1px solid #ccc;
+    background:skyblue;
+    width:800px;
+    height:472px;
+    text-align:center;
+    box-shadow:2px 2px 3px 3px gray;
+    clear:both;
+    margin-top: 30px;
+    margin-bottom:80px;
+}
+
+br{
+    clear:both;
+}
+
+.fr{
+    float:right;
+}
+    </style>
+</head>
+<body>
+    <div class='water'><img src="img/jd6.jpg" alt=""></div>
+    <div class='water fr'><img src="img/jd1.jpg" alt=""></div>
+    <div class='water'><img src="img/jd2.jpg" alt=""></div>
+    <div class='water fr'><img src="img/jd3.jpg" alt=""></div>
+    <div class='water'><img src="img/jd4.jpg" alt=""></div>
+    <div class='water fr'><img src="img/jd5.jpg" alt=""></div>
+    <div class='water'><img src="img/jd7.jpg" alt=""></div>
+    <div class='water fr'><img src="img/jd8.jpg" alt=""></div>
+
+    <script>
+        var water = $('.water');
+        var waterfall = new Object();
+
+        (function(){    //main
+            //init
+            water.css({'opacity':0});
+            waterfall.prevIdx = waterfall.cureIdx = 0;
+            waterfall.markScroll = 0;
+            waterfall.item = new Array();
+            activeWater(0);
+            waterfall['item'][0] = true;
+        })()
+
+        $(window).scroll(function(){
+            var sc = $(document).scrollTop();
+            document.title = sc;
+            if(sc <200){
+                if(waterfall['item'][0]) return false;       //防止重复激活
+                activeWater(0);
+                waterfall['item'][0] = true;
+            }
+
+            else if(sc >= 200 && sc <= 850){
+                if(waterfall['item'][1]) return false;       
+                activeWater(1);
+                waterfall['item'][1] = true;
+            }
+            else if(sc >= 850 && sc < 1307){
+                if(waterfall['item'][2]) return false;
+                activeWater(2);
+                waterfall['item'][2] = true;
+                setActive(2);
+            }
+            else if(sc >= 1307  && sc < 1964){
+                if(waterfall['item'][3]) return false;
+                activeWater(3);
+                waterfall['item'][3] = true;
+                setActive(3);
+            }
+            else if(sc >= 1964 && sc < 2500){
+                if(waterfall['item'][4]) return false;
+                activeWater(4);
+                waterfall['item'][4] = true;
+                setActive(4);
+            }
+            else if(sc >= 2500 && sc < 3026){
+                if(waterfall['item'][5]) return false;
+                activeWater(5);
+                waterfall['item'][5] = true;
+                setActive(5);
+            }
+            else if(sc >= 3026 && sc < 3589){
+                if(waterfall['item'][6]) return false;
+                activeWater(6);
+                waterfall['item'][6] = true;
+                setActive(6);
+            }
+            else if(sc >= 3589 && sc < 4300){
+                if(waterfall['item'][7]) return false;
+                activeWater(7);
+                waterfall['item'][7] = true;
+                setActive(7);
+            }
+        })
+
+        function activeWater(activeIdx){
+            var className = water.eq(activeIdx).attr('class');
+            if(className.match('fr'))      //右边元素
+                showRight(water.eq(activeIdx));
+            else                           //左边元素
+                showLeft(water.eq(activeIdx));
+        }
+
+        function setActive(idx){
+            var i = 0;
+            for(;i<idx-1;i++){
+                waterfall['item'][i] = false;
+                water.eq(i).css({'opacity':'0'});
+            }
+        }
+
+        function showLeft(jq){
+            jq.css({'margin-left':'-590px'});
+            jq.animate({
+                'margin-left':'100px',
+                'opacity':'1',
+            },300);
+        }
+
+        function showRight(jq){
+            jq.css({'margin-right':'-590px'});
+            jq.animate({
+                'margin-right':'100px',
+                'opacity':'1',
+            },300);
+        }
+
+
+    </script>
+</body>
+</html>

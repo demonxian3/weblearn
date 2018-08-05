@@ -2,54 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>留言板</title>
     <script src="jquery.js"></script>
     <style>
 #message{
-    width:1200px;
-    height:200px;
+    width:80%;
+    height:25%;
     margin:auto;
 }
 
 textarea{
-    width:1200px;
-    height:100px;
-    padding:50px;
-    font-size:30px;
-    border-radius:50px;
+    width:80%;
+    height:100%;
+    padding:30px;
+    padding-top:14px;
+    font-size:18px;
+    border-radius:20px;
     outline:none;
     resize:none;
+    border:1px solid #ccc;
+    box-shadow:1px 3px 2px 2px gray;
 }
 
 button{
     background: #333;
     border:none;
-    padding:10px;
-    font-size:22px;
+    padding:4px;
+    font-size:17px;
     width:90px;
     color:white;
     box-shadow:3px 3px 1px 1px #ccc;
     border-radius:10px;
     outline:none;
     float:right;
-    margin-right:-100px;
+    margin-right:160px;
+    margin-top:20px;
     cursor:pointer;
 }
 
-button:hover{
-    background:#ddd;
-}
-
 button:active{
-    background:#CCCCFF
+    background:white;
+    color:black;
 }
 
 .sentence{
     padding:15px;
-    width:1200px;
+    width:68%;
     border:1px solid #ccc;
-    margin-top:50px;
-    margin-left:320px;
+    margin-top:10px;
+    margin-left:130px;
     border-radius:20px;
     font-size:20px;
 }
@@ -72,6 +73,8 @@ button:active{
     <br>
     <br>
     <br>
+    <br>
+    
     </div>
 
     <script>
@@ -80,16 +83,16 @@ button:active{
             $(this).parent().hide(800);
         });
 
-$('textarea').click(function(){
-    $(this).val('');
-})
+        $('textarea').click(function(){
+            $(this).val('');
+        })
 
-$('button').click(function(){
-    var text = $('textarea').val();
-    if(!text) return false;
-    var code = '<div class="sentence">'+text+'<div class="close">&times;</div></div>';
-    $('.main').append(code);
-})
+        $('button').click(function(){
+            var text = $('textarea').val();
+            if(!text) return false;
+            var code = '<div class="sentence">'+text+'<div class="close">&times;</div></div>';
+            $('.main').append(code);
+        })
     </script>
 </body>
 </html>
