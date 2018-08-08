@@ -11,10 +11,26 @@
     <style>
     *{ font-family: 微软雅黑; }
     body{ position:relative }
+
+    .myfix{
+        position: fixed;
+        top:210px;
+        left:70px;
+    }
     </style>
 </head>
 <body data-spy="scroll" data-target='#myNav' data-offset="100">
     <div class="container">
+        <div class="row">
+        <div class="col-md-1">
+            <div class="list-group myfix">
+                <a class="list-group-item list-group-item-info active" href="#linux" id="linux">Linux</a>
+                <a class="list-group-item list-group-item-success"  href="#python" id="python">Python</a>
+                <a class="list-group-item list-group-item-danger" href="#javascript" id="javascript">Javascript</a>
+                <a class="list-group-item list-group-item-warning" href="#php" id="php">php</a>
+            </div>
+        </div>
+        <div class="col-md-10">
         <nav class="navbar navbar-inverse navbar-fixed-top" id="myNav">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -75,10 +91,11 @@
         <br>
         <br>
         <br>
-        
+
+        <a name="linux"></a>
         <h1 class="page-header">滚蛋监听</h1>
 
-        <div id="linux" class="panel panel-primary">
+        <div id="#linux" idx="linux" class="panel panel-primary myScroll" >
             <div class="panel-heading">
                 <div class="panel-title">
                     <h1 >linux技术</h1>
@@ -115,7 +132,8 @@
         
 
 
-        <div class="panel panel-danger" id="python">
+        <a name="python"></a>
+        <div class="panel panel-danger myScroll" id="#python" idx="python">
             <div class="panel-heading">
                 <div class="panel-title">
                     <h1 >python技术 </h1>
@@ -149,7 +167,8 @@
             <br>
             <br>
             
-            <div class="panel panel-info" id="javascript">
+            <a name="javascript"></a>
+            <div class="panel panel-info myScroll" id="#javascript" idx="javascript">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <h1 >Javascript</h1>
@@ -178,7 +197,8 @@
             <br>
             <br>
             
-            <div class="panel panel-warning" id="php">
+            <a name="php"></a>
+            <div class="panel panel-warning myScroll" id="#php" idx="php">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <h1 > php技术 </h1>
@@ -201,8 +221,31 @@
                     <button class="btn btn-info">test</button></div>
                 
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div> <!-- col-md-2 -->
+    </div> <!-- row -->
     </div> <!-- <container> -->
 
+    <script>
+        $(window).scroll(function(){
+            var st = $(document).scrollTop();
+            document.title = st;
+            $('.myScroll').each(function(){
+                var ot = $(this).offset().top;
+                if( st > ot -300){
+                    var id = $(this).attr('idx');
+                    $('.list-group-item').removeClass('active');
+                    $('#'+id).addClass('active');
+                }
+            })
+        });
 
+    </script>
 </body>
 </html>

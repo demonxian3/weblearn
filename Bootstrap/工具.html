@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>system</title>
+
+    <link rel="stylesheet" href="bs/css/bootstrap.min.css">
+    <script src="bs/js/jquery.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <script src="holder.js"></script>
+    <style>
+*{
+    font-family: 微软雅黑;
+}
+
+#mycarousel2 .carousel-caption{
+    background:black;
+    opacity:0.6;
+    width:100%;
+    position:absolute;
+    bottom:0px;
+    left:0px;
+}
+
+
+/*删除点击后的虚线框 去除*/
+input,button,a {
+    outline:0 none !important; blr:expression(this.onFocus=this.blur());
+}
+
+    </style>
+</head>
+<body>
+    <h1 class="page-header">&nbsp;标签页</h1>
+    <ul class="nav nav-tabs">
+        <li class="active"> <a href="#linux" data-toggle="tab">linux</a> </li>
+        <li><a href="#php" data-toggle="tab">php</a></li>
+        <li><a href="#js" data-toggle="tab">js</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="well tab-pane active fade in" id="linux" >
+Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+        </div>
+        <div class="well tab-pane fade " id="php">
+Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+        </div>
+        <div class="well tab-pane fade" id="js">
+Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    
+     
+    <h1 class="page-header">&nbsp;工具提示</h1>
+    <div class="text-center">
+        <button class="btn btn-default" data-toggle="tooltip" title="tooltip on left" data-placement="left">ToolTip on left</button>
+    <button class="btn btn-default" data-toggle="tooltip" title="tooltip on top" data-placement="top">ToolTip on top</button>
+    <button class="btn btn-default" data-toggle="tooltip" title="tooltip on bottom" data-placement="bottom">ToolTip on bottom</button>
+    <button class="btn btn-default" data-toggle="tooltip" title="tooltip on right" data-placement="right">ToolTip on right</button>
+    </div>
+
+    <h1 class="page-header">&nbsp;弹出框</h1>
+    <div class="text-center">
+        <button 
+            id="mybtn1" 
+            type="button" 
+            class="btn btn-info" 
+            data-toggle="popover" 
+            title="Popover title" 
+            data-content="And here's some amazing content. It's very engaging. Right?"
+            data-placement="left">
+            点击显示/点击隐藏弹
+        </button>
+
+        <button 
+            id="mybtn2" 
+            type="button" 
+            class="btn btn-warning" 
+            data-toggle="popover" 
+            title="Popover title" 
+            data-content="And here's some amazing content. It's very engaging. Right?" 
+            data-trigger="focus"
+            data-placement="right">
+            聚焦显示/失焦隐藏
+        </button>
+
+    </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <h1 class="page-header">&nbsp;按钮</h1>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="true" autocomplete="off">
+            single toggle
+        </button> 
+        <br><br>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary active">
+                <input type="checkbox" autocomplete="off" checked> Checkbox 1 (pre-checked)
+            </label>
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> Checkbox 2
+            </label>
+            <label class="btn btn-primary">
+                <input type="checkbox" autocomplete="off"> Checkbox 3
+            </label>
+        </div>
+        <br><br>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Radio 1 (preselected)
+            </label>
+            <label class="btn btn-primary">
+            <input type="radio" name="options" id="option2" autocomplete="off"> Radio 2
+            </label>
+            <label class="btn btn-primary">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Radio 3
+            </label>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="page-header">&nbsp;折叠</h1>
+    <div class="" style="padding:20px">
+        <a 
+            class="btn btn-primary" 
+            role="button" 
+            data-toggle="collapse" 
+            href="#myWell1" 
+            aria-expanded="false" 
+            aria-controls="myWell1">
+            Link with href
+        </a>
+        
+        <button 
+            class="btn btn-primary" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#myWell1" 
+            aria-expanded="false" 
+            aria-controls="myWell1"
+        >
+            Button with data-target
+        </button>
+
+        <div class="collapse" id="myWell1">
+            <div class="well">
+                This is the well div for some contents....
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div id="accordion" class="panel-group"  role="tablist" aria-multiselectable="true">
+            <div class="panel panel-info">
+                <div class="panel-heading" id="heading1" role="tab">
+                    <h4 class="panel-title">
+                        <a 
+                            role="button" 
+                            data-toggle="collapse" 
+                            data-parent="#accordion" 
+                            href="#panel1"
+                        > Collapsible Group Item #1
+                        </a>
+                    </h4>
+                </div> <!-- heading -->
+                <div id="panel1" class="panel-collapse collapse ">
+                    <div class="panel-body">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                    </div>
+                </div>
+            </div><!-- panel -->
+
+
+
+            <div class="panel panel-warning">
+                <div class="panel-heading" id="heading2" >
+                    <h4 class="panel-title">
+                        <a
+                            data-toggle="collapse"
+                            data-parent="#accordion"
+                            href="#panel2"
+                        > Collapsible Group Item #1
+                        </a>
+                    </h4>
+                </div> <!-- heading -->
+                <div id="panel2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                    </div>
+                </div>
+            </div><!-- panel -->
+
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading" id="heading3" role="tab">
+                    <h4 class="panel-title">
+                        <a
+                            data-toggle="collapse"
+                            data-parent="#accordion"
+                            href="#panel3"
+                        > Collapsible Group Item #1
+                        </a>
+                    </h4>
+                </div> <!-- heading -->
+                <div id="panel3" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                    </div>
+                </div>
+            </div><!-- panel -->
+
+
+        </div> <!-- panel-group -->
+
+        <br>
+        <br>
+        <br>
+
+
+        <h4>Jquery 实现折叠菜单</h4>
+
+        <div class="panel-group" id="jqcollapse">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="javascript:">This is a title</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high 
+                     life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="javascript:">This is a title</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high
+                     life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="javascript:">This is a title</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high
+                     life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                </div>
+            </div>
+        </div> <!-- panel-group -->
+
+
+    </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <h1 class="page-header">&nbsp;幻灯片</h1>
+        <div class="text-center">
+            <div id="mycarousel" class="carousel slide" data-ride="carousel" style="width:900px;margin:auto">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li class="active" data-target="#mycarousel" data-slide-to="0"></li>
+                    <li data-target="#mycarousel" data-slide-to="1"></li>
+                    <li data-target="#mycarousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides-->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="img/1.svg" alt="" >
+                        <div class="carousel-caption">
+                            <h3>description title</h3>
+                            <p>description contents</p>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <img src="img/2.svg" alt="">
+                        <div class="carousel-caption">
+                            <h3>description title</h3>
+                            <p>description contents</p>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <img src="img/3.svg" alt="">
+                        <div class="carousel-caption">
+                            <h3>description title</h3>
+                            <p>description contents</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#mycarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a class="right carousel-control" href="#mycarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+            
+            <br>
+            <br>
+            <br>
+            
+
+
+            <div id="mycarousel2" class="carousel slide" data-ride="carousel" style="width:900px;margin:auto">
+                <!-- Wrapper for slides-->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="img/1.svg" alt="" >
+                        <div class="carousel-caption" >
+                            <h3>description title</h3>
+                            <p>
+                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <img src="img/2.svg" alt="">
+                        <div class="carousel-caption">
+                            <h3>description title</h3>
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute</p>
+                        </div>
+                    </div>
+                    <div class="item ">
+                        <img src="img/3.svg" alt="">
+                        <div class="carousel-caption">
+                            <h3>description title</h3>
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#mycarousel2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a class="right carousel-control" href="#mycarousel2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+
+    <script>
+    $(function(){
+        $('[data-toggle="tooltip"]').tooltip()
+        $('#mybtn1').popover();
+        $('#mybtn2').popover();
+    })
+
+
+    $('#jqcollapse .panel-body').not($('#jqcollapse .panel-body').eq(0)).hide();
+    $('#jqcollapse .panel-title a').click(function(){
+        var obj = $(this).parent().parent().next()
+        obj.slideDown('fast')
+        $('#jqcollapse .panel-body').not(obj).slideUp('fast');
+    })
+
+
+    $('#mycarousel2 .carousel-caption').eq(0).hide();
+    $('#mycarousel2 .item').hover(
+        function(){
+            $(this).find('.carousel-caption').slideDown();
+        },
+        function(){
+            $(this).find('.carousel-caption').slideUp();
+        }
+    )
+    </script>
+</body>
+</html>
