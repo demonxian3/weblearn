@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+input, button, a {
+    outline:0 none !important; blr:expression(this.onFocus=this.blur());
+}
+
+.carousel1 {
+    width:590px;
+    margin:auto;
+    overflow:hidden;
+}
+
+.wrapperimg{
+    width:4720px;
+}
+
+.wrapperimg img{
+    margin:-2px;
+}
+
+.controlBtn{
+    background:black;
+    color:white;
+    font-size:30px;
+    text-align:center;
+    line-height:30px;
+    border:none;
+    opacity:0.8;
+    height:50px;
+    margin-left:-1px;
+}
+
+.right{
+    float:right;
+    margin-right:2px;
+}
+
+.control{
+    position:relative;
+    top:-290px;
+}
+
+.indicators{
+    height:30px;
+    width:590px;
+    position:relative;
+    top:-90px;
+    margin-left:-2px;
+}
+.indicators ul{
+    list-style:none;
+    width:300px;
+    margin: 0 auto;
+}
+
+.indicators ul li{
+    float:left;
+    width:10px;
+    height:10px;
+    border:3px solid #ccc;
+    border-radius:10px;
+    margin-left:10px;
+}
+
+
+    </style>
+</head>
+<body>
+    
+    <div class="carousel1">
+        <!-- wrapper picture -->
+        <div class="wrapperimg">
+            <img src="img/jd1.jpg" alt="">
+            <img src="img/jd2.jpg" alt="">
+            <img src="img/jd3.jpg" alt="">
+            <img src="img/jd4.jpg" alt="">
+            <img src="img/jd5.jpg" alt="">
+            <img src="img/jd6.jpg" alt="">
+            <img src="img/jd7.jpg" alt="">
+            <img src="img/jd8.jpg" alt="">
+
+        </div>
+        <!-- controls -->
+        <div class="control">
+            <button class="controlBtn" id="left1"> &lt; </button>
+            <button class="controlBtn right" id="right1"> &gt;  </button>
+        </div>
+        <!-- indicators -->
+        <div class="indicators">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        $('.carousel1').data({'idx':1});
+        $('.indicators li').eq(0).css({'background':'white'});
+
+        $('#left1').click(function(){
+            var idx = $('.carousel1').data('idx') - 0;
+            if(idx === 1){
+                var offset = 7 * 590;
+                $('.carousel1').data({'idx': 8});
+                idx = 7;
+            } else{
+                var offset = (idx-2) * 590;
+                $('.carousel1').data({'idx': idx-1});
+                idx = idx - 2;
+            } 
+
+            $('.carousel1 .wrapperimg').animate({
+                "margin-left":"-"+offset+"px",
+            },'slow',function(){
+                var lis = $('.indicators li');
+                lis.eq(idx).css({'background':'white'});
+                lis.not(lis.eq(idx)).css({'background':'none'});
+            });
+        });
+
+
+        $('#right1').click(function(){
+            var idx = $('.carousel1').data('idx') - 0;
+            if(idx === 8){
+                var offset = 0;
+                $('.carousel1').data({'idx':1});
+                idx = 0;
+            }else{
+                var offset = idx * 590;
+                $('.carousel1').data({'idx': idx+1});
+            }
+
+            $('.carousel1 .wrapperimg').animate({
+                "margin-left":"-"+offset+"px",
+            },'slow',function(){
+                var lis = $('.indicators li');
+                lis.eq(idx).css({'background':'white'});
+                lis.not(lis.eq(idx)).css({'background':'none'});
+            });
+        })
+
+        $('.indicators li').click(function(){
+            var idx = $(this).index();
+
+            //change indicators 
+            $('.indicators li').not($(this)).css({'background':'none'});
+            $(this).css({'background':'white'});
+
+            //change control
+            $('.carousel1 .wrapperimg').data({'idx':idx+1});
+
+            //change wrapper
+            var offset = idx * 590;
+            $('.carousel1 .wrapperimg').animate({"margin-left":"-"+offset+"px"}, 'fast');
+            
+        })
+
+    </script>
+</body>
+</html>

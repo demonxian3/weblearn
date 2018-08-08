@@ -5,6 +5,11 @@
     <title>轮播器</title>
     <script src="jquery.js"></script>
     <style>
+
+input, button, a {
+    outline:0 none !important; blr:expression(this.onFocus=this.blur());
+}
+
 .Carousel{
     background: #aeb5ad;
     width:590px;
@@ -65,7 +70,6 @@
 #carousel2{
     position:relative;
     z-index:0;
-    overflow:hidden;
 }
 .imgBar{
     width:4750px;
@@ -80,6 +84,7 @@
     position:relative;
     top:-250px;
     z-index:10;
+    height:100px;
 }
 
 .toggleBar span{
