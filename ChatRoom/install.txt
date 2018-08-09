@@ -1,0 +1,45 @@
+
+The chat room core technology is use websocketd;
+
+1. websocket server;
+The webscoketd.bz2 compression package has three files:
+    1) websocketd_32        for 32 architecture computer
+    2) websocketd_64        for 64 architecture computer
+    3) websocketd_Arch      for Arch architecture computer
+
+The usage for webscoketd:
+    websocketd --port=[Port] --address=[Address] [Language Command][script file];
+
+    Port is listening port;
+    Address is listening address;
+    Language Command: Bash Java Python Ruby PHP Perl C C# Swift Dart and so on.  Here is use bash shell language
+    Script file is your write code with one language
+    
+About write the bash script:
+        `echo` is output to client that connected the websocketd server;
+        `read` is input from client that connected the websocketd server;
+        `sleep` can delay the time;
+
+
+How to use:
+    chat room core server code is: chatServer.sh
+
+    so if you want to start the chat room server, you can type it:
+        `websocketd --port=4321 --address='0.0.0.0' bash chatServer.sh &`
+
+    In order to be more convenient:
+        you can run the aliasCommand.sh
+
+        and then you can run `wsa` command to start chatroom server
+        and `wso` to stop the chatroom server
+
+        append to the startup if you want.
+
+    then, you can visit the page chatClient.php to chat;
+
+    The below files are the auxiliary functions of the chat room 
+
+        1) clearPeople.sh       clear people record
+        2) getAddress.py        search Physics address by ip
+        3) getPeople.php        get the people name information and show in chatClient.php
+        
