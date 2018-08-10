@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<script src="kd/kindeditor.js"></script>
+	<style>
+		#tid{
+			width:1000px;
+			height:100px;
+		}	
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text"></p>
+		<p>密码:</p>
+		<p><input type="text"></p>
+		<p>留言:</p>
+		<p>
+			<textarea id="tid"></textarea>
+		</p>
+	</form>	
+</body>
+<script>
+KindEditor.ready(function(K) {
+	editor = K.create('#tid');
+});
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+
+		.time{
+			width:300px;
+			height:50px;
+			background: #272822;
+			color:#fff;
+			line-height: 50px;
+			text-align: center;
+		}
+
+		.time span{
+			color: #faa;
+			font-weight:bold;
+		}
+	</style>
+	<script src='jquery.min.js'></script>
+</head>
+<body>
+	<h1>抢购倒计时</h1>		
+	<div class='time'>
+		<span class='hour'>2</span> 小时 <span class='minute'>0</span> 分钟 <span class='second'>0</span> 秒	
+	</div>
+</body>
+<script>
+// 3700=3600+100
+// 1)1小时
+// 2)1分钟
+// 3)40秒
+
+hour=2;
+second=hour*3600;
+
+setInterval(function(){
+	second--;
+	hour2=Math.floor(second/3600);
+	minute2=Math.floor((second-(hour2*3600))/60);
+	second2=second-(hour2*3600)-(minute2*60);
+
+	$('.hour').html(hour2);
+	$('.minute').html(minute2);
+	$('.second').html(second2);
+},1000);
+
+</script>
+</html>

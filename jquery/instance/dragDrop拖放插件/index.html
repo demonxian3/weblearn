@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+
+		div{
+			cursor: pointer;
+		}
+
+		.div1{
+			position: absolute;
+			top:0px;
+			left:0px;
+			z-index:1;
+		}
+		.div2{
+			position: absolute;
+			top:200px;
+			left:0px;
+			z-index:1;
+		}
+		.div3{
+			position: absolute;
+			top:400px;
+			left:0px;
+			z-index:1;
+		}
+
+		.div4{
+			position: absolute;
+			top:100px;
+			right:100px;
+			width:100px;
+			height:304px;
+			border:1px dashed #00f;
+		}
+
+		.div5{
+			height:100px;
+			border-bottom:1px dashed #00f;
+		}
+		.div6{
+			height:100px;
+			border-bottom:1px dashed #00f;
+		}
+		.div7{
+			height:100px;
+		}
+
+		.hide{
+			display: none;
+		}
+	</style>
+	<script src="jquery.js"></script>
+	<script src="jquery.drag.js"></script>
+	<script src="jquery.drop.js"></script>
+</head>
+<body>
+	<div class='div1'>
+		<img src="logo1.jpg" width='100px'>
+	</div>	
+	<div class='div2'>
+		<img src="logo2.jpg" width='100px'>
+	</div>	
+	<div class='div3'>
+		<img src="logo3.jpg" width='100px'>
+	</div>	
+
+	<div class="div4">
+		<div class="div5">
+				
+		</div>	
+		<div class="div6">
+			
+		</div>
+		<div class="div7">
+			
+		</div>
+	</div>
+
+	<span class='hide'></span>
+</body>
+<script>
+$('.div1,.div2,.div3').mouseenter(function(){
+	$('.hide').html($(this).attr('class'));
+});
+$('.div1').drag();
+$('.div2').drag();
+$('.div3').drag();
+
+$('.div5').drop(function(){
+	cls=$('.hide').html();
+    $('.'+cls).animate({
+        top: $('.div5').offset().top+'px',
+        left: $('.div5').offset().left+'px'
+    });
+});
+
+$('.div6').drop(function(){
+	cls=$('.hide').html();
+    $('.'+cls).animate({
+        top: $('.div6').offset().top+'px',
+        left: $('.div6').offset().left+'px'
+    });
+});
+
+$('.div7').drop(function(){
+	cls=$('.hide').html();
+    $('.'+cls).animate({
+        top: $('.div7').offset().top+'px',
+        left: $('.div7').offset().left+'px'
+    });
+});
+
+</script>
+</html>

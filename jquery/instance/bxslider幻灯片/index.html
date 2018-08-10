@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>The Responsive jQuery Content Slider</title>
+<!-- jQuery library (served from Google) -->
+<script src="jquery.min.js"></script>
+<!-- bxSlider Javascript file -->
+<script src="jquery.bxslider.min.js"></script>
+<!-- bxSlider CSS file -->
+<link href="jquery.bxslider.css" rel="stylesheet" />
+<style>
+	*{
+		padding:0px; 
+		margin:0px
+	}
+	.m{ 
+		width: 100%; 
+		height:auto;
+		margin-left: auto; 
+		margin-right: auto; 
+	}
+	.m img{ 
+		width:100%;
+	}
+</style>
+</head>
+<body>
+<div class="m">
+	<ul class="bxslider">
+	  <li><img src="images/pic1.jpg" /></li>
+	  <li><img src="images/pic2.jpg" /></li>
+	  <li><img src="images/pic3.jpg" /></li>
+	</ul>
+</div>
+<script>
+$('.bxslider').bxSlider();
+</script>
+</body>
+</html>

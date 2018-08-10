@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<link rel="stylesheet" href="jquery.bxslider.css">
+	<script src='jquery.min.js'></script>
+	<script src='jquery.bxslider.min.js'></script>
+	<style>
+		img{
+			width:100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="bxslider">
+		<li><img src="images/pic1.jpg" alt=""></li>
+		<li><img src="images/pic2.jpg" alt=""></li>
+		<li><img src="images/pic3.jpg" alt=""></li>
+	</div>	
+</body>
+<script>
+$('.bxslider').bxSlider({
+	'speed':500,
+	'auto':true,
+	'pause':2000,
+	'autoHover':true,
+	'mode':'fade'
+});
+</script>
+</html>
