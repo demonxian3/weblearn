@@ -22,6 +22,12 @@
     left:0px;
 }
 
+.rntop{
+    position:fixed;
+    right:100px;
+    top:400px;
+}
+
 
 /*删除点击后的虚线框 去除*/
 input,button,a {
@@ -31,6 +37,8 @@ input,button,a {
     </style>
 </head>
 <body>
+    <div class="row">
+    <div class="col-md-8 col-md-offset-1">
     <h1 class="page-header">&nbsp;标签页</h1>
     <ul class="nav nav-tabs">
         <li class="active"> <a href="#linux" data-toggle="tab">linux</a> </li>
@@ -367,18 +375,30 @@ Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney
         <br>
         <br>
         <br>
+    </div> <!-- col-md-8-->
 
 
+    <!-- affixed -->
+    <div class="col-md-offset-1 col-md-1 rntop">    
+        <button class="btn btn-success btn-lg">
+            affix <span class="glyphicon glyphicon-chevron-up"></span>
+        </button>
+    </div>
 
+
+    </div> <!-- row -->
 
     <script>
+
+    //弹出框
     $(function(){
         $('[data-toggle="tooltip"]').tooltip()
         $('#mybtn1').popover();
         $('#mybtn2').popover();
     })
 
-
+    
+    //折叠
     $('#jqcollapse .panel-body').not($('#jqcollapse .panel-body').eq(0)).hide();
     $('#jqcollapse .panel-title a').click(function(){
         var obj = $(this).parent().parent().next()
@@ -387,6 +407,7 @@ Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney
     })
 
 
+    //幻灯片
     $('#mycarousel2 .carousel-caption').eq(0).hide();
     $('#mycarousel2 .item').hover(
         function(){
@@ -396,6 +417,23 @@ Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney
             $(this).find('.carousel-caption').slideUp();
         }
     )
+
+
+    //返回顶部
+    $(".rntop").hide();
+    $(".rntop").click(function(){
+        $(document).scrollTop(0);
+    })
+    $(window).scroll(function(){
+        var st = $(document).scrollTop()
+        if(st > 500){
+            $(".rntop").show();
+        }else{
+            $(".rntop").hide();
+        }
+    })
+
+
     </script>
 </body>
 </html>

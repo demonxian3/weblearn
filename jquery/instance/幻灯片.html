@@ -6,16 +6,17 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="jquery.js"></script>
-    <style>
+<style>
 input, button, a {
     outline:0 none !important; blr:expression(this.onFocus=this.blur());
 }
 
-.carousel1 {
-    width:590px;
+.carousel {
+    width:588px;
     margin:auto;
-    overflow:hidden;
+    overflow: hidden;
 }
+
 
 .wrapperimg{
     width:4720px;
@@ -39,7 +40,7 @@ input, button, a {
 
 .right{
     float:right;
-    margin-right:2px;
+    margin-right:0px;
 }
 
 .control{
@@ -70,11 +71,11 @@ input, button, a {
 }
 
 
-    </style>
+</style>
 </head>
 <body>
     
-    <div class="carousel1">
+    <div class="carousel1 carousel">
         <!-- wrapper picture -->
         <div class="wrapperimg">
             <img src="img/jd1.jpg" alt="">
@@ -105,14 +106,46 @@ input, button, a {
                 <li></li>
             </ul>
         </div>
-
-
     </div>
+
+    <div class="carousel2 carousel">
+        <!-- wrapper picture -->
+        <div class="wrapperimg">
+            <img src="img/jd1.jpg" alt="">
+            <img src="img/jd2.jpg" alt="">
+            <img src="img/jd3.jpg" alt="">
+            <img src="img/jd4.jpg" alt="">
+            <img src="img/jd5.jpg" alt="">
+            <img src="img/jd6.jpg" alt="">
+            <img src="img/jd7.jpg" alt="">
+            <img src="img/jd8.jpg" alt="">
+
+        </div>
+        <!-- controls -->
+        <div class="control">
+            <button class="controlBtn" id="left2"> &lt; </button>
+            <button class="controlBtn right" id="right2"> &gt;  </button>
+        </div>
+        <!-- indicators -->
+        <div class="indicators">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
 
 
     <script>
         $('.carousel1').data({'idx':1});
-        $('.indicators li').eq(0).css({'background':'white'});
+        $('.carousel1 .indicators li').eq(0).css({'background':'white'});
 
         $('#left1').click(function(){
             var idx = $('.carousel1').data('idx') - 0;
@@ -129,7 +162,7 @@ input, button, a {
             $('.carousel1 .wrapperimg').animate({
                 "margin-left":"-"+offset+"px",
             },'slow',function(){
-                var lis = $('.indicators li');
+                var lis = $('.carousel1 .indicators li');
                 lis.eq(idx).css({'background':'white'});
                 lis.not(lis.eq(idx)).css({'background':'none'});
             });
@@ -137,6 +170,7 @@ input, button, a {
 
 
         $('#right1').click(function(){
+            console.log($('.carousel1 .wrapperimg').css('margin-left'))
             var idx = $('.carousel1').data('idx') - 0;
             if(idx === 8){
                 var offset = 0;
@@ -150,27 +184,128 @@ input, button, a {
             $('.carousel1 .wrapperimg').animate({
                 "margin-left":"-"+offset+"px",
             },'slow',function(){
-                var lis = $('.indicators li');
+                var lis = $('.carousel1 .indicators li');
                 lis.eq(idx).css({'background':'white'});
                 lis.not(lis.eq(idx)).css({'background':'none'});
             });
         })
 
-        $('.indicators li').click(function(){
+        $('.carousel1 .indicators li').click(function(){
             var idx = $(this).index();
 
             //change indicators 
-            $('.indicators li').not($(this)).css({'background':'none'});
+            $('.carousel1 .indicators li').not($(this)).css({'background':'none'});
             $(this).css({'background':'white'});
 
             //change control
-            $('.carousel1 .wrapperimg').data({'idx':idx+1});
+            $('.carousel1').data({'idx':idx+1});
 
             //change wrapper
             var offset = idx * 590;
             $('.carousel1 .wrapperimg').animate({"margin-left":"-"+offset+"px"}, 'fast');
             
         })
+
+
+
+
+
+        /* carousel2 */
+        var canClick = true;            //用于防止快速连点边缘切换bug
+        $('.carousel2').data({'idx':1});
+        $('.carousel2 .indicators li').eq(0).css({'background':'white'});
+
+        $('#left2').click(function(){
+            if(!canClick) return false;
+            canClick = false;
+            var lis = $('.carousel2 .indicators li');
+            var carousel2 = $('.carousel2');
+            var wrapperimg = $('.carousel2 .wrapperimg');
+            var idx = carousel2.data('idx') - 0;
+            if(idx === 1){
+
+                /*循环效果：先将最后一张图插入最前面，让幻灯片瞬间定位第二张，做二切一的动画效果，动画完毕，瞬间还原原始位置*/
+                wrapperimg.find('img').eq(7).prependTo('.carousel2 .wrapperimg');
+                wrapperimg.css({'margin-left':"-590px"});
+                wrapperimg.animate({
+                    'margin-left':"0px"
+                },'fast',function(){
+                    wrapperimg.find('img').eq(0).appendTo('.carousel2 .wrapperimg');
+                    wrapperimg.css({'margin-left':"-4130px"})
+                    canClick = true;
+                });
+
+                idx = 7;
+                carousel2.data({'idx':8});
+                lis.eq(idx).css({'background':'white'});
+                lis.not(lis.eq(idx)).css({'background':'none'});
+
+            } else{
+                var offset = (idx-2) * 590;
+                carousel2.data({'idx': idx-1});
+                idx = idx - 2;
+                wrapperimg.animate({"margin-left":"-"+offset+"px",},'fast',function(){
+                    canClick = true;
+                });
+                lis.eq(idx).css({'background':'white'});
+                lis.not(lis.eq(idx)).css({'background':'none'});
+            }
+        });
+
+
+        $('#right2').click(function(){
+            if(!canClick) return false;
+            canClick = false;
+            var lis = $('.carousel2 .indicators li');
+            var carousel2 = $('.carousel2');
+            var wrapperimg = $('.carousel2 .wrapperimg');
+            var idx = carousel2.data('idx') - 0;
+
+            if(idx === 8){
+
+                /*循环效果：先将第一张图追加到最后面，让幻灯片瞬间定位倒数第二张，做倒数第二切倒数第一的动画效果，动画完毕，瞬间还原原始位置*/
+                wrapperimg.find('img').eq(0).appendTo('.carousel2 .wrapperimg');
+                wrapperimg.css({'margin-left':"-3540px"});
+                wrapperimg.animate({
+                    'margin-left':"-4130px"
+                },'fast',function(){
+                    wrapperimg.find('img').eq(7).prependTo('.carousel2 .wrapperimg');
+                    wrapperimg.css({'margin-left':"0px"})
+                    canClick = true;
+                });
+
+                idx = 0;
+                carousel2.data({'idx':1});
+                lis.eq(idx).css({'background':'white'});
+                lis.not(lis.eq(idx)).css({'background':'none'});
+
+            }else{
+                var offset = idx * 590;
+                carousel2.data({'idx': idx+1});
+                lis.eq(idx).css({'background':'white'});
+                lis.not(lis.eq(idx)).css({'background':'none'});
+                wrapperimg.animate({"margin-left":"-"+offset+"px",},'fast',function(){
+                    canClick = true;
+                });
+            }
+        })
+
+        $('.carousel2 .indicators li').click(function(){
+            var idx = $(this).index();
+
+            //change indicators
+            $('.carousel2 .indicators li').not($(this)).css({'background':'none'});
+            $(this).css({'background':'white'});
+
+            //change control
+            $('.carousel2').data({'idx':idx+1});
+
+            //change wrapper
+            var offset = idx * 590;
+            $('.carousel2 .wrapperimg').animate({"margin-left":"-"+offset+"px"}, 'fast');
+
+        })
+
 
     </script>
 </body>
