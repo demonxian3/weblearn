@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="skins/blue.css">
+    <script src="source/jquery.js"></script>
+    <script src="source/artDialog.js"></script>
+    <script src="source/artDialog.plugins.js"></script>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <script>
+        /* first call way */
+        $('button').eq(0).click(function(){
+            art.dialog(
+                'This is content',
+                function(){alert("time of the end event")}
+            );
+        })
+        /* second call way */
+        $('button').eq(1).click(function(){
+            art.dialog({
+                'title': "welcome",
+                'content': "welcome to the greenLight",
+                ok: function () {
+                    this
+                    .title('警告')
+                    .content('请注意artDialog两秒后将关闭！')
+                    .lock()                                     //屏幕暗淡
+                    .time(2000);                                //停留时间
+                    return false;
+                }
+            })
+        })
+    </script>
+
+</body>

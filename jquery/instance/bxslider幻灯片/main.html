@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="jquery.bxslider.css">
+    <script src="jquery.min.js"></script>
+    <script src="jquery.bxslider.min.js"></script>
+    <style>
+.bxslider img{
+    width:100%;
+}
+
+.bx-wrapper{
+    width:75%;
+    position:relative;
+    top:70px;
+}
+    </style>
+</head>
+<body>
+    <ul class="bxslider">
+        <li><img src="images/pic1.jpg" alt=""></li>
+        <li><img src="images/pic2.jpg" alt=""></li>
+        <li><img src="images/pic3.jpg" alt=""></li>
+    </ul>
+</body>
+<script>
+    $('.bxslider').bxSlider({
+        "mode":"horizontal",   //horizontal, vertical, fade
+        "speed":500,           //toggle time(ms)
+        "startSlide":1,        //which is the first show picture
+        "auto":true,           //auto animate
+        "pause":1000,          //pause time(ms)
+        "randomStart":false,   
+        "pager":true,
+        "autoHover":true
+    })
+</script>
+</html>

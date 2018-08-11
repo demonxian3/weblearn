@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.cxselect.min.js"></script>
+</head>
+<body>
+    <div id="citys">
+        省份: <select id="" class="province" name="" data-value="广东省"></select>
+        城市: <select id="" class="city" name="" data-value="深圳市"></select>
+        区县: <select id="" class="area" name="" data-value="南山区"></select>
+    </div>
+
+</body>
+
+<script>
+    $("#citys").cxSelect({
+        url:'js/cityData.json',
+        selects:['province', 'city', 'area'],
+        nodata: "none",
+    })
+</script>
+</html>
