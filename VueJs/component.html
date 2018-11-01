@@ -1,0 +1,170 @@
+<!-- 解决如何在复杂组件用v-model原理实现双向绑定 -->
+<!-- 解决如何使用动态组件并传递数据属性 -->
+<!-- 解决如何使用Vue特性完成数据之间的依赖传递 -->
+<!-- 组件如何包含组件? -->
+
+<meta charset='utf-8'>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+.comTable td{
+    width:100px;
+}
+.tab-button {
+  padding: 6px 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f0f0f0;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+.tab-button:hover {
+  background: #e0e0e0;
+}
+.tab-button.active {
+  background: #e0e0e0;
+}
+.tab {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+</style>
+<div id="app">
+
+<!-- component 动态组件 -->
+<button v-for="race in races" @click="changeRace(race)" class="tab-button">{{race}}</button>
+<div class="tab">
+<component is="mtable"  :data="selectData" class="comTable" @add="addAge" @red="redAge" :race="race"> Asian person's table </component>
+<mdiv :calc="totalAge(race)">{{race}}'s total age is:  </mdiv>
+<mdiv :calc="average(race)">{{race}}'s average age is:  </mdiv>
+</div>
+
+<!-- <mtable :data="Asian" class="comTable" @add="addAge" @red="redAge" race="Asian">Asian person's table</mtable> -->
+<!-- <mtable :data="European" class="comTable" @add="addAge" @red="redAge" race="European">European person's table</mtable> -->
+<!-- <mdiv :calc="totalAge('European')">European's total age is:  </mdiv> -->
+<!-- <mdiv :calc="average('European')">European's average age is:  </mdiv> -->
+</div> <!-- app -->
+
+<script>
+
+
+    Vue.component('mtable', {
+        props: ['data', 'race', 'value'],
+        template: `
+            <table border=1 >
+                <caption><slot></slot></caption>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>hobbies</th>
+                    <th>age</th>
+                    <th>operate</th>
+                </tr>
+                <tr v-for="item in data">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.hobbies}}</td>
+                <td>
+                    <input type="" :value="item.age" @input="item.age = $event.target.value - 0">
+                </td>
+                <td>
+                    <button @click="$emit('add', [race, item.id])">+</button>
+                    <button @click="$emit('red', [race, item.id])">-</button>
+                </td>
+                </tr>
+            </table>
+        `,
+    })
+
+
+    Vue.component('mdiv', {
+        props: ['calc'],
+        template: `
+        <div>
+            <h3>
+                <slot></slot>
+                {{calc}}
+            </h3>
+        </div>
+        `
+    })
+
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            races: ['Asian', 'European', 'African'],
+            race: 'Asian',
+            Asian: [
+                {id:1, name:"lzx",   hobbies:"basketball", age:33},
+                {id:2, name:"ktz",   hobbies:"football",   age:11},
+                {id:3, name:"demon", hobbies:"computer",   age:14},
+                {id:4, name:"lzy",   hobbies:"picture",    age:23},
+            ],
+            European: [
+                {id:1, name:"crack",   hobbies:"socker", age:28},
+                {id:2, name:"jimi",   hobbies:"soccer",   age:31},
+                {id:3, name:"bob", hobbies:"lol",   age:42},
+                {id:4, name:"simon",   hobbies:"rugby",    age:29},
+            ],
+            African: [
+                {id:1, name:"natalya",   hobbies:"badminton", age:20},
+                {id:2, name:"martin",   hobbies:"dance",   age:30},
+                {id:3, name:"frank", hobbies:"sing",   age:57},
+                {id:4, name:"felix",   hobbies:"paint",    age:19},
+                
+            ]
+        },
+
+        computed: {
+            selectData: function(){
+                switch(this.race){
+                    case 'Asian':
+                        return this.Asian;
+                        break;
+                    case 'European':
+                        return this.European;
+                        break;
+                    case 'African':
+                        return this.African;
+                        break;
+                }
+            }
+        },
+
+        methods:{
+            changeRace: function(race){
+                this.race = race;
+            },
+            totalAge: function(race){
+                return eval("this."+race+".reduce((sum, person)=>{return sum+=person.age}, 0)");
+            },
+            average: function(race){
+                return eval("this."+race+".reduce((sum, person)=>{return sum+=person.age}, 0)/this."+race+".length");
+            },
+            showSomething: function(par){
+                if(!par) par="None";
+                alert(par);
+            },
+
+            addAge: function(params){
+                id = params[1];
+                race = params[0];
+                eval("for(i in this."+race+")if(this."+race+"[i].id==id)this."+race+"[i].age+=1");
+                return;
+
+            },
+
+            redAge: function(params){
+                id = params[1];
+                race = params[0];
+                eval("for(i in this."+race+")if(this."+race+"[i].id==id)this."+race+"[i].age-=1");
+                return;
+            },
+
+            
+        }
+            
+    });
+</script>

@@ -100,7 +100,7 @@
                     var code = "$(this).wrapInner('<i></i>')";
                     $('#screen').val(code);break;
                 case 'wrapAll':  
-                    var code = "$(this).wrapAll('<i></i>')";
+                    var code = `$(this).wrapAll('<red style="color:red"></red>')`;
                     $('#screen').val(code);break;
                 case 'replaceWith':  code
                     var code ="$(this).replaceWith('<b>'+val+'</b>')";
