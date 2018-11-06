@@ -1,0 +1,129 @@
+<meta charset='utf-8'>
+
+<style>
+  body{
+    padding: 0px;
+    margin: 0px;
+    overflow:hidden
+  }
+
+  #guiji{
+    background:yellow;
+    border: 1px solid red;
+    width:400px;
+    height:400px;
+    top:100px;
+    left:100px;
+    border-radius: 800px;
+    position: absolute;
+  }
+
+  #elem{
+    background:blue;
+    border: 1px solid red;
+    width:40px;
+    height:40px;
+    top:100px;
+    left:100px;
+    border-radius: 400px;
+    position: absolute;
+  }
+
+  #vertical{
+    border: 1px solid #c3c3c3;
+    height:1000px;
+  }
+
+  #horizontal{
+    height:1px;
+    width:2000px;
+    left:1px;
+    border-top: 1px solid #c3c3c3;
+  }
+</style>
+
+
+
+<div id="guiji"> 
+</div>
+
+<div id="elem"></div>
+
+<script>
+  var div = document.createElement("div");
+  var vertical = document.createElement("div"); 
+  var horizontal = document.createElement("div");
+
+  div.style.width="75px";
+  div.style.height= "30px";
+
+  vertical.id = "vertical";
+  horizontal.id = "horizontal";
+
+  div.style.position = "absolute";
+  vertical.style.position = "absolute";
+  horizontal.style.position = "absolute";
+
+  document.body.appendChild(div);
+  document.body.appendChild(vertical);
+  document.body.appendChild(horizontal);
+
+
+  document.onmousemove = function(event){
+    var e = event || window.event;
+    var x = e.clientX;
+    var y = e.clientY;
+   
+    div.style.top = y - 20 + "px";
+    div.style.left = x + 4 + "px";
+
+    vertical.style.left = x + "px";
+    horizontal.style.top = y + "px";
+    div.innerHTML = x + "," + y;
+    
+  }
+
+  circleX = 300;
+  circleY = 300;
+
+
+  function calc(x, positive){
+
+    if(positive)
+      var y = Math.sqrt(  200*200 - (x-circleX)*(x-circleX) ) + circleY;
+    else
+      var y = -1 * Math.sqrt(  200*200 - (x-circleX)*(x-circleX) ) + circleY;
+    return y;
+  }
+
+
+
+  var isPositive = false;
+  var X = 100;
+  var Y = 300;
+
+  function gogogo(){
+     var elem = document.getElementById("elem");
+     
+     if(isPositive){
+       --X;
+       if(X < 100)
+         isPositive = false; 
+     }else{
+       ++X;
+       if(X > 500)
+         isPositive = true;
+     }
+     
+     Y = calc(X, isPositive);
+
+     elem.style.top = Y -20 + "px";
+     elem.style.left = X -20 + "px";
+     elem.innerHTML =  X + "," + Y; 
+  }
+
+
+  setInterval(gogogo, 10);
+
+  
+</script>
