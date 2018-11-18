@@ -1,0 +1,71 @@
+<meta charset='utf-8'>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">{{message}} </div> <!-- #app -->
+
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello vue',
+        },
+        beforeCreate: function(){
+            console.group("beforeCreate =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        created: function(){
+            console.group("created =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        beforeMount: function(){
+            console.group("beforeMount =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        mounted: function(){
+            console.group("mounted =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        beforeUpdate: function(){
+            console.group("beforeUpdate =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        updated: function(){
+            console.group("updated =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        beforeDestroy: function(){
+            console.group("beforeDestroy =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+        destroyed: function(){
+            console.group("destroyed =====================>> ");
+            console.log(this.$el);
+            console.log("%c%s", "color:red", "el    " + this.$el);
+            console.log("%c%s", "color:blue", "data    " + this.$data);
+            console.log("%c%s", "color:green", "msg    " + this.message);
+        },
+
+    })
+</script>

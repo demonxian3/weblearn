@@ -1,0 +1,182 @@
+<meta charset='utf-8'>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+</style>
+
+<div id="app">
+    <h3>组件重定义v-model</h3>
+    <base-checkbox v-model="lovingVue" :label="lovingVue"></base-checkbox>  
+    <br><br>
+
+    <h3>组件默认v-model + 非prop属性传递</h3>
+    <!-- 通过native修饰符可以让组件内根元素继承Vue事件 -->
+    <base-input 
+        :label="username" 
+        v-model="username" 
+        :type="inptype" 
+        :style="slotBr" 
+        class="noClass"
+        name="forInp" 
+        onclick="console.log(1)" 
+        @focus.native="show"
+    >
+    </base-input>
+    <br>
+    <br>
+
+    <h3>带名称插槽</h3>
+    <name-slot  :css="slotWd"  :style="slotBr">
+        <h3 slot="footer"> This is footer </h3>
+        <h1 slot="header"> This is title</h1>
+        <p> to default slot </p>
+    </name-slot>    
+    <br>
+
+    <h3>默认值插槽</h3>
+    <name-slot defaultslot="hello, this is default slot value" :style="[slotBr, slotWd]" ></name-slot>
+    <br>
+
+
+    <h3>插入组件</h3>
+    <name-slot :style="[slotBr,slotWd]">
+        <base-input :label="username"></base-input>
+    </name-slot>
+    <br>
+    
+
+    <h3>嵌套组件</h3>
+    <small>组件间数据单向流动不能逆流，因此子组件v-model无法修改目标</small>
+    <base-form :username="username" :password="password" :style="[slotBr, slotWd]"></base-form>
+    <br>
+    
+
+
+    <h3>访问模板数据 </h3>
+    <person-ul :data="persons">
+        <template slot-scope="cbprop">
+            <span v-if="cbprop.cbdata.age > 18">{{cbprop.cbdata.name}} - {{cbprop.cbdata.age}}</span>
+            <span  v-else><del style="color:red">{{cbprop.cbdata.name}} - {{cbprop.cbdata.age}}</del></span>
+        </template>
+    </person-ul>
+
+</div> <!-- app -->
+
+
+<!-- 嵌套组件模板 -->
+<template id="nesting">
+    <form :action="ac">
+        <!-- 父组件能更新prop影响子组件，但子组件无法修改父组件传递的props-->
+        <!-- v-model 使用的是父组件props，所以v-model无法修改且会发出警告 -->
+        <base-input label="username" name="username" v-model="fusr" type="text"></base-input><br>
+        <base-input label="password" name="password" v-model="fpwd" type="password"></base-input><br>
+    </form>
+</template>
+
+
+<script>
+
+
+var vm = new Vue({
+    el: '#app',
+    components: {
+        'base-checkbox':{
+            props:['checked','label'],
+            //默认model为: {prop:'value', event:'input'}
+            model:{prop:'checked', event:'change',},
+            template:`
+                <label>
+                <input 
+                    type="checkbox" 
+                    :checked="checked" 
+                    @change="$emit('change', $event.target.checked)"
+                />{{label}}
+                </label>
+            `
+        },
+
+        'base-input': {
+            //true可让根元素继承DOM属性
+            //$attrs 获取DOM所有属性 但class 和 style 除外
+            inheritAttrs: false, 
+            props: ['value', 'label'],
+            template:`
+                <label>
+                    {{label}}
+                    <input 
+                        v-bind="$attrs"
+                        :value="value"
+                        @input="$emit('input', $event.target.value)"
+                    >
+                </label>
+            `
+        },
+
+        'name-slot':{
+            props: ['defaultslot', 'css'],
+            template:`
+                <div :style='css'>
+                    <header> <slot name="header"></slot> </header>
+                    <main> <slot>{{defaultslot}}</slot> </main>
+                    <footer> <slot name="footer"></slot> </footer>
+                </div>
+            `,
+        },
+
+        'base-form':{
+            props: ['ac','fusr', 'fpwd'],
+            template:'#nesting',
+            components:{
+                'base-input': {
+                    //true可让根元素继承DOM属性
+                    //$attrs 获取DOM所有属性
+                    inheritAttrs: false, 
+                    props: ['value', 'label'],
+                    template:`
+                        <label>
+                            {{label}}
+                            <input 
+                                v-bind=$attrs
+                                :value="value"
+                                @input="$emit('input', $event.target.value)"
+                            >
+                        </label>
+                    `
+                },
+            },
+        },
+
+        'person-ul':{
+            props:['data'],
+            template:`
+                <ul>
+                    <li v-for="person in data">
+                        <slot :cbdata="person">
+                            {{person.name}}
+                        </slot>
+                    </li>
+                </ul>
+            `
+        }
+    },
+    data:{
+        lovingVue: true,
+        username : 'demon',
+        password: 'password',
+        inptype : "password",
+        slotWd: {width: '500px'},
+        slotBr: {border: '3px dotted #ccc'},
+        persons: [
+            {name:'demon', age:33},
+            {name:'kali', age:42},
+            {name:'lucy', age:15},
+            {name:'crack', age:28},
+        ],
+    },
+    computed: {
+        'show': function(){
+            alert(1);
+        },
+    },
+})
+
+</script>

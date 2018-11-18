@@ -9,6 +9,9 @@
 .comTable td{
     width:100px;
 }
+.comTable thead{
+    border:1px solid red;
+}
 .tab-button {
   padding: 6px 10px;
   border-top-left-radius: 3px;
@@ -54,6 +57,7 @@
         template: `
             <table border=1 >
                 <caption><slot></slot></caption>
+                <span v-if="race == 'Asian'" > Chineses? </span>
                 <tr>
                     <th>id</th>
                     <th>name</th>

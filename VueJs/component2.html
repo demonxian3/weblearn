@@ -1,49 +1,15 @@
-<!-- 解决如何在复杂组件用v-model原理实现双向绑定 -->
-<!-- 解决如何使用动态组件并传递数据属性 -->
-<!-- 解决如何使用Vue特性完成数据之间的依赖传递 -->
-<!-- 组件如何包含组件? -->
-
 <meta charset='utf-8'>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<style>
-</style>
 
 <div id="app">
-    <mform>
-        <minput></minput>
-    </mform>
+
 </div> <!-- app -->
 
 
 <script>
-var mformCom = {
-    props: [],
-    template: `
-        <form action="">
-        <!-- <minput key='user' type='text'></minput> -->
-        <!-- <minput key='pass' type='password'></minput> -->
-        </form>
-    `,
-    components: {
-        'minput':minpCom,
-    }
-}
 
-var minpCom = {
-    props: ['key','type'],
-    template:`
-    <div class="input-group">
-        <label :for="key"></label>
-        <input :type="type" :id="key" :name="key">
-    </div>
-    `,
-}
+    var vm = new Vue({
+        el: '#app',
 
-var vm = new Vue({
-    el: '#app',
-    components: {
-        'minput':minpCom,
-        'mform' :mformCom,
-    }
-})
+    })
 </script>
