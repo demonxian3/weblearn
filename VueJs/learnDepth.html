@@ -4,6 +4,16 @@
 </style>
 
 <div id="app">
+    <h3>父子组件间通信</h3>
+    <small>父组件用prop传递数据给子组件，子组件用emit触发父组件事件传递数据</small><br>
+    <base-button :fd="fatherData" @conn="fatherEvent"></base-button><br><br>
+
+    <h3>非父子组件通信</h3>
+    <small>借用空实例，相互监听和触发对方的事件来传递数据</small><br>
+    <base-com1> </base-com1>
+    <base-com2> </base-com2>
+    <br><br>
+
     <h3>组件重定义v-model</h3>
     <base-checkbox v-model="lovingVue" :label="lovingVue"></base-checkbox>  
     <br><br>
@@ -45,8 +55,11 @@
     
 
     <h3>嵌套组件</h3>
-    <small>组件间数据单向流动不能逆流，因此子组件v-model无法修改目标</small>
-    <base-form :username="username" :password="password" :style="[slotBr, slotWd]"></base-form>
+    <small>组件间数据单向流动不能逆流，组件修改prop只影响子组件，不影响父组件</small><br>
+    vm实例域： <input type="" v-model="username"><br>
+    vm实例域： <input type="" v-model="password"><br>
+    <base-form :fusr="username" :fpwd.sync="password" :style="[slotBr, slotWd]" :maybechange="slotBr" @update:fusr="username = $event" >
+    </base-form>
     <br>
     
 
@@ -65,20 +78,53 @@
 <!-- 嵌套组件模板 -->
 <template id="nesting">
     <form :action="ac">
-        <!-- 父组件能更新prop影响子组件，但子组件无法修改父组件传递的props-->
-        <!-- v-model 使用的是父组件props，所以v-model无法修改且会发出警告 -->
-        <base-input label="username" name="username" v-model="fusr" type="text"></base-input><br>
-        <base-input label="password" name="password" v-model="fpwd" type="password"></base-input><br>
+        <!-- 父组件能更新prop影响子组件 -->
+        <!-- 子组件无法修改父组件传递的props-->
+        我是父, 我不能直接影响我的父亲vm的数据： <input type="" :value='fusr' @input="fusr = $event.target.value"><br>
+        <base-input label="我是子, 我和父双向绑定后可更改父亲数据： " name="username" v-model="fusr" type="text"></base-input><br>
+        我是父, 我通过修改对象本身影响vm的数据:  <button @click.prevent="tryChange()">尝试改vm属性/methods重渲染</button><br>
+        我是父, 我通过u:p模式合法修改了vm的数据: <input type="" :value='fusr' @input="$emit('update:fusr',$event.target.value)" ><br>
+        我是父, 我通过sync修饰符改了vm的数据:    <input type="" :value='fpwd' @input="$emit('update:fpwd',$event.target.value)" ><br>
     </form>
 </template>
 
-
 <script>
-
+var bus = new Vue({});
 
 var vm = new Vue({
     el: '#app',
     components: {
+        'base-button':{
+            props:['fd'],
+            template:`
+                <button @click="sonEvent">{{fd}}</button>
+            `,
+            data:function(){
+                return{ 'sonData':'这是子组件的数据'}
+            },
+            methods:{
+                sonEvent:function(){this.$emit('conn', this.sonData)}
+            },
+        },
+        'base-com1':{
+            data: function(){return {step:1}},
+            template:`
+                <button @click="go()">组件A</button>
+            `,
+            methods:{
+                go: function(){bus.$emit('toCom2', this.step)}
+            }
+        },
+        'base-com2':{
+            data: function(){return {count:0}},
+            template:`
+                <input type="" :value="count">
+            `,
+            mounted:function(){
+                var self = this;
+                bus.$on("toCom2", function(step){self.count+=step})
+            },
+        },
         'base-checkbox':{
             props:['checked','label'],
             //默认model为: {prop:'value', event:'input'}
@@ -123,7 +169,7 @@ var vm = new Vue({
         },
 
         'base-form':{
-            props: ['ac','fusr', 'fpwd'],
+            props: ['ac','fusr', 'fpwd', 'maybechange'],
             template:'#nesting',
             components:{
                 'base-input': {
@@ -143,6 +189,9 @@ var vm = new Vue({
                     `
                 },
             },
+            methods:{
+                tryChange:function(){this.maybechange.border="3px solid #fca"}
+            },
         },
 
         'person-ul':{
@@ -159,11 +208,12 @@ var vm = new Vue({
         }
     },
     data:{
+        fatherData: '这是父组件数据',
         lovingVue: true,
         username : 'demon',
-        password: 'password',
+        password: 'password123',
         inptype : "password",
-        slotWd: {width: '500px'},
+        slotWd: {width: '600px'},
         slotBr: {border: '3px dotted #ccc'},
         persons: [
             {name:'demon', age:33},
@@ -173,10 +223,13 @@ var vm = new Vue({
         ],
     },
     computed: {
-        'show': function(){
-            alert(1);
+        'show': function(v){
+            console.log(v);
         },
     },
+    methods:{
+        fatherEvent:function(v){alert("子组件通过事件传递过来的数据: "+v)}
+    }
 })
 
 </script>
