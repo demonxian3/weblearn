@@ -56,6 +56,7 @@
 
     <h3>嵌套组件</h3>
     <small>组件间数据单向流动不能逆流，组件修改prop只影响子组件，不影响父组件</small><br>
+    <small>但有一些办法可以修改父组件的属性</small><br>
     vm实例域： <input type="" v-model="username"><br>
     vm实例域： <input type="" v-model="password"><br>
     <base-form :fusr="username" :fpwd.sync="password" :style="[slotBr, slotWd]" :maybechange="slotBr" @update:fusr="username = $event" >
