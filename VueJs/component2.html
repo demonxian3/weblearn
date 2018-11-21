@@ -2,34 +2,47 @@
 body{
     font-family:"Microsoft YaHei,微软雅黑,MicrosoftJhengHei,华文细黑,STHeiti,MingLiu";
 }
+.page{
+    border:3px dotted #ccc;
+    width:30%;
+    padding:30px;
+}
 </style>
 <meta charset='utf-8'>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
-<register-form action="test.php">
-    <input-1 v-model="username" name="username" :targ="username" @cls="username=''"> username: </input-1>  <br>
-    <input-1 v-model="password" name="password" :targ="password" @cls="password=''" type="password"> password: </input-1>  <br>
-    <input-1 v-model="repasswd"                 :targ="repasswd" @cls="repasswd=''" type="password"> repasswd: </input-1>  <br>
-    <input-1 v-model="usremail"                 :targ="usremail" @cls="usremail=''" type="email"> usremail: </input-1>  <br>
-    <input-1 v-model="usrphone"                 :targ="usrphone" @cls="usrphone=''" type="tel"> usrphone: </input-1>  <br>
-</register-form>
 
-<!-- v-model只适用于邻代间双向绑定 -->
-<!-- u:p模式适用于跨代间数据双向绑定 -->
-<!-- 备注: emit函数用于触发父元素所监听的事件，并传递参数 -->
-<!-- 第一层: @input="$emit('input', $event.target.value)" -->
-<!-- 第二层: @input="$emit('update:propname', $event)" -->
-<!-- 第三层: @update:propname="password = $event" -->
+<button v-for="btnname in allArea" @click="currentArea = btnname">{{btnname}}</button>
+<div v-if="currentArea == 'registerPage'">
+    <register-form action="test.php" class="page">
+        <input-1 v-model="username" name="username" :targ="username" @cls="username=''"> username: </input-1>  <br>
+        <input-1 v-model="password" name="password" :targ="password" @cls="password=''" type="password"> password: </input-1>  <br>
+        <input-1 v-model="repasswd"                 :targ="repasswd" @cls="repasswd=''" type="password"> repasswd: </input-1>  <br>
+        <input-1 v-model="usremail"                 :targ="usremail" @cls="usremail=''" type="email"> usremail: </input-1>  <br>
+        <input-1 v-model="usrphone"                 :targ="usrphone" @cls="usrphone=''" type="tel"> usrphone: </input-1>  <br>
+    </register-form>
+</div>
 
-<!-- 这里有两种u:p模式的写法来更改父组件的prop值 -->
-<!-- .sync 等价于 :fpwd="password" @update:fpwd="password = $event" -->
-<login-form 
-    action="test.php" 
-    :fpwd.sync="password" 
-    :fusr="username" 
-    @update:fusr="username = $event"
-></login-form>
+<div v-if="currentArea == 'loginPage'">
+    <!-- v-model只适用于邻代间双向绑定 -->
+    <!-- u:p模式适用于跨代间数据双向绑定 -->
+    <!-- 备注: emit函数用于触发父元素所监听的事件，并传递参数 -->
+    <!-- 第一层: @input="$emit('input', $event.target.value)" -->
+    <!-- 第二层: @input="$emit('update:propname', $event)" -->
+    <!-- 第三层: @update:propname="password = $event" -->
+
+    <!-- 这里有两种u:p模式的写法来更改父组件的prop值 -->
+    <!-- .sync 等价于 :fpwd="password" @update:fpwd="password = $event" -->
+    <login-form 
+        action="test.php" 
+        :fpwd.sync="password" 
+        :fusr="username" 
+        @update:fusr="username = $event"
+        class="page"
+    ></login-form>
+</div>
+
 </div> <!-- app -->
 
 
@@ -95,6 +108,8 @@ body{
             repasswd: '',
             usremail: '',
             usrphone: '',
+            currentArea: 'loginPage',
+            allArea: ['loginPage', 'registerPage'],
         },
         components:{
             'register-form': registerFormCom,
