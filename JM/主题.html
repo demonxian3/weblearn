@@ -1,0 +1,31 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+
+<div data-role="page" id="pageone">
+  <div data-role="header" data-theme="d">
+  <h1>更换主题</h1>
+  </div>
+
+  <div data-role="content" data-theme="a">
+  <pre>
+    只要设置data-theme属性即可改变主题
+    a 	默认。黑色背景上的白色文本。 	
+    b 	蓝色背景上的白|灰色背景上的黑色文本 	
+    c 	亮灰色背景上的黑色文本 	
+    d 	白色背景上的黑色文本 	
+    e 	橙色背景上的黑色文本
+    可以将该属性添加到 btn role dialog icon navbar collapsible listview等
+  </pre>
+
+  <button data-theme="a">这是黑白</button>
+  <button data-theme="b">这是蓝白</button>
+  <button data-theme="c">这是灰白</button>
+  <button data-theme="d">这是白黑</button>
+  <button data-theme="e">这是橙黑</button>
+
+  <div data-role="footer" data-theme="b">
+  <h1>这是脚页</h1>
+  </div>
+</div>

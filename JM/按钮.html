@@ -1,0 +1,70 @@
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+
+<div data-role="page" id="pageone" >
+  <div data-role="header" >
+      <h1>首页</h1>
+  </div>
+
+  <div data-role="content" >
+      <p> button input a 都可以作为按钮</p>
+      <input data-inline="true" type="button" value="input标签">
+      <button data-inline="true">button标签</button>
+      <a data-role="button" data-inline="true">link标签</a> <hr>
+
+      <p>组合按钮使用 data-role='controlgroup' </p>
+      <p>水平分组: data-type='horizontal'</p>
+      <p>垂直分组: data-type='vertical'</p>
+      <div data-role="controlgroup" data-type="vertical">
+        <a data-role="button">按钮1</a>
+        <a data-role="button">按钮2</a>
+        <a data-role="button">按钮3</a>
+      </div>
+      <div data-role="controlgroup" data-type="horizontal">
+        <a data-role="button">按钮1</a>
+        <a data-role="button">按钮2</a>
+        <a data-role="button">按钮3</a>
+      </div>
+
+      <hr>
+      
+      <a data-role="button" href="#pagethree" data-rel="dialog">信息</a>
+      <a data-role="button" href="#pagetwo" >下一页</a>
+  </div> <!-- content -->
+
+  <div data-role="footer" >
+      <h1>这是页脚</h1>
+  </div>
+</div>
+
+
+<div id="pagetwo" data-role="page">
+    <div data-role="header" >
+        <h1>这是第二页</h1>
+    </div>
+    <div data-role="content">
+        <a href="#" data-role="button" data-rel="back">返回</a>
+    </div>
+    <div data-role="footer">
+        <h1>页脚</h1>
+    </div>
+</div>
+
+
+
+
+<div id="pagethree" data-role="page">
+    <div data-role="header" >
+        <h1>这是信息页</h1>
+    </div>
+    <div data-role="content">
+        <a href="#" data-role="button" data-rel="back">返回</a>
+    </div>
+    <div data-role="footer">
+        <h1>页脚</h1>
+    </div>
+</div>
+

@@ -1,0 +1,81 @@
+<meta charset="utf-8">
+<!-- 添加下面一句可以使得手机字体适当放大，不会很小-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+
+
+
+
+<div data-role="page" id="pageone">
+  <div data-role="header" data-theme="a">
+	<h1>这是第一个页面</h1>
+  </div>
+  <div data-role="content">
+
+<p>
+所谓内部链接就是把所有的页面内容写到一个文件, 利用链接锚定位<br>
+给人感觉是跳转到其他页面，但其实是同个页面，加快运行速度 <br>
+<a href="#pagetwo">这是内部链接</a>
+</p>
+	
+<p>
+包含大量内容的 web 应用程序会影响加载时间（如文本、链接、图像和脚本等）。<br>
+如果您不希望在内部链接页面，请使用外部文件:  <br>
+<a href="主题.html">这是外部链接</a> <br>
+</p>
+
+<p>
+对话框是用来显示信息或请求输入的视窗类型。<br>
+如需在用户点击（轻触）链接时创建一个对话框，请向该链接添加 <br> data-rel="dialog"<br>
+<a href="#pagethree" data-rel="dialog" >话框内部链接</a><br>
+</p>
+
+  </div>
+
+  <div data-role="footer">
+	<h1>demon</h1>
+  </div>
+</div>
+
+
+
+
+<div data-role="page" id="pagetwo" >
+<div data-role="header" data-theme="c">
+    <h1> 这是页面2 </h1>
+</div>
+<div data-role="content" data-theme="e">
+		<a href="#pageone">返回内部页面一</a>
+<pre>
+JM 整体结构:
+
+data-role="page"    是显示在浏览器中的页面
+data-role="header"  创建页面上方的工具栏（常用于标题和搜索按钮）
+data-role="content" 定义页面的内容，比如文本、图像、表单和按钮，等等
+data-role="footer"  创建页面底部的工具栏
+</pre>
+</div>
+</div>
+
+
+
+
+
+<div data-role="page" id="pagethree" >
+<div data-role="header" data-theme="b">
+    <h1> 这是页面3 </h1>
+</div>
+<div data-role="content" data-theme="e">
+		<a href="#pageone">返回内部页面一</a>
+<pre>
+JM 整体结构:
+
+data-role="page"    是显示在浏览器中的页面
+data-role="header"  创建页面上方的工具栏（常用于标题和搜索按钮）
+data-role="content" 定义页面的内容，比如文本、图像、表单和按钮，等等
+data-role="footer"  创建页面底部的工具栏
+</pre>
+</div>
+</div>
