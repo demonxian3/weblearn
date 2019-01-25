@@ -1,0 +1,195 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+<style>
+.red{color:red}
+.test{
+    width:100px;
+    height:100px;
+    border:1px solid #ABCDEF;
+    overflow:scroll;
+}
+</style>
+
+<div id="page1" data-role="page">
+    <div data-role="header">
+        <h3>事件</h3>
+    </div>
+    <div data-role="content">
+        <h3>jQuery Mobile事件</h3> <hr>
+        <small>
+            JM 框架定制事件: <br>
+            1. 触摸事件 - 用户触摸屏幕触发<br>
+            2. 滚动事件 - 上下滑动触发<br>
+            3. 方向事件 - 设备水平或垂直旋转时<br>
+            4. 页面事件 - 页面显示/隐藏,加载/卸载时<br>
+        </small>
+
+        <h3>jQuery ready事件</h3><hr>
+        <p class="red">click me will be hidden</p>
+        <h3>Mobile pageinit事件</h3><hr>
+        <p class="red">click me will be hidden</p>
+
+        <h3>敲击事件</h3><hr>
+        <small>tap 用户敲击某个元素时触发</small>
+        <div id="tapme" class="red">敲击我</div>
+
+        <h3>按住事件</h3> <hr>
+        <small>taphold 用户敲击元素并保持1秒时触发</small>
+        <div id="tapho" class="red">点住我</div>
+
+        <h3>滑动事件</h3><hr>
+        <small>swipe 用户在元素水平滑动超过30px触发</small>
+        <div id="swipe" class="test">
+        </div>
+
+        <h3>右滑事件</h3><hr>
+        <small>swiperight 右滑超过30px触发</small>
+        <div id="swipeR" class="test">
+        </div>
+
+        <h3>左滑事件</h3><hr>
+        <small>swipeleft 左滑超过30px触发</small>
+        <div id="swipeL" class="test">
+        </div>
+
+        <h3>滚动事件</h3><hr>
+        <small>scrollstart 页面开始滚动时触发</small>
+        <div id="scrollS" class="test">
+               测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 
+        </div>
+
+        <h3>滚动事件</h3><hr>
+        <small>scrollstop 页面停止滚动时触发</small>
+        <div id="scrollP" class="test">
+               测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容 
+        </div>
+
+
+        <h3>方向事件</h3> <hr>
+        <small>
+            orientationchange: 设备垂直和水平间切换触发<br>
+            window对象的orientation属性获取当前状态<br>
+            0 =&gt; portrait =&gt; 垂直 <br>
+            1 =&gt; landscape =&gt; 水平 <br>
+        </small>
+        <b class="red">试着在设备上水平垂直旋转</b>
+
+        <h3>初始事件</h3> <hr>
+        <small>
+            pagebeforecreate 页面即将初始化,且jm渲染前触发<br>
+            pagecreate 页面已创建,但jm渲染前触发 <br>
+            pageinit 页面已初始化,且jm渲染后触发 <br>
+        </small>
+
+        <h3>加载事件</h3> <hr>
+        <small>
+            pagebeforeload 任何页面加载请求作出之前触发<br>
+            pageload 页面已成功加载并插入 DOM 后触发<br>
+            pageloadfailed 页面加载请求失败触发<br>
+        </small>
+        <a href="按钮.html">外部链接</a>
+        <a href="sdadas.html">不存在链接</a>
+
+        <h3>过渡事件</h3> <hr>
+        <small>
+            pagebeforeshow 切换过去，在过渡动画开始前<br>
+            pageshow 切换过去，在过渡动画完成后<br>
+            pagebeforehide 	切换回来，在过渡动画开始前<br>
+            pagehide 切换回来，在过渡动画完成后<br>
+        </small>
+        <a href="#page2"> 去下一个页面 </a>
+        
+    </div>
+</div>
+
+<div id="page2" data-role="page">
+    <div data-role="header">
+        <h3>页面</h3>
+        <a href="#" data-rel="back">返回</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("p").on("click", function(){
+            $(this).hide();
+        })
+    });
+
+    $(document).on("pageinit","#page1", function(){
+        $("p").on("click", function(){
+            alert("pageinit:click happened")
+        })
+        $(window).on("orientationchange",function(){
+            if(window.orientation == 0){
+              $("p").text("方向已经变为垂直").css({"background-color":"yellow","font-size":"300%"});
+            }else{
+              $("p").text("方向已经变为水平").css({"background-color":"pink","font-size":"200%"});
+            }
+        });
+    })
+
+    $("#tapme").on("tap",function(){
+        alert("你敲击我了");
+    })
+    $("#tapho").on("taphold",function(){
+        alert("你点住我了");
+    });
+
+    $("#swipe").on("swipe",function(){
+        alert("你滑动了");
+    });
+    $("#swipeR").on("swiperight",function(){
+        alert("你右滑了");
+    });
+    $("#swipeL").on("swipeleft",function(){
+        alert("你左滑了");
+    });
+    $("#scrollS").on("scrollstart", function(){
+        alert("你开始滚动了");
+    });
+    $("#scrollP").on("scrollstop", function(){
+        alert("你停止滚动了");
+    });
+
+
+    $(document).on("pageinit",function(){
+      alert("触发 pageinit 事件 - 页面已初始化，DOM 已加载，jQuery Mobile 已完成页面增强。")
+    });
+    $(document).on("pagebeforecreate",function(){
+      alert("触发 pagebeforecreate 事件 - 页面即将初始化。jQuery Mobile 仍未开始增强页面。");
+    });
+    $(document).on("pagecreate",function(){
+      alert("触发 pagecreate 事件 - 已创建页面，但增强未完成。");
+    });
+
+
+    $(document).on("pagebeforeload",function(event,data){
+      alert("触发 请求发送事件\nURL: " + data.url);
+    });
+    $(document).on("pageload",function(event,data){
+      alert("触发 pageload 事件！\nURL: " + data.url);
+    });
+    $(document).on("pageloadfailed",function(event,data){
+      alert("抱歉，被请求页面不存在。");
+    });
+
+
+    $(document).on("pagebeforeshow","#page2",function(){
+      alert("触发 pagebeforeshow 事件 - 页面二即将显示");
+    });
+    $(document).on("pageshow","#page2",function(){
+      alert("触发 pageshow 事件 - 现在显示页面二");
+    });
+    $(document).on("pagebeforehide","#page2",function(){
+      alert("触发 pagebeforehide 事件 - 页面二即将隐藏");
+    });
+    $(document).on("pagehide","#page2",function(){
+      alert("触发 pagehide 事件 - 现在隐藏页面二");
+    });
+
+    
+</script>

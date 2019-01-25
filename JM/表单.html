@@ -1,0 +1,296 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+
+<div id="page1" data-role="page">
+    <div data-role="header">
+        <h3>表单</h3>
+    </div>
+    <div data-role="content">
+        <a href="#page2" >第二页</a>
+        <h3>表单基础</h3><hr>
+        <p>
+        1. form元素必须设置method和action <br>
+        2. 表单元素必须设置id             <br>
+        3. label元素for指向表单的id       <br>
+        4. 表单控件设置type之后才有JM样式 <br>
+        </p>
+        <form action="" method="post">
+            <label for="nameInp">name</label>
+            <input name="name" id="nameInp">
+            <input type="submit" data-inline="true" value="ok">
+        </form>
+
+        <h3>隐藏标签</h3> <hr>
+        <p>label设置class='ui-hidden-accessible'可隐藏</p>
+        <form action="" method="post">
+            <label for="passInp" class="ui-hidden-accessible">name</label>
+            <input name="password" id="passInp" placeholder="name">
+            <input type="submit" data-inline="true" value="ok" >
+        </form>
+
+        <h3>域容器</h3> <hr>
+        <p>页宽&gt;480px ，它会将label与控件放置同行</p>
+        <p>页宽&lt;480px ，它会将label与控件放置之上</p>
+        <form action="" method="post">
+        <div data-role="fieldcontain">
+                <label for="lname">姓</label>
+                <input id="lname" type="text" name="lname">
+                <label for="fname">名</label>
+                <input id="fname" type="text" name="fname">
+        </div>
+        </form>
+
+        <h3>文本输入</h3> <hr>
+        <form action="" method="">
+            <div data-role="fieldcontain">
+                <label for="fullname">全民</label>
+                <input id="fullname" type="text" name="fullname">
+                <label for="birday">生日</label>
+                <input id="birday" type="date" name="birday">
+                <label for="email">邮箱</label>
+                <input id="email" type="email" name="email" placeholder="您的收件箱">
+            </div>
+        </form>
+
+        <h3>多行文本</h3><hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <label for="info">添加描述信息</label>
+                <textarea id="info" name="addinfo" cols="30" rows="10"></textarea>
+            </div>
+        </form>
+
+        <h3>搜索框</h3> <hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <label for="search">搜索</label>
+                <input id="search" type="search" name="search">
+            </div>
+        </form>
+        
+
+        <h3>单选按钮</h3> <hr>
+        <form action="">
+        <fieldset data-role="controlgroup">
+            <legend>选择你的性别</legend>
+            <label for="male">male</label>
+            <input id="male" type="radio" name="gender">
+            <label for="female">female</label>
+            <input id="female" type="radio" name="gender">
+        </fieldset>
+        </form>
+        
+        <h3>多选按钮</h3> <hr>
+        <form action="">
+        <fieldset data-role="controlgroup">
+                <legend>选择你喜欢的颜色</legend>
+                <label for="red">红色</label>
+                <input id="red" type="checkbox" name="color">
+                <label for="green">绿色</label>
+                <input id="green" type="checkbox" name="color">
+                <label for="blue">蓝色</label>
+                <input id="blue" type="checkbox" name="color">
+        </fieldset>
+        </form>
+        <h3>水平单选</h3> <hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>选择你的性别</legend>
+                    <label for="male">男</label>
+                    <input id="male" type="radio" name="gender">
+                    <label for="female">女</label>
+                    <input id="female" type="radio" name="gender">
+                </fieldset>
+            </div>
+        </form>
+
+        <h3>水平多选</h3> <hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>选择颜色</legend>
+                    <label for="red">红色</label>
+                    <input id="red" type="checkbox" name="color">
+                    <label for="green">绿色</label>
+                    <input id="green" type="checkbox" name="color">
+                    <label for="blue">蓝色</label>
+                    <input id="blue" type="checkbox" name="color">
+                </fieldset>
+            </div>
+        </form>
+
+        <h3>预选</h3> <hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup" >
+                    <legend>选择你的性别</legend>
+                    <label for="male">男</label>
+                    <input id="male" checked  type="radio" name="gender">
+                    <label for="female">女</label>
+                    <input id="female" type="radio" name="gender">
+                </fieldset>
+            </div>
+                <fieldset data-role="controlgroup" >
+                    <legend>选择颜色</legend>
+                    <label for="red">红色</label>
+                    <input id="red" type="checkbox" name="color" checked>
+                    <label for="green">绿色</label>
+                    <input id="green" type="checkbox" name="color">
+                    <label for="blue">蓝色</label>
+                    <input id="blue" type="checkbox" checked name="color">
+                </fieldset>
+            </div>
+        </form>
+
+        
+    </div>
+</div>
+
+<div id="page2" data-role="page">
+    <div data-role="header">
+        <h3>表单</h3>
+    </div>
+    <div data-role="content">
+        <a href="#page1" >第一页</a>
+        <h3>选项</h3> <hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <label for="day1"></label>
+                <select id="day1" name="day">
+                    <option value="1">星期1</option>
+                    <option value="2">星期2</option>
+                    <option value="3">星期3</option>
+                </select>
+            </div>
+        </form>
+
+
+        <h3>分类</h3><hr>
+        <form action="">
+            <div data-role="fieldcontain">
+                <label for="day"></label>
+                <select id="" name="">
+                    <optgroup label="工作日">
+                    <option value="1">星期1</option>
+                    <option value="2">星期2</option>
+                    <option value="3">星期3</option>
+                    <option value="4">星期4</option>
+                    <option value="5">星期5</option>
+                    </optgroup>
+                    <optgroup label="休息日">
+                    <option value="6">星期6</option>
+                    <option value="7">星期7</option>
+                    </optgroup>
+                </select>
+            </div>
+        </form>
+
+        <h3>自定义</h3> <hr>
+        <form action="">
+            <fieldset data-role="fieldcontain" >
+                <label for="day2">选择</label>
+                <select id="day2" name="day" data-native-menu="false">
+                    <option value="1">星期1</option>
+                    <option value="2">星期2</option>
+                    <option value="3">星期3</option>
+                </select>
+            </fieldset>
+        </form>
+
+        <h3>多选</h3> <hr>
+          <form method="post" action="">
+          <fieldset>
+            <label for="day3">您可以选择多天：</label>
+            <select name="day" id="day3" multiple="multiple" data-native-menu="false">
+                <option>天</option>
+                <option value="mon">星期一</option>
+                <option value="tue">星期二</option>
+                <option value="wed">星期三</option>
+            </select>
+          </fieldset>
+          </form>
+    
+
+        <h3>水平 </h3> <hr>
+          <form method="post" action="">
+          <div data-role="fieldcontain">
+            
+          <fieldset data-role="controlgroup" data-type="horizontal">
+            <legend for="day4">选择天：</legend>
+            <select name="day" id="day4" >
+                <option value="mon">星期一</option>
+                <option value="tue">星期二</option>
+                <option value="wed">星期三</option>
+            </select>
+          </fieldset>
+          </div>
+          </form>
+
+        <h3>折叠</h3> <hr>
+        <form action="">
+            <fieldset data-role="collapsible">
+                <legend>可折叠</legend>
+                <label for="name">全名: </label>
+                <input id="name" type="text" name="text">
+                <label for="color2">颜色: </label>
+                <div data-role="controlgroup">
+                    <label for="red">红色</label>
+                    <input id="red" type="checkbox" name="color2">
+                    <label for="blue">蓝色</label>
+                    <input id="blue" type="checkbox" name="color2">
+                    <label for="green">绿色</label>
+                    <input id="green" type="checkbox" name="color2">
+                </div>
+            </fieldset>
+        </form>
+
+        <h3>组合</h3> <hr>
+        <form method="post" action="demoform.asp">
+            <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+            <legend>安排会议：</legend>
+            <label for="day">选择日期：</label>
+            <select name="day" id="day">
+                <option value="mon">Monday</option>
+                <option value="tue">Tuesday</option>
+                <option value="wed">Wednesday</option>
+                <option value="thu">Thursday</option>
+                <option value="fri">Friday</option>
+            </select>
+
+            <label for="time">选择时间：</label>
+            <select name="time" id="time">
+                <option value="08">08:00</option>
+                <option value="09">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+            </select>
+            </fieldset>
+            </div>
+        </form>
+
+        <h3>滑块</h3> <hr>
+        <div data-role="fieldcontain"></div> <label for="points"></label>
+        <input id="points" type="range" name="points" value="50" min="0" max="100" step="4">
+
+        <h3>高亮</h3> <hr>
+        <div data-role="fieldcontain"></div>
+        <label for="point2"></label>
+        <input id="point2" type="range" name="point2" value="50" min="0" max="100" step="4" data-highlight="true">
+
+        <h3>开关</h3> <hr>
+        <div data-role="fieldcontain">
+            <label for="">toggle</label>
+            <select id="switch" name="" data-role="slider">
+                <option value="on">on</option>
+                <option value="off">off</option>
+            </select>
+        </div>
+    </div>
+</div>
