@@ -1,0 +1,78 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+
+<div data-role="page" id="pageone" >
+  <div data-role="header" data-theme="b">
+      <h1>折叠</h1>
+  </div>
+
+  <div data-role="content" >
+      <h3> 设置角色为collapsible即可生成折叠组件 </h3> <hr>
+      <div data-role="collapsible">
+          <h1>点我可以折叠</h1>
+          <p>这是折叠内容</p>
+      </div>
+
+      <h3> 设置data-collapsed="false"默认展开</h3><hr>
+      <div data-role="collapsible" data-collapsed="false">
+          <h1>点我可以折叠</h1>
+          <p>这是折叠内容</p>
+      </div>
+
+      <h3> 嵌套折叠内容</h3><hr>
+      <div data-role="collapsible">
+      <h1>第一层折叠</h1>
+      <p>这是折叠内容</p>
+          <div data-role="collapsible">
+          <h1>第二层折叠</h1>
+          <p>这是折叠内容</p>
+          </div>
+      </div>
+
+
+      <h3> 抽屉式折叠 </h3><hr>
+      <div data-role="collapsible-set" data-theme="e">
+          <div data-role="collapsible">
+              <h1>第一个折叠</h1>
+              <p>这是折叠内容</p>
+          </div>
+          <div data-role="collapsible">
+              <h1>第二个折叠</h1>
+              <p>这是折叠内容</p>
+          </div>
+      </div>
+
+      <h3> 其他属性 </h3><hr>
+      <div data-role="collapsible" data-inset="false">
+          <h1>这是无圆角折叠块。</h1>
+          <p>默认地，可折叠块带有包含外边距的圆角，<br>使用 data-inset="false" 可去掉圆角。</p>
+      </div>
+      <div data-role="collapsible" data-mini="true">
+          <h1>这是缩小版折叠块</h1>
+          <p>data-mini="true"可以设置折叠块是否缩小</p>
+      </div>
+      <div data-role="content">
+          <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
+          <h1>这是带图标折叠块</h1>
+          <p>
+          data-collapsed-icon 设置展开前图标
+          data-expanded-icon 设置展后图标。<br>
+          </p>
+      </div>
+      </div>
+      
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      
+  </div> <!-- content -->
+
+</div>
+
+

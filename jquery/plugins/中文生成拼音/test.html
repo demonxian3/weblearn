@@ -1,0 +1,13 @@
+<script src="Convert_Pinyin.js"></script><!--插件引用-->
+中文输入：<input id="keyword" type="text" onBlur="ConvertName()"/><br>
+全写拼音：<input id="full" type="text" /><br>
+简写拼音：<input id="simply" type="text" /><br>
+<script>
+function ConvertName(){
+  var keyword = document.getElementById('keyword').value;
+  var full = pinyin.getFullChars(keyword); //获取全写拼音
+  var simply = pinyin.getCamelChars(keyword); //获取简写拼音(提取首字母并大写)
+  document.getElementById('full').value = full;
+  document.getElementById('simply').value = simply.toLowerCase();//默认大写.可通过string.toLowerCase()转成小写
+}
+</script>

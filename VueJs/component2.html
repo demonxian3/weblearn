@@ -1,15 +1,120 @@
+<style>
+body{
+    font-family:"Microsoft YaHei,微软雅黑,MicrosoftJhengHei,华文细黑,STHeiti,MingLiu";
+}
+.page{
+    border:3px dotted #ccc;
+    width:30%;
+    padding:30px;
+}
+</style>
 <meta charset='utf-8'>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
 
+<button v-for="btnname in allArea" @click="currentArea = btnname">{{btnname}}</button>
+<div v-if="currentArea == 'registerPage'">
+    <register-form action="test.php" class="page">
+        <input-1 v-model="username" name="username" :targ="username" @cls="username=''"> username: </input-1>  <br>
+        <input-1 v-model="password" name="password" :targ="password" @cls="password=''" type="password"> password: </input-1>  <br>
+        <input-1 v-model="repasswd"                 :targ="repasswd" @cls="repasswd=''" type="password"> repasswd: </input-1>  <br>
+        <input-1 v-model="usremail"                 :targ="usremail" @cls="usremail=''" type="email"> usremail: </input-1>  <br>
+        <input-1 v-model="usrphone"                 :targ="usrphone" @cls="usrphone=''" type="tel"> usrphone: </input-1>  <br>
+    </register-form>
+</div>
+
+<div v-if="currentArea == 'loginPage'">
+    <!-- v-model只适用于邻代间双向绑定 -->
+    <!-- u:p模式适用于跨代间数据双向绑定 -->
+    <!-- 备注: emit函数用于触发父元素所监听的事件，并传递参数 -->
+    <!-- 第一层: @input="$emit('input', $event.target.value)" -->
+    <!-- 第二层: @input="$emit('update:propname', $event)" -->
+    <!-- 第三层: @update:propname="password = $event" -->
+
+    <!-- 这里有两种u:p模式的写法来更改父组件的prop值 -->
+    <!-- .sync 等价于 :fpwd="password" @update:fpwd="password = $event" -->
+    <login-form 
+        action="test.php" 
+        :fpwd.sync="password" 
+        :fusr="username" 
+        @update:fusr="username = $event"
+        class="page"
+    ></login-form>
+</div>
+
 </div> <!-- app -->
 
 
+<template id="loginForm">
+    <form :action="action" method="get">
+        <!-- 此处不能用v-model直接修改父组件传递的prop值，需要用u:p模式更改-->
+        <!-- 最底的input元素发生修改时 -> 触发input-1的input事件 -> 触发login-form的update:fusr事件 之间传递了$event.target.value  -->
+        <input-1 name="username" :targ="fusr" @input="transmission"> username: </input-1>  <br>
+        <input-1 name="password" :targ="fpwd" @input="$emit('update:fpwd', $event)" type="password"> password: </input-1>  <br>
+        <input type="submit" value="register">
+    </form>
+</template>
+
 <script>
+    var inputCom1 = {
+        props:{
+            name:{type: String},
+            type:{type: String, default: 'text'},
+            targ:{type: String, required: true},
+        },
+        template:`
+            <label :for="name">
+                <slot></slot>
+                <input 
+                    :id="name" 
+                    :type="type" 
+                    :name="name" 
+                    :value="targ" 
+                    @input="$emit('input', $event.target.value)"
+                    @keydown.esc="$emit('cls')"
+                >
+            </label>
+        `
+    }
+
+
+    var registerFormCom = {
+        props:['action'],
+        template:`
+            <form :action="action" method="get">
+                <slot></slot>
+                <input type="submit" value="register">
+            </form>
+        `
+    };
+
+    var loginFormCom = {
+        props:['action', 'fusr', 'fpwd'],
+        template:'#loginForm',
+        components:{'input-1': inputCom1},
+        methods:{
+            transmission: function(v){
+                this.$emit('update:fusr', v);
+            }
+        }
+    }
 
     var vm = new Vue({
         el: '#app',
-
-    })
+        data:{
+            username: 'demonxian3',
+            password: 'test123',
+            repasswd: '',
+            usremail: '',
+            usrphone: '',
+            currentArea: 'loginPage',
+            allArea: ['loginPage', 'registerPage'],
+        },
+        components:{
+            'register-form': registerFormCom,
+            'login-form': loginFormCom,
+            'input-1': inputCom1,
+        },
+    });
 </script>

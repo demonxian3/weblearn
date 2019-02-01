@@ -1,0 +1,170 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+red{
+    color:red;
+}
+</style>
+<link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
+<script src="jm/jquery.js"></script>
+<script src="jm/jquery.mobile-1.3.2.js"></script>
+
+<div data-role="page" id="page1">
+    <div data-role="header">
+        <a href="#" data-role="button" data-icon="home">首页</a>
+        <a href="#" data-role="button" data-icon="search">搜索</a>
+        <h1>工具栏1</h1>
+    </div>
+    <div data-role="content">
+        <h3>工具栏说明</h3><hr>
+        <p>
+        所谓工具栏就是在 header 或者 footer 放上按钮型a标签<br>
+        </p>
+
+        <h3>页眉</h3> <hr>
+        <p>
+        页眉通常只放一个标题，两个按钮，按钮会分散于两边<br>
+        若在页眉强制放上多个按钮，就会如<red>工具栏2</red>所示<br>
+        本页面页脚和页眉展现的是常规工具栏的功能<br>
+        </p>
+
+        <h3>页脚</h3>
+        <hr>
+        <p>
+        页脚更具有伸缩性，对多按钮支持性比较好<br>
+        下面展现的页脚是最原始直接在footer加a标签的样式<br>
+        页脚大体分为三种，按钮式，垂直式，水平式<br>
+        具体参考工具2,3,4<br>
+        </p>
+
+
+        <h3>工具栏定位</h3><hr>
+        <p>
+        工具栏有3种定位方式<br>
+        1. inline (默认)<br>
+        2. fixed<br>
+        3. fullscreen<br>
+
+        具体参考定位1,2,3<br>
+        <b>
+            同文件多个page角色使用不同的定位方式会导致出现bug<br>
+            不管内部链接还是外部链接都会出现bug<br>
+            所以请点击下面按钮单独访问其他定位:
+        </b>
+
+        <button onclick="document.location='定位/inline.html'">inline定位</button>
+        <button onclick="document.location='定位/fixed.html'">fixed定位</button>
+        <button onclick="document.location='定位/fullscreen.html'">fullscreen定位</button>
+        </p>
+    </div>
+    <div data-role="footer">
+      <a href="#page2" data-role="button">工具栏2</a>
+      <a href="#page3" data-role="button">工具栏3</a>
+      <a href="#page4" data-role="button">工具栏4</a>
+    </div>
+</div>
+
+
+<div data-role="page" id="page2">
+    <div data-role="header">
+        <a href="#page1" data-role="button" data-icon="home" class="ui-btn-right">首页</a>
+        <a href="" data-role="button" data-icon="search">搜索</a>
+        <a href="" data-role="button" data-icon="arrow-l">返回</a>
+        <h1>工具栏2</h1>
+        <a href="" data-role="button" data-icon="delete">删除</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+    </div>
+    <div data-role="content">
+        <h3>页眉</h3><hr>
+        这是打破页眉一个标题两个按钮的样式<br>
+        在标题标签后面放置按钮不会显示右侧<br>
+        可以通过添加 class='ui-btn-right'使按钮居右<br>
+
+        <h3>页脚</h3><hr>
+        页脚的工具按钮通常不会居中<br>
+        可在footer角色上添加 class='ui-btn' 解决<br>
+    </div>
+    <div data-role="footer" class="ui-btn">
+      <a href="#page2" data-role="button">工具栏2</a>
+      <a href="#page3" data-role="button">工具栏3</a>
+      <a href="#page4" data-role="button">工具栏4</a>
+    </div>
+</div>
+
+
+<div data-role="page" id="page3">
+    <div data-role="header">
+        <a href="" data-role="button" data-icon="search" class="ui-btn-right">搜索</a>
+        <a href="#page1" data-role="button" data-icon="search">首页</a>
+        <a href="" data-role="button" data-icon="arrow-l">返回</a>
+        <a href="" data-role="button" data-icon="arrow-l">返回</a>
+        <a href="" data-role="button" data-icon="arrow-l">返回</a>
+        <a href="" data-role="button" data-icon="arrow-l">返回</a>
+        <h1>工具栏2</h1>
+        <a href="" data-role="button" data-icon="delete">删除</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear">配置</a>
+        <a href="" data-role="button" data-icon="gear" class="ui-btn-right">配置</a>
+
+    </div>
+    <div data-role="content">
+        <h3>页眉</h3>
+        <hr>
+        <p>
+        如页眉所示是工具按钮过多的表现<br>
+        按钮放到标题标签上面的显示在上面<br>
+        按钮放在标题标签下面的显示在下面<br>
+        默认是从左边开始排列，使用ui-btn-right<br>
+        可以使得按钮右边浮动，但是浮动会<red>重叠<red><br>
+        如上所示配置按钮和搜索按钮重叠了<br>
+        </p>
+
+        <h3>页脚</h3>
+        <hr>
+        <p>
+        页脚使用控件组div围起来，设置data-type="vertical"<br>
+        </p>
+    </div>
+    <div data-role="footer">
+      <div data-role="controlgroup" data-type="vertical">
+          <a href="#page2" data-role="button" data-icon="plus">工具栏2</a>
+          <a href="#page3" data-role="button" data-icon="plus">工具栏3</a>
+          <a href="#page4" data-role="button" data-icon="plus">工具栏4</a>
+      </div>
+    </div>
+</div>
+
+
+<div data-role="page" id="page4">
+    <div data-role="header">
+        <a href="#page1" data-role="button" data-icon="home">首页</a>
+        <h1>工具栏4</h1>
+    </div>
+    <div data-role="content">
+        <h3>页眉</h3>
+        <hr>
+        <p>这是最简单的页眉工具栏</p>
+        <h3>页脚</h3>
+        <hr>
+        <p>
+        下面的页脚采用水平式+按钮居中<br>
+        footer角色设置 class='ui-btn'<br>
+        页脚使用控件组围起，设置data-type="horizontal"<br>
+        </p>
+    </div>
+    <div data-role="footer" class="ui-btn">
+      <div data-role="controlgroup" data-type="horizontal">
+          <a href="#page2" data-role="button" data-icon="plus">工具栏1</a>
+          <a href="#page3" data-role="button" data-icon="plus">工具栏2</a>
+          <a href="#page4" data-role="button" data-icon="plus">工具栏3</a>
+      </div>
+    </div>
+</div>
+
+
