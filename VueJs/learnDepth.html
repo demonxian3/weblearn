@@ -46,7 +46,11 @@
 
     <h3>嵌套组件</h3>
     <small>组件间数据单向流动不能逆流，因此子组件v-model无法修改目标</small>
-    <base-form :username="username" :password="password" :style="[slotBr, slotWd]"></base-form>
+    <base-form 
+        :fusr="username" 
+        :fpwd="password" 
+        :style="[slotBr, slotWd]"
+    ></base-form>
     <br>
     
 
@@ -67,8 +71,20 @@
     <form :action="ac">
         <!-- 父组件能更新prop影响子组件，但子组件无法修改父组件传递的props-->
         <!-- v-model 使用的是父组件props，所以v-model无法修改且会发出警告 -->
-        <base-input label="username" name="username" v-model="fusr" type="text"></base-input><br>
-        <base-input label="password" name="password" v-model="fpwd" type="password"></base-input><br>
+        <base-input 
+            label="username" 
+            name="username" 
+            v-model="fusr" 
+            type="text"
+        ></base-input><br>
+        
+        <base-input 
+            label="password" 
+            name="password" 
+            :value="fpwd"
+            @update="this.$emit('update:value', newValue)"
+            type="password"
+        ></base-input><br>
     </form>
 </template>
 

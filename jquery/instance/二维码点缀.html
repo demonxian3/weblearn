@@ -1,0 +1,50 @@
+<meta charset="utf-8">
+<style>
+#qr{
+    border: 1px solid #ccc;
+    width: 500px;
+    height: 500px;
+    border-collapse: collapse;
+}
+#qr td{
+    border: 1px solid #ccc;
+    background:white;
+}
+
+.nob{
+    border:none;
+}
+</style>
+
+
+<table id="qr">
+</table>
+<button id="nob">show</button>
+
+<script src="jquery.js"></script>
+<script>
+var kuan = 29;
+var chang = 29;
+
+code = ""
+for(i=0;i<kuan;i++){
+    code += "<tr>"
+    for(j=0;j<chang;j++){
+        code += "<td></td>"
+    }
+    code += "</tr>"
+}
+
+$('#qr').html(code);
+$("#qr td").click(function(){
+    curColor = $(this).css("backgroundColor");
+    if(curColor == "rgb(255, 255, 255)")
+        $(this).css({"backgroundColor":"rgb(0,0,0)"});
+    else
+        $(this).css({"backgroundColor":"rgb(255,255,255)"});
+})
+
+$('#nob').click(function(){
+    br = $('#qr td').css({"border":"none"});
+})
+</script>
