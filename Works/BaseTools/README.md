@@ -75,4 +75,7 @@ fileNav viewParse viewSource viewSite
 如果点击显示源码查看，会获取代码解析的src并提取，传给源码查看
 如果点击显示代码解析，会获取源码查看的src并提取，传给代码解析
 
+2019.01.28
+fileNav 框架添加折叠功能， viewSource 框架添加代码高亮插件
+fileNav 通过get 请求发送给 viewSource 一些参数来控制代码高亮样式
 
