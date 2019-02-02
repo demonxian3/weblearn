@@ -3,30 +3,135 @@
 <link rel="stylesheet" href="jm/jquery.mobile-1.3.2.css">
 <script src="jm/jquery.js"></script>
 <script src="jm/jquery.mobile-1.3.2.js"></script>
+<style>
+.ui-bar-f {
+    color:green;
+    background-color:#99CCCC;
+}
+.ui-body-f {
+    font-weight:bold;
+    color:purple;
+    background-color:#99CCCC;
+}
+</style>
 
-<div data-role="page" id="pageone">
+<div data-role="page" id="page1">
   <div data-role="header" data-theme="d">
-  <h1>更换主题</h1>
+      <h1>更换主题</h1>
   </div>
 
   <div data-role="content" data-theme="a">
-  <pre>
-    只要设置data-theme属性即可改变主题
-    a 	默认。黑色背景上的白色文本。 	
-    b 	蓝色背景上的白|灰色背景上的黑色文本 	
-    c 	亮灰色背景上的黑色文本 	
-    d 	白色背景上的黑色文本 	
-    e 	橙色背景上的黑色文本
-    可以将该属性添加到 btn role dialog icon navbar collapsible listview等
-  </pre>
+    <p>
+    只要设置data-theme属性即可改变主题<br>
+    a  默认。黑色背景上的白色文本。 	<br>
+    b  蓝色背景上的白|灰色背景上的黑色文本 	<br>
+    c  亮灰色背景上的黑色文本 	<br>
+    d  白色背景上的黑色文本 	<br>
+    e  橙色背景上的黑色文本<br>
+    可以将该属性添加到 btn role dialog icon navbar collapsible listview等<br>
+    </p>
 
-  <button data-theme="a">这是黑白</button>
-  <button data-theme="b">这是蓝白</button>
-  <button data-theme="c">这是灰白</button>
-  <button data-theme="d">这是白黑</button>
-  <button data-theme="e">这是橙黑</button>
+    <h3>主体题按钮</h3> <hr>
+    <button data-theme="a">这是黑白</button>
+    <button data-theme="b">这是蓝白</button>
+    <button data-theme="c">这是灰白</button>
+    <button data-theme="d">这是白黑</button>
+    <button data-theme="e">这是橙黑</button>
 
-  <div data-role="footer" data-theme="b">
-  <h1>这是脚页</h1>
+    <h3>主题化对话框</h3> <hr>
+    <a href="#page2" data-rel="dialog">对话框主题</a>
+
+    <h3>主题化图标</h3> <hr>
+    <a href="" data-role="button" data-icon="plus" data-theme="a"    data-inline="true" data-iconpos="notext">plus</a>
+    <a href="" data-role="button" data-icon="arrow-l" data-theme="b" data-inline="true" data-iconpos="notext">left</a>
+    <a href="" data-role="button" data-icon="arrow-r" data-theme="c" data-inline="true" data-iconpos="notext">right</a>
+    <a href="" data-role="button" data-icon="arrow-u" data-theme="d" data-inline="true" data-iconpos="notext">up</a>
+    <a href="" data-role="button" data-icon="arrow-d" data-theme="e" data-inline="true" data-iconpos="notext">down</a>
+
+    <h3>主题化导航栏</h3> <hr>
+    <div data-role="navbar">
+        <ul>
+          <li><a href="#" data-icon="home" data-theme="b">Button 1</a></li>
+          <li><a href="#" data-icon="arrow-r">Button 2</a></li>
+          <li><a href="#" data-icon="arrow-r" data-theme="e">Button 3</a></li>
+          <li><a href="#" data-icon="search" data-theme="c" >Button 4</a></li>
+        </ul>
+    </div>
+    <h3>主题化可折叠</h3> <hr>
+    <div data-role="collapsible" data-theme="b" data-content-theme="e">
+        <h1>主题化可折叠内容</h1>
+        <p>这是可折叠内容</p>
+    </div>
+    <div data-role="collapsible" data-theme="b" data-content-theme="a">
+        <h4>主题化可折叠列表</h4>
+        <ul data-role="listview">
+            <li><a href="">这是</a></li>
+            <li><a href="">可折叠</a></li>
+            <li><a href="">列表</a></li>
+        </ul>
+    </div>
+    <div data-role="collapsible" data-theme="b" data-content="d">
+        <h4>主题化可折叠图文</h4>
+        <ul data-role="listview" data-inset="true" data-split-theme="e">
+            <li data-role="divider" data-theme="a">浏览器</li>
+            <li>
+                <a href="">
+                    <img src="img/chrome.png" alt="">
+                    <h2>Google Chrome</h2>
+                    <p>Google Chrome 免费开源的浏览器</p>
+                </a>
+                <a href="" >download</a>
+            </li>
+            <li>
+                <a href="">
+                    <img src="img/firefox.png" alt="">
+                    <h2>Mozilla Firefox</h2>
+                    <p>Mozilla Firefox 免费开源的浏览器</p>
+                </a>
+                <a href="" >download</a>
+            </li>
+        </ul>
+    </div>
+
+    <form action="">
+        <fieldset data-role="collapsible" data-theme="b" data-content-theme="e">
+            <legend>主题化可折叠表单</legend>
+            <label for="name">全名</label>
+            <input id="name" type="text" name="text">
+            <label for="color">颜色</label>
+            <div data-role="controlgroup">
+                <label for="color1">红色</label>
+                <input id="color1" type="checkbox" name="color" value="red" data-theme="a">
+                <label for="color2">蓝色</label>
+                <input id="color2" type="checkbox" name="color" value="blue" data-theme="b">
+                <label for="color3">绿色</label>
+                <input id="color3" type="checkbox" name="color" value="green" data-theme="c">
+            </div>
+        </fieldset>
+    </form>
+
+    <h3>自定义主题</h3><hr>
+    <div data-role="collapsible" data-theme="b" data-content-theme="f">
+        <h1>自定义主题</h1>
+        <p>这是可折叠内容</p>
+    </div>
+
+
+  </div> <!-- content -->
+
+  <div data-role="footer" data-theme="d">
+      <h1>这是脚页</h1>
   </div>
+</div>
+
+<div id="page2" data-role="page" data-overlay-theme="e">
+    <div data-role="header" data-theme="b">
+            <h1>主题话对话框</h1>
+    </div>
+    <div data-role="content" data-theme="a">
+    data-overlay-theme设置对话框背景色
+    </div>
+    <div data-role="footer" data-theme="c">
+        <h1>页脚文本</h1>
+    </div>
 </div>

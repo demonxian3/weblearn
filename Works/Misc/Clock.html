@@ -1,0 +1,129 @@
+<style>
+	#bg{
+		position:absolute;
+		top:100px;
+		left:500px;
+		z-index: -6;
+	}
+
+	#hp{
+		//border:1px solid black;
+		width:300px;
+		height:300px;
+		border-radius: 300px;
+		position:absolute;
+	        //transition: all 1s linear ;
+		top:100px;
+		left:500px;
+		z-index: 4;
+	}
+
+	#mp{
+		transition: all 1s linear ;
+		width:300px;
+		height:300px;
+		margin:auto;
+		border-radius: 300px;
+		//transition: all 1s linear ;
+		position: absolute;
+		top:100px;
+		left:500px;
+		z-index: 0;
+	}
+
+	#sp{
+		border:1px solid green ;
+		width:300px;
+		height:300px;
+		margin:auto;
+		border-radius: 300px;
+		//transition: all 1s linear ;
+		position: absolute;
+		top:100px;
+		left:500px;
+		z-index:-3;
+	}
+
+	#hp:hover{
+		//transform:rotate(180deg);
+	}
+
+	#p{
+		border: 1px solid black;
+		background:black;
+		width:5px;
+		height:50px;
+		//border-radius:50px;
+		position: relative;
+		margin:auto;
+		top:100px;	
+		border-radius:5px;
+	}
+
+	#b{
+		border: 1px solid skyblue;
+		background:skyblue;
+		width:3px;
+		height:90px;
+		border-radius:3px;
+		position: relative;
+		margin:auto;
+		top:59px;	
+	}
+
+	#c{
+		border: 1px solid red;
+		background:red;
+		width:1px;
+		height:120px;
+		border-radius:1px;
+		position: relative;
+		margin:auto;
+		top:30px;	
+	}
+
+
+</style>
+
+
+<div id="bg">
+	<img src="Clock.png" style="width:300px; height:300px">
+</div>
+
+<div id="hp">
+	<div id="p"></div>
+</div>
+<div id="mp">
+	<div id="b"></div>
+</div>
+<div id="sp">
+	<div id="c"></div>
+</div>
+
+ <script>
+	shi =new Date().getHours(); 
+	fen = new Date().getMinutes(); 
+	miao = new Date().getSeconds();
+
+	function $(id){
+		return document.getElementById(id)
+	}
+
+	var deg = miao*6
+
+	var dag =fen*6+(miao/60)*6
+	var dog=(shi%12)*30+(fen/60)*30;	
+	function go(){
+		$("hp").style.transform = "rotate(" +dog+ "deg)";
+		$("mp").style.transform = "rotate(" +dag+ "deg)";
+		$("sp").style.transform = "rotate(" +deg+ "deg)";
+		deg+= 6
+		dag+= 0.1
+		dog+= 1/600;
+	}
+
+
+
+	setInterval(go, 1000);
+	go();
+</script>
