@@ -2,11 +2,11 @@
 if(isset($_GET['style']))
     $style = $_GET['style'];
 else
-    $style = "rainbow";
+    $style = "atelier-health-light";
 ?>
 <head>
 <meta charset="utf-8">
-<style>body{background:#C7EDCC}</style>
+<style>body{background:#C7EDCC;font-family: "Consolas"}</style>
 <script src="plugin/highlight.pack.js"></script>
 <link id="curStyle" rel="stylesheet" href="plugin/styles/<?php echo $style;?>.css">
 <script>hljs.initHighlightingOnLoad();</script>

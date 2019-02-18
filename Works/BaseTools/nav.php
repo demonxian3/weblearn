@@ -5,7 +5,27 @@
 <style> body, .darkBg{background: #2C3E50;}</style>
 <?php
 
+
 #error_reporting(0);
+//创建样式按钮
+function createStyleBtn($fileName){
+$fileName = str_replace(".css","", $fileName);
+$shortName = str_replace("-","", $fileName);
+$shortName = str_replace("atelier","ate", $shortName);
+$shortName = str_replace("lakeside","lks", $shortName);
+$shortName = str_replace("plateau","pla", $shortName);
+$button = <<<EOF
+<button onclick='changeStyle("$fileName")'
+    class='btn btn-block '
+    style='text-align:left; text-indent:1em; background:#ccc;color:#337ab7'>
+    <span class="glyphicon glyphicon-ok"></span>
+    $shortName
+</button>
+EOF;
+echo $button;
+}
+
+
 //创建文件按钮
 function createFileBtn($fileName, $clickParm){
 $button = <<<EOF
@@ -93,6 +113,22 @@ foreach($pathArr as $k => $p){
 echo '</ol>';
 }
 
+//创建面板头部
+function createPanelHead($name, $href, $parent){
+$panelHead = <<<EOF
+<div class="panel-heading">
+    <h4 class="panel-title">
+        <a data-toggle="collapse"
+            data-parent="#$parent"
+            href="#$href"
+        >$name
+        </a>
+    </h4>
+</div> <!-- heading -->
+EOF;
+echo $panelHead;
+}
+
 
 //MAIN: 如果没有path参数，默认读取data目录
 if(isset($_GET['path'])){
@@ -112,63 +148,70 @@ if(isset($_GET['path'])){
     if($dirPath === "data" || $dirPath === "data/")if($fileArr[1] === "..")unset($fileArr[1]);
 
 
-    //生成折叠菜单
+    #生成折叠
     echo '<div id="accordion" class="panel-group"  role="tablist" aria-multiselectable="true">';
-    //生成窗口控制器
-    echo '<div class="panel panel-primary">';
-    echo '    <div class="panel-heading" id="heading2" >';
-    echo '        <h4 class="panel-title">';
-    echo '            <a';
-    echo '                data-toggle="collapse"';
-    echo '                data-parent="#accordion"';
-    echo '                href="#winControl"';
-    echo '            >Controller';
-    echo '            </a>';
-    echo '        </h4>';
-    echo '    </div> <!-- heading -->';
-    echo '    <div id="winControl" class="panel-collapse collapse darkBg">';
+        
+        ## 窗口控制器面板
+        echo '<div class="panel panel-primary">';
+            ### 面板头
+            createPanelHead("Controller", "winControl", "accordion");
+            ### 面板体
+            echo '    <div id="winControl" class="panel-collapse collapse darkBg">';
+                #### 生成上网地址栏
+                createUrlInp();
+                #### 生成框架toggle按钮
+                createRefreshBtn();
+                createToggleBtn("btn-success", "viewParse", "Parse", "triangle-right");
+                createToggleBtn("btn-warning", "viewSource","Code", "eye-open");
+                createToggleBtn("btn-info", "viewSite","Site", "tint");
+            ### END面板体
+            echo '    </div>';
+        ## END面板
+        echo '</div><!-- panel -->';
 
-    //生成上网地址栏
-    createUrlInp();
-    //生成框架toggle按钮
-    createRefreshBtn();
-    createToggleBtn("btn-success", "viewParse", "Parse", "triangle-right");
-    createToggleBtn("btn-warning", "viewSource","Code", "eye-open");
-    createToggleBtn("btn-info", "viewSite","Site", "tint");
 
-    echo '    </div>';
-    echo '</div><!-- panel -->';
+    
+        ## 代码样式切换器面板
+        echo '<div class="panel panel-primary">';
+            ### 面板头
+            createPanelHead("StyleSwitcher", "stylenav", "accordion");
+            ### 面板体
+            echo '    <div id="stylenav" class="panel-collapse collapse darkBg" >';
+            $styleFileArr = scandir("./plugin/styles");
+            foreach($styleFileArr as $file){
+                if($file == "." || $file == "..") continue;
+                createStyleBtn($file);
+            }
+            ### END面板体
+            echo '    </div>';
+        ## END面板
+        echo '</div><!-- panel -->';
 
-    //生成文件导航器
-    echo '<div class="panel panel-primary">';
-    echo '    <div class="panel-heading" id="heading1" role="tab">';
-    echo '        <h4 class="panel-title">';
-    echo '            <a';
-    echo '                role="button"';
-    echo '                data-toggle="collapse"';
-    echo '                data-parent="#accordion"';
-    echo '                href="#filenav"';
-    echo '            >Navigation';
-    echo '            </a>';
-    echo '        </h4>';
-    echo '    </div> <!-- heading -->';
-    echo '    <div id="filenav" class="panel-collapse collapse in darkBg" >';
 
-    //显示path路径
-    createPathInp($dirPath);
-    //枚举文件生成按钮
-    foreach($fileArr as $file){
-        if($file === ".") continue;
-        $filepath = $dirPath ."/". $file;
-        if(is_dir($filepath))
-            createDirBtn($file, $filepath);
-        else
-            createFileBtn($file, $filepath);
-    }
+        ##文件导航器面板
+        echo '<div class="panel panel-primary">';
+            ### 面板头
+            createPanelHead("Navigation", "filenav", "accordion");
+            ### 面板体
+            echo '    <div id="filenav" class="panel-collapse collapse in darkBg" >';
+                #### 显示path路径
+                createPathInp($dirPath);
+                #### 枚举文件生成按钮
+                foreach($fileArr as $file){
+                    if($file === ".") continue;
+                    $filepath = $dirPath ."/". $file;
+                    if(is_dir($filepath))
+                        createDirBtn($file, $filepath);
+                    else
+                        createFileBtn($file, $filepath);
+                }
+            ### END面板体
+            echo '</div>';
+        ## END面板
+        echo '</div><!-- panel -->';
+    # END折叠
+    echo '</div><!-- tablist -->';
 
-    echo '    </div>';
-    echo '</div><!-- panel -->';
-    echo '</div>';
 }else{
     header('Location: nav.php?path=data');
     exit;
@@ -178,14 +221,23 @@ if(isset($_GET['path'])){
 <script>
     var curDomCount = 4;
     var rmDomArr = [];
+    var curPathName = "README.md";
+    var curStyleName = "atelier-heath-light";
 
 	function changeFrm(src){
         if(parent.document.getElementById('viewParse') != null)
             parent.document.getElementById("viewParse").src = src;
 
-        if(parent.document.getElementById('viewSource') != null)
-            parent.document.getElementById("viewSource").src = "viewSource.php?path="+src;
+        if(parent.document.getElementById('viewSource') != null){
+            curPathName = src;
+            viewSourceFun(curPathName, curStyleName);
+        }
 	}
+
+    function viewSourceFun(path, style){
+        var url = "viewSource.php?path=" + path + "&style=" + style;
+        parent.document.getElementById('viewSource').src = url;
+    }
 
 	function changeUrl(src){
 		//遇到..删除路径直到上一层为止
@@ -200,6 +252,13 @@ if(isset($_GET['path'])){
 		console.log(src);
         document.location = src;
 	}
+
+    function changeStyle(filename){
+        if(parent.document.getElementById('viewSource') != null){
+            curStyleName = filename;
+            viewSourceFun(curPathName, curStyleName);
+        }
+    }
 
     function visitSite(){
         var siteUrl = document.getElementById('siteUrl').value;
@@ -236,6 +295,7 @@ if(isset($_GET['path'])){
                 if(viewSource != null){
                     //如果Source页面有代码，那么显示代码对应的解析内容
                     src = viewSource.src.replace('http://<?php echo $_SERVER['HTTP_HOST']?>/base/viewSource.php?path=','');
+                    console.log(src);
                     frm.src = src;
                     frmset.insertBefore(frm, viewSource);
 
