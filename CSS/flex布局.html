@@ -1,0 +1,691 @@
+<meta charset=utf-8> 
+
+<style>
+.container1{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.box{
+    margin:30px;
+    width:96px;
+    height:96px;
+    background: #abcdef;
+    display: flex;          /*开启flex布局*/
+}
+
+.item{
+    background: #FFCCCC;
+    width: 30px;
+    height:30px;
+    border:1px solid white;
+}
+
+.ins01 {
+    justify-content: flex-start;  /*主轴左对齐*/
+}
+
+.ins02 {
+    justify-content: center; /*主轴中对齐*/
+}
+
+.ins03 {
+    justify-content: flex-end; /*主轴右对齐*/
+}
+
+.ins04 {
+    justify-content: center; 
+    align-items: center;    /*交叉轴中对齐*/
+}
+.ins05{
+    justify-content: center;
+    align-items: flex-end;  /*交叉轴底对齐*/
+}
+.ins06{
+    justify-content: center;
+}
+.ins07{
+    justify-content: space-between;
+}
+.ins08{
+    justify-content: space-between;
+    flex-direction: column;
+}
+.ins09{
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+.ins10{
+    flex-direction: column;
+}
+.ins10 .item:nth-child(2){
+    align-self: center;
+}
+.ins11{
+    flex-direction: column;
+}
+.ins11 .item:nth-child(2){
+    align-self: flex-end;
+}
+.ins12{
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ins12 .item:nth-child(2){
+    align-self: flex-end;
+}
+.ins13{
+    flex-direction: row;
+    justify-content: space-around;
+}
+.ins13 .item:nth-child(2){
+    align-self: flex-end;   /*align-self 代表 align-items*/
+}
+.ins14{
+    flex-direction: column;
+}
+.ins14 .item:nth-child(2){
+    align-self:center;
+}
+.ins14 .item:nth-child(3){
+    align-self:flex-end;
+}
+.ins15-1 .item{
+    height: auto;
+}
+.ins15-2 {
+    flex-direction: column;
+}
+.ins15-2 .item{
+    width:auto;
+}
+.ins16 {
+    /*说明: 因为内容超出换行，所以出现两行也就是两轴，使用多轴对齐排列*/
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: space-between;   /*定义多轴对齐方式*/
+}
+.ins17{
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ins17 .column{
+    /* 记得要单独给column内部加display:flex */
+    /* 如果不理解给column加边框尝试修改观察 */
+    display: flex;
+    justify-content: space-between;
+}
+
+.ins18{
+    /* 阮一峰方法 */
+    /* 令其换行出现多轴，利用多轴对齐分离 */
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.ins18 .column{
+    display: flex;
+    flex-basis: 100%;                   /*预留宽度占满宽度*/
+    justify-content: space-between;
+}
+.ins19{
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.ins20{
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-between;
+}
+.ins21 .row{
+    display:flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    justify-content: space-between;
+}
+.ins21 .row:nth-child(2){
+    justify-content: flex-start;
+}
+.ins22 {
+    flex-wrap:wrap;
+}
+
+/*网格布局*/
+.grid{
+    height: 200px;
+    display: flex;
+}
+.cell{
+    font-size:20px;
+    text-align: center;
+    line-height:60px;
+    margin: 17px;
+    background: #eee;
+}
+
+.container2 .cell{
+    flex:1; /*flex-grow*/
+}
+.container2 .special{
+    flex:2 !important; /*需要注意优先级*/
+}
+
+.container3 .cell{
+    flex:1 ;
+}
+
+.container3 .cell.u-lof4{  /*这种不是层级也不是并列，而是双类*/
+    flex: 0 0 25%;
+}
+.container3 .cell.u-lof3{
+    flex: 0 0 33.333333%;
+}
+.container3 .cell.u-lof2{
+    flex: 0 0 50%;
+}
+.container3 .cell.u-full{
+    flex: 0 0 100%;
+}
+
+/*圣杯布局*/
+.holyGrail{
+    color: white;
+    text-align:center;
+    font-size:30px;
+    line-height:50px;
+    min-height: 100vh;
+    background: #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+.holyGrail header,
+.holyGrail footer{
+    background:#666;
+    flex: 1;
+}
+.holyGrail .body{
+    color: #666;
+    background: white;
+    flex:6;
+    display:flex;
+}
+.holyGrail .body .content{
+    background: #FFCCCC;
+    flex:1
+}
+.holyGrail .body .nav{
+    order:-1; 广告放在最左边;
+    background: #99CCCC;
+    flex: 0 0 10em;
+}
+.holyGrail .body .ads{
+    background: #FF9999;
+    flex: 0 0 10em;
+}
+/* 圣杯布局针对小屏幕 */
+@media (max-width: 768px) {
+  .holyGrail .body {
+    flex-direction: column;
+    flex: 1;
+  }
+  .holyGrail .nav,
+  .holyGrail .ads,
+  .holyGrail .content {
+    flex: auto;
+  }
+}
+
+
+/*输入组框布局*/
+.container5{
+    border: 1px solid #ccc;
+    min-height: 60vh;
+    max-width: 75vw;
+    margin:auto;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.container5 .row1{
+    display: flex;
+    flex: 0 0 40vh;
+}
+
+.container5 .row2{
+    flex: 0 0 1vh;
+}
+
+.container5 .row3{
+    display: flex;
+    flex: 1;
+}
+
+.container5 .col{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.container5 .title{
+    padding: 20px;
+    padding-left:30px;
+    padding-right:30px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.container5 .inputAddOn{
+    padding: 20px;
+    padding-left:30px;
+    padding-right:30px;
+    display: flex;
+    flex:1;
+}
+
+.container5 .inputAddOn .text,
+.container5 .inputAddOn .field{
+    flex:1;
+    height:30px;
+    border: 1px solid #ccc;
+}
+
+.container5 .inputAddOn .text{
+    height:28px;
+    background:#f4f3f0;
+    text-align: center;
+    line-height:24px;
+}
+
+.container5 .inputAddOn .i3,
+.container5 .inputAddOn .i1{
+    flex: 0 0 30em
+}
+.container5 .inputAddOn .i4,
+.container5 .inputAddOn .i2{
+    flex: 0 0 25em
+}
+.container5 .inputAddOn .i5,
+.container5 .inputAddOn .i7{
+    flex: 0 0 7vh;
+}
+.container5 .inputAddOn .i6,
+.container5 .inputAddOn .i8{
+    flex: 0 0 12vh;
+}
+
+/*悬挂式布局*/
+.container6{
+    display: flex;
+    flex-direction: column;
+}
+
+.container6 .title{
+    flex: 0 0 10%;
+    padding-left:20px;
+}
+
+.container6 .mediaBlock{
+    display: flex;
+}
+
+.container6 .mediaGroup{
+    flex:1;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container6 .mediaItem{
+    padding: 10px;
+    display: flex;
+    background: #eee;
+    margin-bottom:40px;
+}
+
+.container6 .mediaImg{
+    flex: 0 0 20%;
+    padding-top:20px;
+}
+
+.container6 .mediaImg img{
+    width: 100px;
+    height: 100px;
+}
+
+.container6 .mediaText{
+    flex: 1;
+    padding-left:10px;
+}
+
+</style> 
+
+<body>
+    <h3>骰子布局 </h3> <hr>
+    <div class="container1">
+        <div class="box ins01">
+            <div class="item"></div>
+        </div>
+        <div class="box ins02">
+            <div class="item"></div>
+        </div>
+        <div class="box ins03">
+            <div class="item"></div>
+        </div>
+        <div class="box ins04">
+            <div class="item"></div>
+        </div>
+        <div class="box ins05">
+            <div class="item"></div>
+        </div>
+        <div class="box ins06">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins07">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins08">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins09">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins10">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins11">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins12">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins13">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins14">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins15">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins15-1">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins15-2">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins16">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins17">
+        <div class="column">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="column">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        </div>
+        <div class="box ins18">
+        <div class="column">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="column">
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        </div>
+        <div class="box ins19">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins20">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="box ins21">
+            <div class="row">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="row">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+            <div class="row">
+                <div class="item"></div>
+                <div class="item"></div>
+            </div>
+        </div>
+        <div class="box ins22">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div> <!-- container1 -->
+    
+    <H3>网格布局</h3>
+    <Hr>
+    <Div class="container2">
+        <div class="grid">
+            <div class="cell">1/4</div>
+            <div class="cell">1/4</div>
+            <div class="cell">1/4</div>
+            <div class="cell">1/4</div>
+        </div>    
+        <div class="grid">
+            <div class="cell">1/3</div>
+            <div class="cell">1/3</div>
+            <div class="cell">1/3</div>
+        </div>    
+        <div class="grid">
+            <div class="cell">1/2</div>
+            <div class="cell">1/2</div>
+        </div>    
+        <div class="grid">
+            <div class="cell">1/2</div>
+            <div class="cell special">flex-grow=2</div>
+        </div>    
+    </div>
+    <Hr>
+    
+    <Div class="container3">
+        <div class="grid">
+            <div class="cell u-lof2">50%</div>
+            <div class="cell">auto</div>
+            <div class="cell">auto</div>
+        </div>
+        <div class="grid">
+            <div class="cell">auto</div>
+            <div class="cell u-lof3">33%</div>
+        </div>
+        <div class="grid">
+            <div class="cell u-lof4">25%</div>
+            <div class="cell">auto</div>
+            <div class="cell u-lof3">33%</div>
+        </div>
+    </div>
+    
+    <H3>圣杯布局</h3>
+    <Hr>
+    <Div class="container4">
+        <div class="holyGrail">
+            <header>#header</header>
+            <div class="body">
+                <main class="content">#content <br>小屏幕自动缩放，带响应式设计</main>
+                <nav class="nav">#nav</nav>
+                <aside class="ads">#ads</aside>
+            </div>
+            <footer>#footer</footer>
+        </div>
+    </div>
+    <h3>输入组框布局</h3>
+    <hr>
+    <div class="container5">
+        <div class="row1 row">
+            <div class="col1 col">
+                <div class="title">Add-on prepended</div>
+                <div class="inputAddOn">
+                    <div class="text">Go</div>
+                    <input class="field i1" type="">
+                </div>
+                <div class="inputAddOn">
+                    <div class="text">Amount</div>
+                    <input class="field i2" type="">
+                </div>
+            </div>
+            <div class="col2 col">
+                <div class="title">Add-on Appended</div>
+                <div class="inputAddOn">
+                    <input class="field i3" type="">
+                    <div class="text">Go</div>
+                </div>
+                <div class="inputAddOn">
+                    <input class="field i4" type="">
+                    <div class="text">Amount</div>
+                </div>
+            </div>
+        </div>
+        <div class="row2 row">
+            <div class="title">
+                Appended and Prepended Add-ons
+            </div>
+        </div>
+        <div class="row3 row">
+            <div class="col1 col">
+                <div class="inputAddOn">
+                    <div class="text i5">Go</div>
+                    <input class="field" type="">
+                    <div class="text i6">Go</div>
+                </div>
+
+            </div>
+            <div class="col2 col">
+                <div class="inputAddOn">
+                    <div class="text i7">Go</div>
+                    <input class="field" type="">
+                    <div class="text i8">Go</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <h3>悬挂式布局</h3>
+    <hr>
+    <div class="container6">
+        <div class="title">
+            <h3> Basic Examples </h3>
+        </div>
+        <div class="mediaBlock">
+            <div class="mediaGroup">
+                <div class="mediaItem">
+                    <div class="mediaImg">
+                        <img src="../BootStrap/img/test.jpg" alt="">
+                    </div>
+                    <div class="mediaText">
+                        <h3>Standard Media Object </h3>
+                        <p>
+                        Lorem ipsum dolor sit amet, <br>
+                        consectetur adipiscing elit. Curabitur ac<br>
+                        nisl quis massa vulputate adipiscing. <br>
+                        Vivamus sit amet risus ligula. Nunc eu <br>
+                        pulvinar augue<br>
+                        </p>
+                    </div>
+                </div> <!-- mediaItem -->
+                <div class="mediaItem">
+                    <div class="mediaImg">
+                        <img src="../BootStrap/img/test.jpg" alt="">
+                    </div>
+                    <div class="mediaText">
+                        <h3>Standard Media Object </h3>
+                        <p>
+                        Lorem ipsum dolor sit amet, <br>
+                        consectetur adipiscing elit. Curabitur ac<br>
+                        nisl quis massa vulputate adipiscing. <br>
+                        Vivamus sit amet risus ligula. Nunc eu <br>
+                        pulvinar augue<br>
+                        </p>
+                    </div>
+                </div> <!-- mediaItem -->
+            </div><!-- mediaGroup -->
+            <div class="mediaGroup">
+                <div class="mediaItem">
+                    <div class="mediaText">
+                        <h3>Standard Media Object </h3>
+                        <p>
+                        Lorem ipsum dolor sit amet, <br>
+                        consectetur adipiscing elit. Curabitur ac<br>
+                        nisl quis massa vulputate adipiscing. <br>
+                        Vivamus sit amet risus ligula. Nunc eu <br>
+                        pulvinar augue<br>
+                        Lorem ipsum dolor sit amet, <br>
+                        consectetur adipiscing elit. Curabitur ac<br>
+                        nisl quis massa vulputate adipiscing. <br>
+                        Vivamus sit amet risus ligula. Nunc eu <br>
+                        pulvinar augue<br>
+                        </p>
+                    </div>
+                    <div class="mediaImg">
+                        <img src="../BootStrap/img/test.jpg" alt="">
+                    </div>
+                </div> <!-- mediaItem -->
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+</body>
