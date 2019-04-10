@@ -1,0 +1,120 @@
+<?php 
+    $uploadDir = "upload/";
+    for($i=0; $i<count($_FILES['myfile']['name']); $i++){
+        $error = $_FILES['myfile']['error'][$i];
+        $filename = $_FILES['myfile']['name'][$i];
+        $tmpName = $_FILES['myfile']['tmp_name'][$i];
+
+        if(empty($error)){
+            move_uploaded_file($tmpName, $uploadDir . $filename);
+            echo "<script> alert('$filename 上传成功');</script>";
+        }
+    }
+?>
+<style>
+    .imgDocker{
+        border:1px solid #ccc;
+        width:60%;
+        min-height:200px;
+        display: flex;
+    }
+
+    .uploadDiv{
+        width:100px;
+        height:100px;
+        margin:10px;
+        overflow:hidden;
+    }
+    .uploadImg{
+        width:100px;
+        height:100px;
+        transition: all 1s;
+    }
+    .uploadImg:hover{
+        cursor:pointer;
+        width:120px;
+        height:120px;
+        opacity:0.6;
+    }
+</style>
+ <form action="" method="post" enctype="multipart/form-data" id="myForm">
+ <input type="file" name="myfile[]" id="file" onchange="filelist()" multiple accept="image/*" style="display:none;">
+<input type="button" value="多图片上传" onclick="toggleFileInp()">
+ <input type="submit" value="提交" onclick="submit()"> 
+ <div class="imgDocker" id="imgDocker">
+
+
+ </div>
+</form>
+
+<script>
+    dropbox = document.getElementById("imgDocker");
+    dropbox.addEventListener("dragenter", dragenter, false);
+    dropbox.addEventListener("dragover", dragover, false);
+    dropbox.addEventListener("drop", drop, false);
+
+    function submit(){
+        console.log(formData);
+    }
+
+    function dragenter(e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+
+    function dragover(e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+
+    function drop(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var dt = e.dataTransfer;
+      var files = dt.files;
+      handleFiles(files);
+    }
+
+    function handleFiles(files){
+        document.getElementById('file').files = files;
+    }
+
+    function filelist(){
+        let files = document.getElementById('file').files;
+        showImages(files);
+    }
+
+    function showImages(files){
+        var imgDocker = document.getElementById('imgDocker');
+        for(var i=0; i<files.length; i++){
+
+            var file = files[i];
+            var imageType = /^image\//;
+            var reader = new FileReader();
+            var imgItem = document.createElement('img');
+            var imgDiv = document.createElement('div');
+
+
+            if(!imageType.test(file.type)) 
+                continue;
+            
+            imgItem.classList.add("uploadImg");
+            imgDiv.classList.add("uploadDiv");
+            imgItem.file = file;
+            imgItem.key = i;
+            imgDiv.appendChild(imgItem);
+            imgDocker.appendChild(imgDiv);
+
+            reader.onload = (function(img){return function(e){
+                img.src = e.target.result;
+            }})(imgItem);
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function toggleFileInp(){
+        let fileDom = document.getElementById('file');
+        fileDom.click();
+    }
+</script>

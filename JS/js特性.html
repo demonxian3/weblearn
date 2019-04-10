@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+.code{
+    padding: 10px;
+    border:1px solid #ccc;
+    background: #eee;
+    letter-spacing: 1px;
+}
+
+bk{
+    margin-left:20px;
+}
+green{
+    color:green;
+}
+    </style>
+</head>
+<body>
+    <div class='code'>
+    function Foo() { <br>
+        <bk/>getName = function () { alert (1); }; <br>
+        <bk/>return this; <br>
+    } <br>
+    Foo.getName = function () { alert (2);}; <br>
+    Foo.prototype.getName = function () { alert (3);}; <br>
+    var getName = function () { alert (4);}; <br>
+    function getName() { alert (5);} <br>
+     <br>
+    <green>//请写出以下输出结果： </green><br>
+    Foo.getName(); <br>
+    getName(); <br>
+    Foo().getName(); <br>
+    getName(); <br>
+    new Foo.getName(); <br>
+    new Foo().getName(); <br>
+    new new Foo().getName();  <br>
+    </div>
+    <div class="code">
+        答案: 2 4 1 1 2 3 3 <br>
+    </div>
+    <div class="code"> <pre>
+        1. 变量声明会被提升，函数也是变量，赋值操作不会被提升，函数声明优先覆盖变量声明
+        2. 没有var声明的变量赋值，变量声明搜索顺序: 函数内作用域，全局作用域，若没有找到则在全局注册
+        3. 函数执行返回this时，若无函数调用new运算符，则返回的this指向window, 否则指向prototype。
+        4. 部分符号优先级: 算数括号 > 成员访问 > new(带参/带括) > 函数调用 > new(无参无括)
+        5. new 运算用于实例化构造函数对象，构造函数不应该有返回值
+        6. 如构造函数有返回值，检测是否为引用类型(this/obj)，若为引用类型则引用，否则实力空对象
+
+        代码相关测试：查看源码去掉注释运行
+    </pre> </div>
+<script>
+
+    /*1.变量声明提升, 函数也是变量, 但赋值操作不会提升*/
+    //console.log(x in window); //true
+    //console.log(x);           //undefined
+    //var x = 3;
+
+    /*2.函数同名声明优先覆盖变量声明*/
+    //console.log(x); //function
+    //function x(){
+    //    alert(1);
+    //}
+    //var x = 3;
+
+    /*3. 遵循上面的规则:
+        1) 函数声明提升，且优先覆盖变量声明，所以第一个弹出1
+        2)赋值操作不会提升，但赋值操作会覆盖原来的函数名，所以弹出2
+      执行顺序如下:
+        var x;
+        function x(){alert(2)}
+        x = function(){alert(1)}
+    */
+    //x(); //1
+    //var x = function(){
+    //    alert(2)
+    //}
+    //x(); //2
+    //function x(){
+    //    alert(1);
+    //}
+
+    /*4.作用域 
+      Foo 执行getName赋值时，会查找变量声明，但函数内没声明
+      于是到函数外作用域查找getName，发现存在声明并覆盖变量
+      如果函数外也没有发现，则会在window对象中注册该变量
+      相当于这里的Foo实现了修改外层作用域变量
+    */
+    //function Foo(){
+    //    getName = function(){alert(1)}; //没有var声明则为全局变量
+    //    return this;
+    //}
+    //var getName = function(){alert(4);}
+    //getName(); //4
+    //Foo().getName(); //1,返回的this时window对象
+    //getName(); //1 被Foo覆盖
+
+    /* 5. 符号优先级:
+       成员访问>new(带参数)>函数调用 >new(不带参数)
+       下面正确的执行顺序为
+       new (Foo.getName());
+       new运算符时将构造函数进行实例化对象
+    */
+    //function Foo(){ getName = function(){alert(1)}; return this;}
+    //Foo.getName = function(){alert(2)}
+    //new Foo.getName(); //2
+
+    /*6. 构造函数返回值和继承
+        构造函数不应该有返回值，
+        若有返回值则检测是否为引用类型, num str arr bool 不是引用类型
+        若为引用类型: function F(){return {id:1}} 则引用引用类型
+        这里引用的时this，也就是Foo构造函数实力化对象，但没有添加属性
+        所以简单的继承了原型对象，因此获得 getName 方法
+
+    */
+    //function Foo(){
+    //    getName = function(){alert(1)}
+    //    return this;
+    //}
+    //Foo.getName = function(){alert(2)}
+    //Foo.prototype.getName = function(){alert(3)}
+    //console.log(new Foo()); //prototype
+    //new Foo().getName(); //3
+    
+
+    
+
+</script>
+</body>
+</html>

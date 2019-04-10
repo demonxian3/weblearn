@@ -1,0 +1,199 @@
+导入实验SQL数据
+===================================================
+DROP DATABASE IF EXISTS `test1`;
+CREATE DATABASE `test1`;
+USE `test1`;
+DROP TABLE IF EXISTS `persons`;
+CREATE TABLE `persons` (
+  `pid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lname` varchar(255) DEFAULT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+INSERT INTO `persons` VALUES (1,'Adams','John','Oxford Street'),(5,'kali','linux','system'),
+(3,'Bush','George','Fifth Avenue'),(4,'Carter','Thomas','Changan Street');
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+  `oid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `price` int(100) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+INSERT INTO `orders` VALUES (1,37,1),(2,37,3),(3,28,4),(4,12,3),(5,49,1),(6,97,6);
+DROP TABLE IF EXISTS `foods`;
+CREATE TABLE `foods` (
+  fid int(11) primary key NOT NULL,
+  name varchar(255) NOT NULL,
+  pid int(10) unsigned NOT NULL,
+  CONSTRAINT fk_PerFoods FOREIGN KEY (pid) REFERENCES Persons(pid)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+;
+
+===================================================
+
+persons
++-----+--------+--------+----------------+
+| pid | lname  | fname  | address        |
++-----+--------+--------+----------------+
+|   1 | Adams  | John   | Oxford Street  |
+|   3 | Bush   | George | Fifth Avenue   |
+|   5 | kali   | linux  | system         |
+|   4 | Carter | Thomas | Changan Street |
++-----+--------+--------+----------------+
+
+orders
+> INSERT INTO `orders` VALUES (1,37,1),(2,37,3),(3,28,4),(4,12,3),(5,49,1),(6,97,6);
++-----+-------+------+
+| oid | price | pid  |
++-----+-------+------+
+|   1 |    37 |    1 |
+|   2 |    37 |    3 |
+|   3 |    28 |    4 |
+|   4 |    12 |    3 |
+|   5 |    49 |    1 |
+|   6 |    97 |    6 |
++-----+-------+------+
+
+
+无关联并集查询
+> SELECT fname,lname,pid FROM persons UNION select oid, price, pid FROM orders;
++--------+--------+------+
+| fname  | lname  | pid  |
++--------+--------+------+
+| John   | Adams  |    1 |
+| linux  | kali   |    5 |
+| George | Bush   |    3 |
+| Thomas | Carter |    4 |
+| 1      | 37     |    1 |
+| 2      | 37     |    3 |
+| 3      | 28     |    4 |
+| 4      | 12     |    3 |
+| 5      | 49     |    1 |
+| 6      | 97     |    6 |
++--------+--------+------+
+结果：没什么关联性，只是一起查询显示
+
+交集查询
+>  SELECT p.fname, p.lname, o.price FROM persons p, orders o WHERE o.pid = p.pid;
+>  SELECT p.fname, p.lname, o.price FROM persons p INNER JOIN orders o ON o.pid = p.pid; 
++--------+--------+-------+
+| fname  | lname  | price |
++--------+--------+-------+
+| John   | Adams  |    37 |
+| George | Bush   |    37 |
+| Thomas | Carter |    28 |
+| George | Bush   |    12 |
+| John   | Adams  |    49 |
++--------+--------+-------+
+结果： 没有订单6 和 人物kali，交集
+
+
+左集为主查询
+> SELECT p.fname, p.lname, o.price FROM persons p LEFT JOIN orders o ON o.pid = p.pid; 
++--------+--------+-------+
+| fname  | lname  | price |
++--------+--------+-------+
+| John   | Adams  |    37 |
+| John   | Adams  |    49 |
+| linux  | kali   |  NULL |
+| George | Bush   |    37 |
+| George | Bush   |    12 |
+| Thomas | Carter |    28 |
++--------+--------+-------+
+结果：人物必须齐全，没订单为null
+
+右集为主查询
+> SELECT p.fname, p.lname, o.price FROM persons p RIGHT JOIN orders o ON o.pid = p.pid; 
++--------+--------+-------+
+| fname  | lname  | price |
++--------+--------+-------+
+| John   | Adams  |    37 |
+| George | Bush   |    37 |
+| Thomas | Carter |    28 |
+| George | Bush   |    12 |
+| John   | Adams  |    49 |
+| NULL   | NULL   |    97 |
++--------+--------+-------+
+结果：订单必须齐全，没人物为null
+
+
+并集查询 (mysql不支持)
+> SELECT p.fname, p.lname, o.price FROM persons p FULL JOIN orders o ON o.pid = p.pid;  
+
+mysql FULL JOIN实现 （将左连接和右连接联合查询）:
+mysql> SELECT p.fname, p.lname, o.price FROM persons p LEFT JOIN orders o ON o.pid = p.pid
+       -> UNION
+       -> SELECT p.fname, p.lname, o.price FROM persons p RIGHT JOIN orders o ON o.pid = p.pid
+
++--------+--------+-------+
+| fname  | lname  | price |
++--------+--------+-------+
+| John   | Adams  |    37 |
+| John   | Adams  |    49 |
+| linux  | kali   |  NULL |
+| George | Bush   |    37 |
+| George | Bush   |    12 |
+| Thomas | Carter |    28 |
+| NULL   | NULL   |    97 |
++--------+--------+-------+
+
+
+外键约束
+以上都是查询时做的关联性，如果无法关联上就会显示NULL， 为了防止无法关联
+可以在创建表时就做好外键关联约束，防止被破坏；
+
+性质和定义
+1. 一张表中有一个非主键的字段指向了别一张表中的主键，就将该字段叫做外键;
+2. 一张表中可以有多个外键
+3. 对子表(外键所在的表)的作用：子表在进行写操作的时候，如果外键字段在父表中找不到对应的匹配，操作就会失败
+4. 对父表的作用：对父表的主键字段进行删和改时，如果对应的主键在子表中被引用，操作就会失败。
+5. 三种约束模式：
+      district：  严格模式(默认), 父表不能删除或更新一个被子表引用的记录。
+      cascade：级联模式, 父表操作后，子表关联的数据也跟着一起操作。
+      set null： 置空模式,前提外键字段允许为NLL,  父表操作后，子表对应的字段被置空。
+
+6. 使用外键的前提：
+      1）. 表储存引擎必须是innodb，否则创建的外键无约束效果。
+      2）. 外键的列类型必须与父表的主键类型完全一致。
+      3）. 外键的名字不能重复。
+      4）. 已经存在数据的字段被设为外键时，必须保证字段中的数据与父表的主键数据对应起来。
+
+> show create table foods;
+ CREATE TABLE `foods` (
+  `fid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `pid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`fid`),
+  KEY `fk_PerFoods` (`pid`),
+  CONSTRAINT `fk_PerFoods` FOREIGN KEY (`pid`) REFERENCES `persons` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+实验1： 子表插入外键没有的数据
+> insert into foods values(NULL, 'iphone', 9);
+报错: Cannot add or update a child row: a foreign key constraint fails 
+(`test1`.`foods`, CONSTRAINT `fk_PerFoods` FOREIGN KEY (`pid`) REFERENCES `persons` (`pid`))
+
+
+实验2： 子表插入关联数据后删除
+> insert into foods values(1, 'iphone', 3);
+> delete from persons where pid = 3;
+报错: Cannot add or update a child row: a foreign key constraint fails 
+(`test1`.`foods`, CONSTRAINT `fk_PerFoods` FOREIGN KEY (`pid`) REFERENCES `persons` (`pid`))
+> delete from foods where pid = 3;
+成功: Query OK, 1 row affected (0.00 sec)
+
+
+实验3： 子表插入关联数据后更新父表
+> insert into foods values(1, 'iphone', 3);
+> update persons set address = 'XiliHu' where pid = 3;
+Query OK, 1 row affected (0.00 sec)
+> update persons set pid=8 where pid = 3;
+ Cannot delete or update a parent row: a foreign key constraint fails 
+(`test1`.`foods`, CONSTRAINT `fk_PerFoods` FOREIGN KEY (`pid`) REFERENCES `persons` (`pid`))
+
+
+
+
+

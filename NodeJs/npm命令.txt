@@ -1,0 +1,105 @@
+###  NPM install 4个参数的区别:
+npm install moduleName # 安装模块到项目目录下
+npm install -g moduleName # -g 的意思是将模块安装到全局，具体安装到磁盘哪个位置，要看 npm config prefix 的位置。
+npm install -save moduleName # -save 的意思是将模块安装到项目目录下，并在package文件的dependencies节点写入依赖。
+npm install -save-dev moduleName # -save-dev 的意思是将模块安装到项目目录下，并在package文件的devDependencies节点写入依赖。
+
+npm install moduleName 命令
+    1. 安装模块到项目node_modules目录下。
+    2. 不会将模块依赖写入devDependencies或dependencies 节点。
+    3. 运行 npm install 初始化项目时不会下载模块。
+
+npm install -g moduleName 命令
+    1. 安装模块到全局，不会在项目node_modules目录中保存模块包。
+    2. 不会将模块依赖写入devDependencies或dependencies 节点。
+    3. 运行 npm install 初始化项目时不会下载模块。
+
+npm install -save moduleName 命令
+    1. 安装模块到项目node_modules目录下。
+    2. 会将模块依赖写入dependencies 节点。
+    3. 运行 npm install 初始化项目时，会将模块下载到项目目录下。
+    4. 运行npm install --production或者注明NODE_ENV变量值为production时，会自动下载模块到node_modules目录中。
+
+npm install -save-dev moduleName 命令
+    1. 安装模块到项目node_modules目录下。
+    2. 会将模块依赖写入devDependencies 节点。
+    3. 运行 npm install 初始化项目时，会将模块下载到项目目录下。
+    4. 运行npm install --production或者注明NODE_ENV变量值为production时，不会自动下载模块到node_modules目录中
+
+@总结
+devDependencies 节点下的模块是我们在开发时需要用的，如项目中使用的 gulp ，压缩css、js的模块。
+这些模块在我们的项目部署后是不需要的，所以我们可以使用 -save-dev 的形式安装。
+像 express 这些模块是项目运行必备的，应该安装在 dependencies 节点下，所以我们应该使用 -save 的形式安装
+像 webpack 不推荐全局安装， 因为项目中webpack会锁定版本，若项目还使用不同版本webpack可能会导致构建失败
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+###  NPM环境变量配置
+
+npm config list		#查看环境变量
+npm config ls -l 		#查看所有默认变量
+
+@路径变量默认值
+prefix = "C:\\Users\\Demon\\AppData\\Roaming\\npm"
+cache = "C:\\Users\\Demon\\AppData\\Roaming\\npm-cache"
+globalconfig = "C:\\Users\\Demon\\AppData\\Roaming\\npm\\etc\\npmrc"
+globalignorefile = "C:\\Users\\Demon\\AppData\\Roaming\\npm\\etc\\npmignore"
+init-module = "C:\\Users\\Demon\\.npm-init.js"
+shell = "C:\\Windows\\system32\\cmd.exe"
+tmp = "C:\\Users\\Demon\\AppData\\Local\\Temp"
+userconfig = "C:\\Users\\Demon\\.npmrc"
+
+@修改环境变量
+进入nodejs 安装根目录建立以下文件树
+nodejs
+    ├─node_cache
+    ├─node_global
+    │  └─etc
+    │      ├─npmignore
+    │      └─npmrc
+
+执行命令
+npm config set cache "C:\nodejs\node_cache"
+npm config set prefix "C:\nodejs\node_global"
+npm config set globalconfig "C:\nodejs\node_global\etc\npmrc"
+npm config set globalignorefile "C:\nodejs\node_global\etc\npmignore"
+
+用户变量上添加
+NODE_PATH = "C:\nodejs\node_global\node_modules"
+
+测试
+npm install express -g
+node
+> require('express')
+
+
+@修改包源地址
+临时修改
+npm --registry https://registry.npm.taobao.org install express
+
+永久修改
+npm config get registry
+https://registry.npmjs.org/
+npm config set registry https://registry.npm.taobao.org
+
+cnmp使用
+npm install -g cnpm --registry=https://registry.npm.taobao.org	
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### webpack安装
+安装最新版本或特定版本，请运行以下命令之一
+npm install --save-dev webpack
+npm install --save-dev webpack@<version>
+如果你使用 webpack 4+ 版本，你还需要安装 CLI
+npm install --save-dev webpack-cli
+热衷于使用最新版本的 webpack使用以下命令
+npm install webpack@beta
+npm install webpack/webpack#<tagname/branchname>
+
+对于大多数项目建议本地安装。这可以引入破坏式变更的依赖时，更容易分别升级项目。
+通常，webpack 通过运行一个或多个 npm scripts，
+会在本地 node_modules 目录中查找安装的 webpack：
+"scripts": {
+    "start": "webpack --config webpack.config.js"
+}
+你在本地安装 webpack 后，你能够从 node_modules/.bin/webpack 访问它的 bin 版本
