@@ -1,4 +1,4 @@
-<?php
+<?php 
 defined('IN_IA') or exit('Access Denied');
 
 
@@ -42,7 +42,6 @@ function pdo_showsql(){
     }
 }
 
-
 function pdo_setdata($tableName, $update, $condition){
     if(!preg_match('/cqxingyu_farm_/',$tableName))
         $tableName = 'cqxingyu_farm_' . $tableName;
@@ -62,6 +61,7 @@ function showHead($filename){
     $showdoc = new Wdebug;
     $showdoc->AutoMarkdown($filename);
 }
+
 function showFoot($result){
     $showdoc = new Wdebug;
     error_reporting(0);
@@ -82,6 +82,7 @@ function showGpcTable($arr){
     $showdoc = new Wdebug;
     $showdoc->MkGpcTable($arr);
 }
+
 function showMdTable($arr){
     $showdoc = new Wdebug;
     $showdoc->MdTable($arr);
@@ -102,4 +103,6 @@ function performanceTest($begin=false){
         $t = 0;
     }
 }
+
+
 ?>
