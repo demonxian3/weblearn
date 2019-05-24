@@ -104,5 +104,57 @@ function performanceTest($begin=false){
     }
 }
 
+function sendHttpGet($url){
+    $con = curl_init((string)$url);
+    curl_setopt($con, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($con, CURLOPT_TIMEOUT, 5);
+    return curl_exec($con);
+}
+
+
+function sendHttpPost($url, $data){
+    $con = curl_init((string)$url);
+    curl_setopt($con, CURLOPT_POST, true);
+    curl_setopt($con, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($con, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($con, CURLOPT_TIMEOUT, 5);
+    return curl_exec($con);
+}
+
+
+function sendHttpDel($url, $headers){
+    if($ch = curl_init($url)){
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return (int) $status;
+    }
+    else
+        return false;
+}
+
+
+function sendHttpPut($url, $field, $headers){
+    $fields = (is_array($fields)) ? http_build_query($fields) : $fields;
+
+    if($headers)
+        $headers[] = "Content-Length: ". strlen($fields);
+
+    if($ch = curl_init($url)){
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return (int) $status;
+    }
+    else
+        return false;
+}
 
 ?>
