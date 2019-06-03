@@ -48,17 +48,24 @@ function pdo_setdata($tableName, $update, $condition){
     $res = pdo_update($tableName, $update, $condition);
     echo "<div style='border:1px solid #ccc;padding:20px;background:#eee'>";
     if($res){
-        echo "修改成功!<br>";
+        echo "淇敼鎴愬姛!<br>";
     }else{
-        echo "修改失败<br>";
+        echo "淇敼澶辫触<br>";
         pdo_lastsql();
     }
     echo "</div>";
 }
 load()->classs("wdebug");
 
-function showHead($filename,$host,$user,$pass,$base){
-    $showdoc = new Wdebug($host,$user,$pass,$base);
+
+/**
+ * @filename __FILE__
+ * @connstr mysql:root@localhost/database
+ * @password mysql_pass_word
+ */
+
+function showHead($filename, $connstr){
+    $showdoc = new Wdebug($connstr);
     $showdoc->AutoMarkdown($filename);
 }
 
@@ -98,8 +105,8 @@ function performanceTest($begin=false){
     if($begin){
         $t = microtime(true);
     }else{
-        echo "耗时: ".round(microtime(true)-$t, 3)."秒<br>";
-        echo '耗存: '.round(memory_get_usage()/1000000,3).'M<br/>';
+        echo "鑰楁椂: ".round(microtime(true)-$t, 3)."绉�<br>";
+        echo '鑰楀瓨: '.round(memory_get_usage()/1000000,3).'M<br/>';
         $t = 0;
     }
 }
@@ -114,10 +121,13 @@ function sendHttpGet($url){
 
 function sendHttpPost($url, $data){
     $con = curl_init((string)$url);
+    if(gettype($data) === 'array') 
+        $data = json_encode($data);
     curl_setopt($con, CURLOPT_POST, true);
     curl_setopt($con, CURLOPT_POSTFIELDS, $data);
     curl_setopt($con, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($con, CURLOPT_TIMEOUT, 5);
+    curl_setopt($con, CURLOPT_VERBOSE, 1);
     return curl_exec($con);
 }
 
