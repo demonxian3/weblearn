@@ -1,11 +1,11 @@
 <?php
 
 class Wdebug {
-    public function __construct(){
-        $user = $this->username = "xygdfh";
-        $pass = $this->password = "ThcnGJTbaFkkK65J";
-        $host = $this->hostname = "localhost";
-        $base = $this->database = "xygdfh";
+    public function __construct($host, $user, $pass, $base){
+        $user = $this->username = $user;
+        $pass = $this->password = $pass;
+        $host = $this->hostname = $host;
+        $base = $this->database = $base;
 
         $this->gpcRuleb = "/\/\/(.*?)\\s*public function (.*?)\(/m";
         $this->opRule1 = "/^\/\/(.*?)\\s*if.*op==['\"](.*?)['\"]\)/m";
