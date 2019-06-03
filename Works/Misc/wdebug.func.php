@@ -58,8 +58,8 @@ function pdo_setdata($tableName, $update, $condition){
 load()->classs("wdebug");
 
 function showHead($filename,$host,$user,$pass,$base){
-    $showdoc = new Wdebug;
-    $showdoc->AutoMarkdown($filename,$host,$user,$pass,$base);
+    $showdoc = new Wdebug($host,$user,$pass,$base);
+    $showdoc->AutoMarkdown($filename);
 }
 
 function showFoot($result){
